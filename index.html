@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Raw honey from small family apiaries in India. Made by bees, shared by people.">
+<meta name="theme-color" content="#F5EDDC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cellipse cx=%2216%22 cy=%2219%22 rx=%226%22 ry=%229%22 fill=%22%23E8B74A%22/%3E%3Cpath d=%22M10.4 16h11.2M10 20h12M11 24h10%22 stroke=%22%231E1D16%22 stroke-width=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%229.5%22 r=%223%22 fill=%22%231E1D16%22/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Bee Raw Honey</title>
+<style>html.mx-covering::after{content:"";position:fixed;inset:0;background:#B9741C;z-index:299}</style>
+<style>html.mx-loading::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 55% at 50% 42%,#FFFBF2 0%,#F7EFDF 55%,#EFE3C8 100%);z-index:349}</style>
+<script>try{var R=matchMedia('(prefers-reduced-motion: reduce)').matches,H=document.documentElement;if(sessionStorage.getItem('mx-nav')&&!R){H.classList.add('mx-covering');setTimeout(function(){H.classList.remove('mx-covering')},2500)}else if(!sessionStorage.getItem('bee-seen')&&!R){H.classList.add('mx-loading');setTimeout(function(){H.classList.remove('mx-loading')},12000)}}catch(e){}</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Nothing+You+Could+Do&display=swap">
+<style>
+/* Layout: imageless hero — live glossy honey drips (canvas metaballs) on cream with one centred human line; a word-by-word note to the reader; "moments" cards; then the editorial bands; one pinned "pour" scene; a tasting band on the real Pfund colour scale; forest footer. Single warm theme by choice. */
+:root{
+  --night:#14110A; --night-2:#211B10;
+  --cream:#F5EDDC; --paper:#FBF6EC; --sand:#EEE2C6;
+  --ink:#1E1D16; --muted:#6F6A57; --line:#DCCDAE;
+  --honey:#D99A1F; --amber:#A5650F; --gold:#E8B74A; --pale:#F7E3B0;
+  --forest:#1B2117; --forest-2:#283022; --on-dark:#F1E8D2; --on-dark-muted:#A9A189;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Geist", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-hand:"Nothing You Could Do", "Segoe Script", cursive;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --ease-io:cubic-bezier(.7,0,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--f-body);font-weight:400;font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.035em}
+h2 em,h1 em{font-style:normal;color:var(--amber)}
+h3{letter-spacing:-.02em;font-weight:500}
+p{margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:9px;height:10px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:100;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:18px;padding:7px 7px 7px 24px;border:1px solid var(--honey);border-radius:99px;font-size:14.5px;font-weight:500;text-decoration:none;background:transparent;color:var(--ink);font-family:inherit;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);border-radius:inherit;transition:transform .6s var(--ease);z-index:-1}
+.btn .arr{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;transition:transform .6s var(--ease),background .5s}
+.btn:hover{color:var(--paper)}
+.btn:hover::before{transform:none}
+.btn:hover .arr{transform:rotate(-45deg);background:var(--honey)}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--honey) 60%,var(--amber));border-color:transparent;color:var(--night);font-weight:400;box-shadow:0 14px 40px -12px rgba(217,154,31,.6)}
+.btn.gold::before{background:var(--paper)}
+.btn.gold:hover{color:var(--night)}
+.btn.gold .arr{background:var(--night);color:var(--gold)}
+.btn.ghost{border-color:rgba(241,232,210,.35);color:var(--on-dark)}
+.btn.ghost::before{background:var(--on-dark)}
+.btn.ghost:hover{color:var(--night)}
+.btn.ghost .arr{background:transparent;border:1px solid rgba(241,232,210,.4);color:var(--on-dark)}
+.btn.ghost:hover .arr{color:var(--night);border-color:var(--night);background:transparent}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
+.link{font-size:13.5px;text-decoration:none;display:inline-flex;gap:8px;align-items:center;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;transition:background-size .5s var(--ease)}
+.link:hover{background-size:0 1px;background-position:100% 100%}
+.link svg{transition:transform .4s var(--ease)}.link:hover svg{transform:translateX(4px)}
+
+/* progress + nav */
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--pale),var(--gold),var(--amber));z-index:70}
+header.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;z-index:50;color:var(--ink);padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));transition:transform .6s var(--ease)}
+header.nav.hide{transform:translateY(calc(-100% - 20px))}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:24px;max-width:1180px;padding-left:22px;padding-right:8px;border-radius:99px;background:rgba(251,246,236,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(220,205,174,.7);box-shadow:0 10px 40px -18px rgba(90,60,10,.25);transition:box-shadow .5s,background .5s}
+header.nav.solid .wrap{background:rgba(251,246,236,.88);box-shadow:0 14px 44px -16px rgba(90,60,10,.35)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:24px;font-weight:700;text-decoration:none;line-height:1;letter-spacing:-.02em}
+.logo svg{width:28px;height:28px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;position:relative;opacity:.75;transition:opacity .3s,background .3s;padding:8px 14px;border-radius:99px;display:block}
+.nav ul a:hover,.nav ul a.on{opacity:1}
+.nav ul a.on{background:var(--ink);color:var(--paper)}
+.nav-tools{display:flex;gap:4px;align-items:center}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:inherit;position:relative;transition:background .3s}
+.icon-btn:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
+.badge{position:absolute;top:4px;right:3px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--honey);color:var(--night);font-size:10px;display:grid;place-items:center;font-weight:500;transform:scale(0);transition:transform .4s var(--ease)}
+.badge.show{transform:scale(1)}
+.badge.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+.menu-btn{display:none}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:max(640px,100svh);max-height:1080px;overflow:hidden;isolation:isolate;display:grid;place-items:center;text-align:center;background:radial-gradient(60% 55% at 50% 48%,#FFFBF2 0%,var(--paper) 45%,var(--cream) 100%);touch-action:pan-y}
+#honey{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+@keyframes flap{to{transform:scaleY(.35)}}
+.hero-in{position:relative;z-index:2;max-width:1100px;padding:120px max(24px,env(safe-area-inset-right,0px)) 150px max(24px,env(safe-area-inset-left,0px));display:grid;justify-items:center}
+.hero .eyebrow{margin-bottom:30px}
+.hero h1{font-size:clamp(54px,9.2vw,156px);font-weight:600;line-height:.9;letter-spacing:-.055em;color:var(--ink)}
+.hero h1 .row{display:block;overflow:hidden;padding:.02em .04em .1em}
+.hero h1 .row > span{display:inline-block;transform:translateY(105%);transition:transform 1.4s var(--ease) .2s}
+.hero h1 .row:nth-child(2) > span{transition-delay:.35s}
+.loaded .hero h1 .row > span{transform:none}
+.hero h1 .soft{background:linear-gradient(100deg,#F0B43A 0%,#D99A1F 40%,#A85E0A 75%,#E2A230 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gshift 7s ease-in-out infinite alternate;padding-right:.03em}
+@keyframes gshift{to{background-position:100% 0}}
+.hero-sub{max-width:470px;font-size:clamp(16.5px,1.35vw,19px);line-height:1.6;color:var(--muted);margin-top:28px}
+.hero-ctas{display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:36px}
+.cta-dark{display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;font-weight:500;box-shadow:0 18px 40px -18px rgba(30,29,22,.7);transition:transform .4s var(--ease)}
+.cta-dark .arr{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
+.cta-dark:hover{transform:translateY(-2px)}.cta-dark:hover .arr{transform:rotate(-45deg)}
+.hero .quiet{color:var(--ink);font-size:15px;text-decoration:none;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;transition:background-size .5s var(--ease)}
+.hero .quiet:hover{background-size:0 1px;background-position:100% 100%}
+.hint{position:absolute;left:0;right:0;justify-content:center;bottom:calc(9% + 34px);z-index:2;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.hint i{width:7px;height:7px;border-radius:50%;background:var(--honey);box-shadow:0 0 0 0 rgba(217,154,31,.5);animation:ping 2.2s ease-out infinite}
+@keyframes ping{to{box-shadow:0 0 0 10px rgba(217,154,31,0)}}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.loaded .fade-up{opacity:1;transform:none}
+.loaded .d1{transition-delay:.8s}.loaded .d2{transition-delay:.95s}.loaded .d3{transition-delay:1.5s}
+
+/* NOTE to the reader */
+.note{background:var(--cream);padding-block:clamp(120px,15vw,210px)}
+.note .wrap{max-width:1100px}
+.note p.big{font-family:var(--f-display);font-weight:500;font-size:clamp(30px,4vw,58px);line-height:1.12;letter-spacing:-.035em;margin-top:30px}
+.note .w{opacity:.15;transition:opacity .3s}
+.note .w.lit{opacity:1}
+.note .w.hl{color:var(--amber)}
+.note .sig{display:flex;align-items:center;gap:16px;margin-top:48px}
+.note .sig .hand{font-family:var(--f-hand);font-size:30px;color:var(--amber);transform:rotate(-4deg)}
+.note .sig span{font-size:13.5px;color:var(--muted)}
+
+/* MOMENTS */
+.moments{background:var(--cream);padding-bottom:clamp(110px,13vw,180px)}
+.m-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:52px}
+.m-head h2{font-size:clamp(40px,4.8vw,76px);margin-top:16px}
+.m-head p{max-width:340px;color:var(--muted)}
+.m-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,36px);align-items:start}
+.moment{display:grid;gap:18px}
+.moment:nth-child(2){margin-top:clamp(40px,7vw,110px)}
+.moment:nth-child(3){margin-top:clamp(16px,3vw,44px)}
+.moment .ph{aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:var(--sand);max-width:100%}
+.moment .ph img{width:100%;height:115%;object-fit:cover;will-change:transform}
+.moment .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+.moment h3{font-size:clamp(24px,2.2vw,32px);font-weight:600;letter-spacing:-.03em;margin-top:6px}
+.moment p{color:var(--muted);font-size:15.5px;max-width:340px;margin-top:8px}
+
+/* marquee */
+.marquee{margin-top:12px;background:var(--honey);color:var(--night);overflow:hidden;padding-block:16px;position:relative;z-index:3}
+.marquee .track{display:flex;width:max-content;will-change:transform}
+.marquee span{font-family:var(--f-display);font-weight:600;letter-spacing:-.02em;font-size:clamp(22px,2.4vw,34px);white-space:nowrap;display:inline-flex;align-items:center;gap:34px;padding-right:34px;line-height:1.1}
+.marquee span i{width:12px;height:13px;background:var(--night);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:inline-block}
+
+/* FEATURES */
+.features{background:var(--paper)}
+.features .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-block:88px}
+.feat{padding:8px 32px 8px;display:grid;justify-items:start;gap:12px;position:relative}
+.feat+.feat{border-left:1px solid var(--line)}
+.feat .ic{width:64px;height:64px;display:grid;place-items:center;position:relative;margin-bottom:8px}
+.feat .ic::before{content:"";position:absolute;inset:0;background:var(--sand);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transition:background .5s,transform .7s var(--ease)}
+.feat:hover .ic::before{background:var(--pale);transform:rotate(30deg) scale(1.08)}
+.feat svg{width:34px;height:34px;stroke:var(--ink);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+.feat svg .draw{stroke-dasharray:var(--len,120);stroke-dashoffset:var(--len,120);transition:stroke-dashoffset 1.8s var(--ease) .2s}
+.feat.in svg .draw{stroke-dashoffset:0}
+.feat .k{font-family:var(--f-mono);color:var(--amber);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.feat h3{font-family:var(--f-display);font-size:24px;font-weight:600;letter-spacing:-.03em}
+.feat p{font-size:14px;color:var(--muted);max-width:230px;line-height:1.6}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(44px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.split .w > span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.split.in .w > span{transform:none}
+
+/* POUR scene */
+.pour{position:relative;height:300vh;background:var(--sand)}
+.pour-stage{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden}
+.pour-photo{position:relative;overflow:hidden;margin:clamp(16px,2vw,28px);border-radius:999px 999px 18px 18px}
+.pour-photo img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;object-position:50% 40%;will-change:transform}
+.pour-photo .cap{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(251,246,236,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:8px 16px;border-radius:99px;font-size:12px;letter-spacing:.1em;white-space:nowrap}
+.pour-copy{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto 1fr auto;align-content:center;column-gap:clamp(28px,5vw,80px);row-gap:28px;padding:110px max(24px,env(safe-area-inset-right,0px),4vw) 60px clamp(24px,4vw,60px)}
+.pour-copy h2{grid-column:1/-1;font-size:clamp(40px,4.4vw,66px)}
+.jar{width:clamp(130px,14vw,200px);overflow:visible;align-self:center;filter:drop-shadow(0 30px 30px rgba(120,80,10,.18))}
+.steps{display:grid;gap:22px;align-content:center}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;opacity:.3;transition:opacity .6s;position:relative}
+.step.on{opacity:1}
+.step .n{font-family:var(--f-mono);font-size:12px;color:var(--amber);padding-top:8px}
+.step h3{font-size:clamp(24px,2.2vw,32px)}
+.step p{font-size:14px;color:var(--muted);margin-top:4px;max-width:340px}
+.pour-meta{grid-column:1/-1;display:flex;align-items:center;gap:18px;border-top:1px solid var(--line);padding-top:22px}
+.pour-meta .big{font-family:var(--f-display);font-weight:600;letter-spacing:-.04em;font-size:clamp(52px,5vw,78px);line-height:1;font-variant-numeric:tabular-nums;color:var(--amber);min-width:3.2ch}
+.pour-meta span{font-size:13px;color:var(--muted);max-width:260px}
+
+/* STORY */
+.story{background:var(--cream);position:relative;overflow:hidden}
+.story .since{position:absolute;right:-2vw;bottom:-4vw;font-family:var(--f-display);font-weight:700;letter-spacing:-.05em;font-size:22vw;line-height:.8;color:transparent;-webkit-text-stroke:1px var(--line);pointer-events:none;user-select:none;will-change:transform;white-space:nowrap}
+.story .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:center;padding-block:150px;position:relative}
+.story h2{font-size:clamp(48px,5.4vw,84px);margin:20px 0 28px}
+.story p.body{max-width:420px;color:var(--muted);margin-bottom:36px;font-size:16.5px}
+.collage{position:relative}
+.collage img{width:100%;will-change:transform;mix-blend-mode:multiply}
+.flybee{position:absolute;width:42px;left:18%;top:22%;offset-path:path("M 0 0 C 60 -60, 140 40, 210 -30 S 330 -60, 380 -10");offset-rotate:auto;offset-distance:0%;transition:offset-distance 3s var(--ease) .4s;z-index:3}
+.collage.in .flybee{offset-distance:100%}
+.stats{display:flex;gap:44px;margin-top:52px;padding-top:28px;border-top:1px solid var(--line)}
+.stats div{display:grid;gap:4px}
+.stats b{font-family:var(--f-display);font-weight:600;letter-spacing:-.04em;font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.stats span{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* PRODUCTS */
+.products{background:var(--paper);padding-block:140px}
+.p-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:56px;flex-wrap:wrap}
+.p-head h2{font-size:clamp(50px,5.8vw,92px);margin:16px 0 0}
+.p-head p{color:var(--muted);max-width:360px;margin-top:18px}
+.tabs{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:99px}
+.tabs button{border:0;background:transparent;font:inherit;font-size:13px;padding:9px 18px;border-radius:99px;cursor:pointer;color:var(--muted);transition:background .4s,color .4s}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.p-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;perspective:1400px}
+.card{display:grid;gap:14px;transform-style:preserve-3d;align-content:start}
+.card.rv{transform:translateY(70px) rotateY(-16deg);transform-origin:50% 100%}
+.card.rv.in{transform:none}
+.card .ph{position:relative;aspect-ratio:4/4.6;overflow:hidden;background:var(--sand);border-radius:6px;max-width:100%;transform-style:preserve-3d;transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.card:hover .ph{box-shadow:0 30px 60px -30px rgba(120,80,10,.45)}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.card:hover .ph img{transform:scale(1.06)}
+.card .ph::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,240,200,.45),transparent 45%);opacity:0;transition:opacity .5s;pointer-events:none}
+.card:hover .ph::after{opacity:1}
+.card .tag{position:absolute;left:12px;top:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:rgba(251,246,236,.9);padding:5px 10px;border-radius:99px}
+.add{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;border:0;border-radius:99px;padding:13px;background:var(--ink);color:var(--paper);font-family:inherit;font-size:13px;letter-spacing:.04em;cursor:pointer;transform:translateY(150%);transition:transform .6s var(--ease),background .3s;display:flex;justify-content:center;gap:10px}
+.card:hover .add,.add:focus-visible{transform:none}
+.add:hover{background:var(--amber)}
+.add.done{background:var(--amber)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.card h3{font-size:22px;font-weight:600;letter-spacing:-.03em}
+.card .price{font-variant-numeric:tabular-nums;color:var(--amber);font-size:15px;white-space:nowrap}
+.card .desc{font-size:13.5px;color:var(--muted);margin-top:-8px}
+.sizes{display:flex;gap:6px}
+.sizes button{border:1px solid var(--line);background:transparent;border-radius:99px;font:inherit;font-size:11.5px;padding:3px 11px;cursor:pointer;color:var(--muted);transition:all .3s}
+.sizes button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:var(--cream)}
+
+/* TASTING */
+.tasting{background:var(--night);color:var(--on-dark);padding-block:130px;position:relative;overflow:hidden}
+.tasting::before{content:"";position:absolute;width:70vw;height:70vw;right:-20vw;top:-30vw;border-radius:50%;background:radial-gradient(circle,rgba(217,154,31,.22),transparent 65%);pointer-events:none}
+.tasting .eyebrow{color:var(--on-dark-muted)}
+.t-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px;align-items:start;position:relative}
+.tasting h2{font-size:clamp(46px,5vw,78px);margin:18px 0 22px}
+.tasting h2 em{color:var(--gold)}
+.tasting .intro{color:var(--on-dark-muted);max-width:420px}
+.picker{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.picker button{display:flex;align-items:center;gap:10px;border:1px solid rgba(241,232,210,.2);background:transparent;color:var(--on-dark);font:inherit;font-size:14px;padding:8px 18px 8px 8px;border-radius:99px;cursor:pointer;transition:all .4s}
+.picker button i{width:22px;height:22px;border-radius:50%;background:var(--c)}
+.picker button[aria-pressed="true"]{background:var(--on-dark);color:var(--night);border-color:var(--on-dark)}
+.t-panel{border:1px solid rgba(241,232,210,.14);border-radius:20px;padding:36px;background:rgba(251,246,236,.03)}
+.scale{position:relative;margin:6px 0 46px}
+.scale .bar{height:16px;border-radius:99px;background:linear-gradient(90deg,#FBF4D6 0%,#F6E7A8 6%,#EFD27A 12%,#E8B74A 24%,#D99A1F 40%,#B9701A 60%,#8A4A0D 80%,#4E2606 100%)}
+.scale .ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--on-dark-muted);margin-top:10px;font-variant-numeric:tabular-nums}
+.scale .pin{position:absolute;top:-10px;left:var(--x,50%);transform:translateX(-50%);transition:left 1s var(--ease);display:grid;justify-items:center}
+.scale .pin b{width:36px;height:36px;border-radius:50%;border:3px solid var(--night);box-shadow:0 0 0 1px var(--on-dark);background:var(--c,var(--honey));transition:background 1s}
+.t-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.t-head h3{font-size:clamp(34px,3vw,46px)}
+.t-head span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.t-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px;margin:28px 0 0}
+.t-rows div{border-top:1px solid rgba(241,232,210,.14);padding-top:12px}
+.t-rows dt{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-muted)}
+.t-rows dd{margin:6px 0 0;font-size:15.5px}
+.t-fade{transition:opacity .35s,transform .35s var(--ease)}
+.t-fade.out{opacity:0;transform:translateY(8px)}
+
+/* DIFFERENCE */
+.diff{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--cream);overflow:hidden}
+.diff-media{position:relative;min-height:600px;overflow:hidden;background:var(--forest)}
+.diff-media img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;will-change:transform}
+.diff-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,17,10,.55),transparent 45%);pointer-events:none}
+.play{position:absolute;left:max(36px,env(safe-area-inset-left,0px));bottom:40px;z-index:1;display:flex;align-items:center;gap:16px;background:none;border:0;color:#FBF6EC;font:inherit;cursor:pointer;text-align:left}
+.play .c{width:72px;height:72px;border-radius:50%;background:rgba(251,246,236,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(251,246,236,.6);display:grid;place-items:center;position:relative;transition:transform .5s var(--ease)}
+.play:hover .c{transform:scale(1.08)}
+.play .c::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid rgba(251,246,236,.6);animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{to{transform:scale(1.6);opacity:0}}
+.play small{display:block;opacity:.75;font-size:12px}
+.diff-copy{position:relative;padding:120px max(24px,env(safe-area-inset-right,0px)) 120px clamp(24px,5vw,80px);display:flex;flex-direction:column;justify-content:center;gap:24px}
+.diff-copy h2{font-size:clamp(42px,4.4vw,68px)}
+.diff-copy p{max-width:400px;color:var(--muted)}
+.diff-copy .bloom{position:absolute;right:0;top:0;bottom:0;width:32%;height:100%;object-fit:cover;object-position:left center;mix-blend-mode:multiply;pointer-events:none}
+.diff-copy > *:not(.bloom){position:relative;z-index:1;max-width:64%}
+.checks{list-style:none;padding:0;margin:4px 0 6px;display:grid;gap:10px;font-size:14.5px}
+.checks li{display:flex;gap:12px;align-items:center}
+.checks li::before{content:"";flex:none;width:12px;height:13px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+
+/* CTA */
+.cta{position:relative;background:var(--paper);padding-block:150px;text-align:center;overflow:hidden}
+.cta .hexes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cta h2{font-family:var(--f-hand);font-weight:400;letter-spacing:0;font-size:clamp(36px,5vw,66px);line-height:1.25;transform:rotate(-4deg);color:var(--ink);margin-top:30px}
+.cta h2.rv{transform:translateY(44px) rotate(-4deg)}
+.cta h2.rv.in{transform:rotate(-4deg)}
+.cta .sub{color:var(--muted);margin:28px auto 36px;max-width:440px}
+.cta .trail{position:relative;width:min(560px,100%);margin:24px auto 0;height:90px}
+.cta .trail svg{width:100%;height:100%;overflow:visible}
+.cta .trail path{stroke:var(--ink);stroke-dasharray:3 7;fill:none;stroke-width:1.2}
+.cta .trail .mask{stroke:var(--paper);stroke-dasharray:none;stroke-width:6}
+.cta .wrap{position:relative}
+
+/* FOOTER */
+footer{background:var(--forest);color:var(--on-dark);overflow:hidden}
+footer .wrap{padding-block:96px 0}
+.f-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr 1.5fr;gap:44px}
+footer .logo{color:var(--gold)}
+footer p,footer li a{color:var(--on-dark-muted);font-size:13.5px}
+footer h4{font-weight:400;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;margin:6px 0 18px;color:var(--on-dark)}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+footer li a{text-decoration:none;transition:color .3s}footer li a:hover{color:var(--gold)}
+.social{display:flex;gap:10px;margin-top:28px}
+.social a{width:38px;height:38px;border:1px solid var(--forest-2);border-radius:50%;display:grid;place-items:center;color:var(--on-dark);transition:background .3s,border-color .3s,color .3s}
+.social a:hover{background:var(--gold);border-color:var(--gold);color:var(--forest)}
+.news{display:flex;align-items:center;border:1px solid #4A5240;border-radius:99px;padding:5px 5px 5px 22px;margin-top:20px;transition:border-color .3s}
+.news:focus-within{border-color:var(--gold)}
+.news input{flex:1;min-width:0;background:transparent;border:0;color:var(--on-dark);font:inherit;font-size:14px;outline:none}
+.news input::placeholder{color:var(--on-dark-muted)}
+.news button{width:40px;height:40px;border-radius:50%;border:0;background:var(--gold);color:var(--forest);display:grid;place-items:center;cursor:pointer;transition:transform .4s var(--ease)}
+.news button:hover{transform:rotate(-45deg)}
+.news-msg{font-size:13px;color:var(--gold);min-height:20px;margin-top:10px}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--forest-2);margin-top:72px;padding-top:24px;font-size:12.5px;color:var(--on-dark-muted)}
+.f-bot a{text-decoration:none}
+.wordmark{font-family:var(--f-display);font-weight:800;font-size:clamp(120px,30vw,460px);line-height:.78;letter-spacing:-.05em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.28);margin-top:40px;user-select:none;white-space:nowrap}
+.wordmark em{-webkit-text-stroke:0;color:rgba(232,183,74,.12)}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(20,17,10,.5);z-index:80;opacity:0;pointer-events:none;transition:opacity .5s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:85;background:var(--paper);transform:translateX(100%);visibility:hidden;transition:transform .7s var(--ease-io),visibility 0s .7s;display:flex;flex-direction:column;padding:calc(26px + env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-right,0px)) calc(26px + env(safe-area-inset-bottom,0px)) 28px}
+.drawer.open{transform:none;visibility:visible;transition:transform .7s var(--ease-io)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.drawer h3{font-size:34px}
+.d-list{flex:1;overflow-y:auto;display:grid;align-content:start;gap:16px;list-style:none;margin:0;padding:0}
+.d-list li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.d-list img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+.d-list strong{font-weight:400;display:block}
+.d-list small{color:var(--muted);font-size:12.5px}
+.qty{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font:inherit;line-height:1}
+.d-list li.d-empty{display:block;border:0;color:var(--muted);text-align:center;padding:60px 0}
+.d-foot{border-top:1px solid var(--ink);padding-top:18px;display:grid;gap:14px}
+.d-foot .tot{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
+.d-foot .tot b{font-family:var(--f-display);font-weight:600;font-size:26px;font-variant-numeric:tabular-nums}
+.d-foot .note{font-size:12px;color:var(--muted)}
+.d-foot .btn{justify-content:space-between}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:90;background:rgba(20,17,10,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .4s}
+.modal.open{opacity:1;pointer-events:auto}
+.m-card{width:min(900px,100%);background:var(--paper);border-radius:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);transform:translateY(30px) scale(.98);transition:transform .7s var(--ease);max-height:90svh;overflow:hidden auto}
+.modal.open .m-card{transform:none}
+.m-card .img{position:relative;min-height:340px;background:var(--sand)}
+.m-card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s}
+.m-card .body{padding:40px;display:flex;flex-direction:column;gap:16px}
+.m-card h3{font-size:44px}
+.m-bar{display:flex;gap:6px}
+.m-bar i{flex:1;height:2px;background:var(--line);position:relative;overflow:hidden}
+.m-bar i b{position:absolute;inset:0;background:var(--amber);transform:scaleX(0);transform-origin:left}
+.m-bar i.done b{transform:scaleX(1)}
+.m-bar i.run b{animation:fill 4.5s linear forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+.m-close{position:absolute;top:max(18px,env(safe-area-inset-top,0px));right:max(18px,env(safe-area-inset-right,0px));color:#fff}
+.m-nav{display:flex;gap:10px;margin-top:auto}
+.m-nav button{border:1px solid var(--line);background:none;border-radius:99px;padding:9px 20px;font:inherit;font-size:13px;cursor:pointer}
+.m-nav button:hover{border-color:var(--ink)}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,220%);opacity:0;background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:99px;font-size:13.5px;z-index:95;transition:transform .5s var(--ease),opacity .4s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* cursor */
+.cursor{position:fixed;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--honey);z-index:120;pointer-events:none;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s,opacity .3s;opacity:0}
+.cursor.on{opacity:1}
+.cursor.big{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(232,183,74,.3);backdrop-filter:blur(2px)}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* responsive */
+@media (max-width:1080px){
+  .nav ul{display:none}
+  .menu-btn{display:grid}
+  .nav ul.open{display:grid;position:absolute;top:78px;left:0;right:0;background:var(--paper);color:var(--ink);padding:22px max(24px,env(safe-area-inset-left,0px));gap:18px;font-size:17px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .features .wrap{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}
+  .feat:nth-child(3){border-left:0}
+  .p-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav .wrap{padding-left:18px}
+}
+@media (max-width:860px){
+  .hero h1{font-size:clamp(50px,14.5vw,110px)}
+  .m-row{grid-template-columns:1fr}
+  .moment:nth-child(n){margin-top:0}
+  .moment .ph{aspect-ratio:4/3.4}
+  .hero h1{font-size:clamp(50px,14vw,100px)}
+  .pour{height:auto}
+  .pour-stage{position:relative;height:auto;grid-template-columns:1fr}
+  .pour-photo{height:70vw;border-radius:400px 400px 18px 18px}
+  .pour-copy{padding:20px max(24px,env(safe-area-inset-right,0px)) 80px max(24px,env(safe-area-inset-left,0px))}
+  .step{opacity:1}
+  .story .wrap,.diff,.t-grid{grid-template-columns:1fr}
+  .story .wrap{padding-block:100px;gap:48px}
+  .diff-media{min-height:76vw}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .m-card{grid-template-columns:1fr}
+  .m-card .img{min-height:220px}
+  .t-grid{gap:44px}
+}
+@media (max-width:560px){
+  .hint{bottom:calc(9% + 22px)}
+  .features .wrap{grid-template-columns:1fr;padding-block:64px}
+  .feat+.feat{border-left:0;border-top:1px solid var(--line);padding-top:36px}
+  .feat{padding-inline:0}
+  .pour-copy{grid-template-columns:1fr;justify-items:start}
+  .p-grid{gap:28px 14px}
+  .card h3{font-size:19px}.card .top{flex-direction:column;gap:2px}
+  .add{transform:none;font-size:12px;padding:10px}
+  .diff-copy > *:not(.bloom){max-width:100%}
+  .diff-copy .bloom{opacity:.22}
+  .f-grid{grid-template-columns:1fr}
+  .stats{gap:22px}.stats b{font-size:36px}
+  .t-panel{padding:24px}
+  .t-rows{grid-template-columns:1fr}
+  .tabs button{padding:8px 13px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.fade-up{opacity:1;transform:none}
+  .hero h1 .row > span,.split .w > span{transform:none}
+  .note .w{opacity:1}
+}
+</style>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Bee home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1E1D16" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="currentColor"/></svg>
+      Bee
+    </a>
+    <ul id="menu">
+      <li><a href="#top" class="on">Home</a></li>
+      <li><a href="story.html">Our Story</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="tasting.html">Tasting</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="icon-btn" aria-label="Search" type="button" id="searchBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+      <button class="icon-btn" aria-label="Open basket" type="button" id="cartBtn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="badge">0</span></button>
+      <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" type="button" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M8 15h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Introduction">
+    <canvas id="honey" aria-hidden="true"></canvas>
+    <div class="hero-in">
+      <p class="eyebrow fade-up">Raw honey from family apiaries</p>
+      <h1 aria-label="Made by bees. Shared by people."><span class="row"><span>Made by bees.</span></span><span class="row"><span><span class="soft">Shared</span> by people.</span></span></h1>
+      <p class="hero-sub fade-up d1">Slow honey from small hives in Coorg, for the moments you share with the people you love.</p>
+      <div class="hero-ctas fade-up d2">
+        <a class="cta-dark" href="#products">Find your honey <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="quiet" href="story.html">Read our story</a>
+      </div>
+    </div>
+    <p class="hint fade-up d3" id="hint"><i></i><span>Move through the honey</span></p>
+  </section>
+
+  <!-- NOTE -->
+  <section class="note" id="note">
+    <div class="wrap">
+      <p class="eyebrow">Why we do this</p>
+      <p class="big" id="noteText">Honey has always been something we <span data-hl>share.</span> A spoon in warm water when someone you love is unwell. A drizzle over hot rotis at your grandmother’s table. A jar passed across breakfast on a slow Sunday. We make honey for those <span data-hl>moments.</span></p>
+      <div class="sig rv"><span class="hand">With love, the Bee family</span><span>Beekeepers since 2014</span></div>
+    </div>
+  </section>
+
+  <!-- MOMENTS -->
+  <section class="moments" aria-label="Moments">
+    <div class="wrap">
+      <div class="m-head">
+        <div><p class="eyebrow rv">Everyday rituals</p><h2 class="split">Made for the moments <em>in between.</em></h2></div>
+        <p class="rv">Not a superfood or a trend. Just something good to pass to the people around you.</p>
+      </div>
+      <div class="m-row">
+        <article class="moment rv"><div class="ph"><img src="img/drip.webp" alt="Honey falling slowly onto a blossom"></div><div><span class="t">6:30 am</span><h3>Before the house wakes</h3><p>A spoon of Acacia in warm water, and five quiet minutes that belong to you.</p></div></article>
+        <article class="moment rv" style="transition-delay:.12s"><div class="ph"><img src="img/wild.webp" alt="A jar of Wildflower honey among flowers"></div><div><span class="t">When it matters</span><h3>Care, in a jar</h3><p>The jar every grandmother reaches for when a cough won’t settle, or a child needs comfort.</p></div></article>
+        <article class="moment rv" style="transition-delay:.24s"><div class="ph"><img src="img/comb.webp" alt="A block of golden honeycomb"></div><div><span class="t">Sunday</span><h3>Long tables</h3><p>Honeycomb, warm bread and paneer. Everyone reaching across, nobody in a hurry.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" aria-label="Why Bee honey">
+    <div class="wrap">
+      <div class="feat rv"><span class="ic"><svg viewBox="0 0 40 40"><path class="draw" style="--len:90" d="M10 32C10 18 20 9 33 8c0 14-8 23-21 23"/><path class="draw" style="--len:40" d="M8 34l17-17"/></svg></span><span class="k">Pure</span><h3>100% Natural</h3><p>No additives. No chemicals. Just pure honey, as the hive made it.</p></div>
+      <div class="feat rv" style="transition-delay:.1s"><span class="ic"><svg viewBox="0 0 40 40"><ellipse class="draw" style="--len:60" cx="20" cy="24" rx="6" ry="9"/><path class="draw" style="--len:40" d="M14.5 21h11M14 25h12M15 29h10"/><path class="draw" style="--len:60" d="M17 15c-5-6-12-4-11 1s7 5 11 2M23 15c5-6 12-4 11 1s-7 5-11 2"/><path class="draw" style="--len:20" d="M18 13l-2-5M22 13l2-5"/></svg></span><span class="k">Kind</span><h3>Bee Friendly</h3><p>We take only surplus honey and leave colonies strong for winter.</p></div>
+      <div class="feat rv" style="transition-delay:.2s"><span class="ic"><svg viewBox="0 0 40 40"><path class="draw" style="--len:40" d="M20 36V14"/><path class="draw" style="--len:60" d="M20 22c-8 0-12-5-12-11 7 0 12 4 12 11zM20 18c0-6 4-11 12-11 0 7-5 11-12 11z"/><path class="draw" style="--len:40" d="M20 28c-5 0-9-3-10-7M20 28c5 0 9-3 10-7"/></svg></span><span class="k">Ethical</span><h3>Sustainably Sourced</h3><p>Small family apiaries, fair prices, pesticide-free forage.</p></div>
+      <div class="feat rv" style="transition-delay:.3s"><span class="ic"><svg viewBox="0 0 40 40"><path class="draw" style="--len:110" d="M20 33S6 24.5 6 15a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 9.5-14 18-14 18z"/></svg></span><span class="k">Whole</span><h3>Wellness in Every Drop</h3><p>Enzymes, pollen and antioxidants kept intact for your family.</p></div>
+    </div>
+  </section>
+
+  <!-- POUR -->
+  <section class="pour" id="pour" aria-label="How our honey is poured">
+    <div class="pour-stage">
+      <div class="pour-photo"><img src="img/drip.webp" alt="A thread of honey falling onto a white blossom" id="pourImg"><span class="cap">Poured raw · Batch 014</span></div>
+      <div class="pour-copy">
+        <h2 class="split">From bloom to <em>jar</em></h2>
+        <svg class="jar" viewBox="0 0 160 260" aria-hidden="true">
+          <defs>
+            <clipPath id="jarClip"><path d="M30 92c0-10 6-16 16-18h68c10 2 16 8 16 18v128c0 14-10 24-24 24H54c-14 0-24-10-24-24z"/></clipPath>
+            <linearGradient id="honeyG" x1="0" x2="1"><stop offset="0" stop-color="#A5650F"/><stop offset=".45" stop-color="#E8B74A"/><stop offset="1" stop-color="#B8761A"/></linearGradient>
+          </defs>
+          <rect id="stream" x="77" y="-40" width="6" height="0" rx="3" fill="url(#honeyG)"/>
+          <circle id="drop" cx="80" cy="-10" r="0" fill="#D99A1F"/>
+          <g clip-path="url(#jarClip)">
+            <rect x="0" y="0" width="160" height="260" fill="#FBF6EC"/>
+            <g id="fill" transform="translate(0 250)"><path d="M0 6 Q20 0 40 6 T80 6 T120 6 T160 6 T200 6 V260 H0z" fill="url(#honeyG)"/></g>
+            <path d="M42 100v110" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+          </g>
+          <path d="M30 92c0-10 6-16 16-18h68c10 2 16 8 16 18v128c0 14-10 24-24 24H54c-14 0-24-10-24-24z" fill="none" stroke="#1E1D16" stroke-width="1.4"/>
+          <rect x="40" y="54" width="80" height="20" rx="3" fill="#C9A24A" stroke="#1E1D16" stroke-width="1.4"/>
+          <path d="M44 60h72M44 64h72M44 68h72" stroke="#1E1D16" stroke-width=".5" opacity=".4"/>
+          <rect x="52" y="140" width="56" height="58" rx="2" fill="#FBF6EC" fill-opacity=".94" stroke="#1E1D16" stroke-width="1"/>
+          <text x="80" y="164" text-anchor="middle" font-family="Bricolage Grotesque, Arial, sans-serif" font-weight="700" font-size="16" fill="#1E1D16">Bee</text>
+          <text x="80" y="181" text-anchor="middle" font-family="Geist, sans-serif" font-size="6.5" letter-spacing="1.6" fill="#6F6A57">RAW HONEY</text>
+          <text x="80" y="191" text-anchor="middle" font-family="Geist, sans-serif" font-size="5.5" letter-spacing="1" fill="#6F6A57">500 g</text>
+        </svg>
+        <div class="steps">
+          <div class="step on"><span class="n">i.</span><div><h3>Gathered slowly</h3><p>Our bees forage on wildflower, acacia and orchard blossom across small family apiaries.</p></div></div>
+          <div class="step"><span class="n">ii.</span><div><h3>Never heated</h3><p>Kept below hive temperature, 35°C, so enzymes, pollen and aroma stay intact.</p></div></div>
+          <div class="step"><span class="n">iii.</span><div><h3>Poured raw</h3><p>Cold strained through fine mesh and poured straight into glass. Nothing added, nothing taken out.</p></div></div>
+        </div>
+        <div class="pour-meta"><b class="big" id="pct">0%</b><span>of every jar is honey, and only honey. Moisture stays under 18%, the mark of fully ripened comb.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <span class="since" id="since" aria-hidden="true">since 2014</span>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow rv">Our story</p>
+        <h2 class="split">Small Bees. A Big <em>Impact.</em></h2>
+        <p class="body rv">We started with a simple belief: nature knows best. Our journey began with a few hives and a deep respect for bees, the planet and pure, natural goodness.</p>
+        <div class="rv"><a class="btn" href="story.html">Read our story <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+        <div class="stats rv">
+          <div><b data-count="240">0</b><span>Hives cared for</span></div>
+          <div><b data-count="18">0</b><span>Beekeepers</span></div>
+          <div><b data-count="12" data-suffix=" yrs">0</b><span>Of slow honey</span></div>
+        </div>
+      </div>
+      <div class="collage rv" id="collage">
+        <img src="img/frame.webp" alt="A beekeeper lifts a honeycomb frame, framed by wildflowers" id="collageImg">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="wrap">
+      <div class="p-head">
+        <div>
+          <p class="eyebrow rv">For your table</p>
+          <h2 class="split">Pure. Raw. <em>Real.</em></h2>
+          <p class="rv">Four honeys, each from a different place and season. Choose the one that fits the people at your table.</p>
+        </div>
+        <div class="tabs rv" role="tablist" aria-label="Filter honey">
+          <button type="button" role="tab" aria-selected="true" data-f="all">All</button>
+          <button type="button" role="tab" aria-selected="false" data-f="everyday">Everyday</button>
+          <button type="button" role="tab" aria-selected="false" data-f="special">Specialty</button>
+        </div>
+      </div>
+      <div class="p-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- TASTING -->
+  <section class="tasting" id="tasting">
+    <div class="wrap t-grid">
+      <div>
+        <p class="eyebrow rv">Know your honey</p>
+        <h2 class="split">Every flower, a different <em>gold.</em></h2>
+        <p class="intro rv">Beekeepers grade honey colour on the Pfund scale, in millimetres. Lighter honeys taste delicate and floral; darker ones are richer, maltier and higher in minerals. Pick a jar to see where it sits.</p>
+        <div class="picker rv" id="picker"></div>
+      </div>
+      <div class="t-panel rv">
+        <div class="scale"><div class="bar"></div><div class="pin" id="pin"><b></b></div>
+          <div class="ticks"><span>0 mm</span><span>34</span><span>50</span><span>85</span><span>114</span><span>140 mm</span></div></div>
+        <div class="t-fade" id="tBody">
+          <div class="t-head"><h3 id="tName">Wildflower</h3><span id="tGrade">Light amber · 62 mm</span></div>
+          <dl class="t-rows" id="tRows"></dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENCE -->
+  <section class="diff" id="difference">
+    <div class="diff-media">
+      <img src="img/beecomb.webp" alt="A honeybee resting on golden honeycomb" id="diffImg">
+      <button class="play" type="button" id="playBtn"><span class="c"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span>Watch Our Process<small>4 steps · 1:48</small></span></button>
+    </div>
+    <div class="diff-copy">
+      <img class="bloom" src="img/flowers.webp" alt="">
+      <p class="eyebrow rv">The Bee difference</p>
+      <h2 class="split">Pure by Nature. Perfected by <em>Bees.</em></h2>
+      <p class="rv">We never compromise on quality. Our honey is raw, unfiltered and packed with nature’s finest nutrients, just as the bees intended.</p>
+      <ul class="checks rv"><li>Lab tested for purity, batch by batch</li><li>Traceable to the apiary on every lid</li><li>Glass jars, plastic-free shipping</li></ul>
+      <div class="rv"><a class="link" href="#club">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" aria-label="Join us">
+    <canvas class="hexes" id="hexes" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow rv">Pure honey. A brighter tomorrow.</p>
+      <h2 class="rv">More than honey,<br>it’s a healthier tomorrow.</h2>
+      <div class="trail" aria-hidden="true">
+        <svg viewBox="0 0 560 90" preserveAspectRatio="none"><path id="trailPath" d="M10 70 C 120 10, 200 90, 290 50 S 440 0, 520 30"/><path class="mask" id="trailMask" d="M10 70 C 120 10, 200 90, 290 50 S 440 0, 520 30"/>
+        <g id="trailBee"><ellipse cx="0" cy="0" rx="7" ry="4.5" fill="#E8B74A"/><path d="M-3 -4v8M1 -4.4v8.8" stroke="#1E1D16" stroke-width="1.6"/><ellipse cx="-1" cy="-7" rx="5" ry="3" fill="#FBF6EC" stroke="#6F6A57" stroke-width=".6" opacity=".9"/></g></svg>
+      </div>
+      <p class="sub rv">Share a jar with someone you love. Every gift box carries a handwritten note from the keeper whose hives it came from.</p>
+      <div class="rv"><a class="btn gold" href="#products">Send a jar <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+    </div>
+  </section>
+</main>
+
+<footer id="club">
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1B2117" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#F1E8D2"/></svg>Bee</a>
+        <p style="margin-top:16px;max-width:240px">Pure Honey. A Brighter Tomorrow. Small-batch raw honey from family apiaries.</p>
+        <div class="social">
+          <a href="https://instagram.com" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://facebook.com" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.5V11H7v4h3v7h4v-7h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+          <a href="https://pinterest.com" aria-label="Pinterest"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M11 9.5c-1 4-2 8-3 11M10 13c3 1.5 6-.5 6-3.5s-3-4-5-3"/></svg></a>
+          <a href="https://youtube.com" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2c-.2-1.6-1-2.5-2.6-2.7C17 5.2 12 5.2 12 5.2s-5 0-7.4.3C3 5.7 2.2 6.6 2 8.2 1.8 9.6 1.8 12 1.8 12s0 2.4.2 3.8c.2 1.6 1 2.5 2.6 2.7 2.4.3 7.4.3 7.4.3s5 0 7.4-.3c1.6-.2 2.4-1.1 2.6-2.7.2-1.4.2-3.8.2-3.8s0-2.4-.2-3.8zM10 15V9l5 3z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="products.html">All Products</a></li><li><a href="products.html#wild">Wildflower Honey</a></li><li><a href="products.html#manuka">Manuka Honey</a></li><li><a href="products.html#acacia">Acacia Honey</a></li><li><a href="products.html#comb">Honey Comb</a></li></ul></div>
+      <div><h4>About</h4><ul><li><a href="story.html">Our Story</a></li><li><a href="sustainability.html">Sustainability</a></li><li><a href="tasting.html">Tasting Guide</a></li><li><a href="#club">Contact</a></li></ul></div>
+      <div>
+        <h4>Join Our Honey Club</h4>
+        <p>Get exclusive offers, harvest notes and recipes.</p>
+        <form class="news" id="news" novalidate>
+          <label for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+          <input id="email" type="email" placeholder="Your email address" autocomplete="email">
+          <button type="submit" aria-label="Join the Honey Club"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+        <p class="news-msg" id="newsMsg" role="status"></p>
+      </div>
+    </div>
+    <div class="f-bot"><span>© 2026 Bee. All rights reserved.</span><span><a href="#top">Privacy Policy</a> &nbsp;·&nbsp; <a href="#top">Terms &amp; Conditions</a></span></div>
+    <div class="wordmark" aria-hidden="true">B<em>ee</em></div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Basket">
+  <header><h3>Your basket</h3><button class="icon-btn" id="dClose" aria-label="Close basket" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <ul class="d-list" id="dList"></ul>
+  <div class="d-foot">
+    <div class="tot"><span>Subtotal</span><b id="dTotal">₹0</b></div>
+    <p class="note">Free shipping on orders over ₹999. This is a preview store, so checkout is not connected yet.</p>
+    <button class="btn gold" type="button" id="checkout">Checkout <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+  </div>
+</aside>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <button class="icon-btn m-close" id="mClose" aria-label="Close" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="m-card">
+    <div class="img"><img id="mImg" src="img/keeper.webp" alt=""></div>
+    <div class="body">
+      <div class="m-bar" id="mBar"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+      <p class="eyebrow" id="mStep">Step 1 of 4</p>
+      <h3 id="mTitle">Bloom</h3>
+      <p id="mText" style="color:var(--muted)"></p>
+      <div class="m-nav"><button type="button" id="mPrev">Previous</button><button type="button" id="mNext">Next</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer:fine)').matches;
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+
+  /* split section headings into words */
+  $$('h2.split').forEach(h=>{const walk=(node,out)=>{node.childNodes.forEach(n=>{if(n.nodeType===3){n.textContent.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){out.appendChild(document.createTextNode(' '));return}
+        const w=document.createElement('span');w.className='w';const i=document.createElement('span');i.textContent=p;w.appendChild(i);out.appendChild(w)})}
+      else{const c=n.cloneNode(false);walk(n,c);out.appendChild(c)}})};
+    const f=document.createElement('div');walk(h,f);h.innerHTML=f.innerHTML;h.querySelectorAll('.w > span').forEach((s,i)=>s.style.transitionDelay=i*.07+'s')});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('loaded')));
+
+  /* products + basket */
+  const products=[
+    {id:'wild',n:'Wildflower Honey',d:'Rich in flavour, full of nature.',img:'wild',tag:'Bestseller',cat:'everyday',p:{'250 g':349,'500 g':599}},
+    {id:'manuka',n:'Manuka Honey',d:'Powerful. Rare. Unique.',img:'manuka',tag:'MGO 263+',cat:'special',p:{'250 g':1899,'500 g':3499}},
+    {id:'acacia',n:'Acacia Honey',d:'Light. Smooth. Delicate.',img:'acacia',tag:'Slow to set',cat:'everyday',p:{'250 g':399,'500 g':699}},
+    {id:'comb',n:'Honey Comb',d:'Pure honey, in its natural form.',img:'comb',tag:'Seasonal',cat:'special',p:{'200 g':749,'400 g':1349}}
+  ];
+  const inr=v=>'₹'+v.toLocaleString('en-IN');
+  $('#grid').innerHTML=products.map((p,i)=>{const s=Object.keys(p.p);return `
+    <article class="card rv" style="transition-delay:${i*.12}s" data-i="${i}" data-cat="${p.cat}">
+      <div class="ph"><img src="img/${p.img}.webp" alt="${p.n} jar with blossoms" loading="lazy"><span class="tag">${p.tag}</span>
+        <button class="add" type="button">Add to basket <span aria-hidden="true">+</span></button></div>
+      <div class="top"><h3><a href="products.html#${p.id}" style="text-decoration:none">${p.n}</a></h3><span class="price">${inr(p.p[s[0]])}</span></div>
+      <p class="desc">${p.d}</p>
+      <div class="sizes" role="group" aria-label="Size">${s.map((z,j)=>`<button type="button" aria-pressed="${j===0}" data-z="${z}">${z}</button>`).join('')}</div>
+    </article>`}).join('');
+  const KEY='bee-basket-v1';let cart=new Map();try{(JSON.parse(localStorage.getItem(KEY))||[]).forEach(it=>cart.set(it.k,it))}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...cart.values()]))}catch(e){}};
+  const badge=$('#badge'), toast=$('#toast'); let tt;
+  const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2400)};
+  function renderCart(){
+    const n=[...cart.values()].reduce((a,b)=>a+b.q,0); badge.textContent=n; badge.classList.toggle('show',n>0);
+    const list=$('#dList');
+    if(!n) list.innerHTML='<li class="d-empty">Your basket is empty.<br>Start with a jar of Wildflower.</li>';
+    else list.innerHTML=[...cart.entries()].map(([k,v])=>`<li><img src="img/${v.img}.webp" alt=""><div><strong>${v.n}</strong><small>${v.z} · ${inr(v.price)}${v.gift?' · Gift':''}</small></div>
+      <div class="qty"><button type="button" data-k="${k}" data-d="-1" aria-label="Remove one">−</button><span>${v.q}</span><button type="button" data-k="${k}" data-d="1" aria-label="Add one">+</button></div></li>`).join('');
+    $('#dTotal').textContent=inr([...cart.values()].reduce((a,v)=>a+v.q*v.price,0));save();
+  }
+  $('#dList').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const it=cart.get(b.dataset.k);it.q+=+b.dataset.d;if(it.q<=0)cart.delete(b.dataset.k);renderCart()});
+  function fly(from){
+    if(reduce)return; const r=from.getBoundingClientRect(),c=$('#cartBtn').getBoundingClientRect();
+    const d=document.createElement('img');d.src=from.src;Object.assign(d.style,{position:'fixed',left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',objectFit:'cover',borderRadius:'8px',zIndex:110,pointerEvents:'none'});
+    document.body.appendChild(d);
+    d.animate([{transform:'none',opacity:1,borderRadius:'8px'},{transform:`translate(${c.left+c.width/2-r.left-r.width/2}px,${c.top+c.height/2-r.top-r.height/2}px) scale(.06)`,opacity:.6,borderRadius:'50%'}],{duration:900,easing:'cubic-bezier(.6,0,.3,1)'}).onfinish=()=>d.remove();
+    $('#nav').classList.remove('hide');
+  }
+  $('#grid').addEventListener('click',e=>{
+    const card=e.target.closest('.card'); if(!card) return; const p=products[card.dataset.i];
+    const sb=e.target.closest('.sizes button');
+    if(sb){card.querySelectorAll('.sizes button').forEach(b=>b.setAttribute('aria-pressed',b===sb));card.querySelector('.price').textContent=inr(p.p[sb.dataset.z]);}
+    const add=e.target.closest('.add');
+    if(add){
+      addToCart(p,card.querySelector('[aria-pressed="true"]').dataset.z,card.querySelector('.ph img'));
+      add.innerHTML='Added <span aria-hidden="true">✓</span>'; add.classList.add('done');
+      setTimeout(()=>{add.innerHTML='Add to basket <span aria-hidden="true">+</span>';add.classList.remove('done')},1600);
+    }
+  });
+  function addToCart(p,z,img){const k=p.id+'|'+z;cart.set(k,{k,id:p.id,n:p.n,img:p.img,z,price:p.p[z],gift:false,q:(cart.get(k)?.q||0)+1});save();fly(img);
+    setTimeout(()=>{renderCart();badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump')},reduce?0:850);
+    say(`${p.n}, ${z}, added to your basket`)}
+
+  /* tilt + glare */
+  if(fine&&!reduce) $$('.card .ph').forEach(ph=>{
+    ph.addEventListener('mousemove',e=>{const r=ph.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      ph.style.transform=`rotateY(${(x-.5)*10}deg) rotateX(${(.5-y)*10}deg)`;ph.style.setProperty('--gx',x*100+'%');ph.style.setProperty('--gy',y*100+'%')});
+    ph.addEventListener('mouseleave',()=>ph.style.transform='')});
+  /* tabs */
+  $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{$$('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    let n=0;$$('.card').forEach(c=>{const show=b.dataset.f==='all'||c.dataset.cat===b.dataset.f;c.hidden=!show;if(show){c.classList.remove('in');c.style.transitionDelay='0s';const k=n++;requestAnimationFrame(()=>setTimeout(()=>c.classList.add('in'),30+k*90))}})}));
+  /* drawer */
+  const drawer=$('#drawer'),scrim=$('#scrim');
+  const openD=o=>{drawer.classList.toggle('open',o);scrim.classList.toggle('open',o);if(o){renderCart();setTimeout(()=>$('#dClose').focus(),50)}else $('#cartBtn').focus()};
+  $('#cartBtn').addEventListener('click',()=>openD(true));$('#dClose').addEventListener('click',()=>openD(false));scrim.addEventListener('click',()=>openD(false));
+  $('#checkout').addEventListener('click',()=>say(cart.size?'Checkout is not connected in this preview.':'Add a jar first.'));
+  $('#searchBtn').addEventListener('click',()=>{document.getElementById('products').scrollIntoView();say('Browse all four honeys below')});
+  renderCart();
+
+  /* tasting (Pfund mm; USDA colour grades) */
+  const grade=mm=>mm<=8?'Water white':mm<=17?'Extra white':mm<=34?'White':mm<=50?'Extra light amber':mm<=85?'Light amber':mm<=114?'Amber':'Dark amber';
+  const taste=[
+    {n:'Acacia',mm:9,c:'#F3E19A',rows:[['Flavour','Vanilla, clean floral, very mild'],['Texture','Thin and glossy, stays liquid for months'],['Pairs with','Green tea, curd, fresh fruit'],['Crystallises','Very slowly']]},
+    {n:'Honey Comb',mm:40,c:'#EBC05A',rows:[['Flavour','Meadow blossom with a soft beeswax note'],['Texture','Chewy wax cells, honey bursts out'],['Pairs with','Paneer, figs, warm bread'],['Crystallises','Slowly, inside the cell']]},
+    {n:'Wildflower',mm:62,c:'#D99A1F',rows:[['Flavour','Floral, fruity, light caramel finish'],['Texture','Medium body, smooth on the spoon'],['Pairs with','Toast, chai, cheese boards'],['Crystallises','In 2–4 months; warm gently to loosen']]},
+    {n:'Manuka',mm:122,c:'#7A3F0B',rows:[['Flavour','Earthy, herbal, bittersweet and bold'],['Texture','Thick and creamy, almost like toffee'],['Pairs with','A spoon on its own, warm water'],['Crystallises','Naturally creamy from the jar']]}
+  ];
+  $('#picker').innerHTML=taste.map((t,i)=>`<button type="button" aria-pressed="${i===2}" data-t="${i}" style="--c:${t.c}"><i></i>${t.n}</button>`).join('');
+  function setTaste(i,anim){const t=taste[i],body=$('#tBody');const apply=()=>{$('#tName').textContent=t.n;$('#tGrade').textContent=`${grade(t.mm)} · ${t.mm} mm Pfund`;
+      $('#tRows').innerHTML=t.rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');body.classList.remove('out')};
+    $('#pin').style.setProperty('--x',(t.mm/140*100)+'%');$('#pin').style.setProperty('--c',t.c);
+    $$('#picker button').forEach((b,k)=>b.setAttribute('aria-pressed',k===i));
+    if(anim){body.classList.add('out');setTimeout(apply,300)}else apply()}
+  $('#picker').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(b)setTaste(+b.dataset.t,true)});
+  setTaste(2,false);
+
+  /* menu */
+  $('#menuBtn').addEventListener('click',function(){const o=$('#menu').classList.toggle('open');this.setAttribute('aria-expanded',o);});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('open')));
+
+  /* reveal */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+      e.target.querySelectorAll('[data-count]').forEach(countUp);}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  $$('.rv,.feat,.collage,.split').forEach(el=>io.observe(el));
+  function countUp(el){const t=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce){el.textContent=t+suf;return}
+    const st=performance.now();(function f(n){const k=Math.min(1,(n-st)/1800),v=Math.round(t*(1-Math.pow(1-k,3)));el.textContent=v+suf;if(k<1)requestAnimationFrame(f)})(st)}
+
+  /* bee in collage */
+  const col=$('#collage');
+  const fb=document.createElementNS('http://www.w3.org/2000/svg','svg');fb.setAttribute('viewBox','-12 -12 24 24');fb.classList.add('flybee');
+  fb.innerHTML=$('#trailBee').innerHTML; col.appendChild(fb);
+
+  /* note: words light up on scroll */
+  const nt=$('#noteText'),frag=document.createDocumentFragment();
+  nt.childNodes.forEach(n=>{const hl=n.nodeType!==3;(n.textContent).split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){frag.appendChild(document.createTextNode(' '));return}
+    const w=document.createElement('span');w.className='w'+(hl?' hl':'');w.textContent=p;frag.appendChild(w)})});
+  nt.innerHTML='';nt.appendChild(frag); const nw=$$('#noteText .w');
+  const hero=$('#hero'),mphs=$$('.moment .ph img');
+
+  /* scroll engine */
+  const secs=['top','story','products','tasting','difference'].map(id=>document.getElementById(id));
+  const menuLinks=$$('#menu a');
+  const nav=$('#nav'),prog=$('#progress'),pour=$('#pour'),pourImg=$('#pourImg'),stage=$('.pour-stage'),
+        stream=$('#stream'),drop=$('#drop'),fill=$('#fill'),pct=$('#pct'),steps=$$('.step'),
+        colImg=$('#collageImg'),diffImg=$('#diffImg'),since=$('#since'),
+        trailMask=$('#trailMask'),trailPath=$('#trailPath'),trailBee=$('#trailBee');
+  const tLen=trailPath.getTotalLength(); trailMask.style.strokeDasharray=tLen;
+  let lastY=scrollY;
+  function onScroll(){
+    const y=scrollY, H=innerHeight, max=Math.max(1,document.documentElement.scrollHeight-H);
+    prog.style.transform=`scaleX(${y/max})`;
+    const menuOpen=$('#menu').classList.contains('open');
+    nav.classList.toggle('solid',y>40);
+    if(y>700&&y>lastY+3&&!menuOpen) nav.classList.add('hide'); else if(y<lastY-3) nav.classList.remove('hide');
+    lastY=y;
+    if(!reduce){
+      const nr=nt.getBoundingClientRect(),np=clamp((H*.85-nr.top)/(nr.height+H*.3)),nn=Math.round(np*nw.length); nw.forEach((w,i)=>w.classList.toggle('lit',i<nn));
+      mphs.forEach((im,i)=>{const rr=im.parentNode.getBoundingClientRect();im.style.transform=`translate3d(0,${(rr.top+rr.height/2-H/2)*-.08-20}px,0)`});
+      const r=pour.getBoundingClientRect(); const sticky=getComputedStyle(stage).position==='sticky';
+      const p=sticky?clamp(-r.top/(r.height-H)):clamp((H-r.top)/(r.height+H*.2));
+      pourImg.style.transform=`translateY(${(p-.5)*-6}%) scale(${1+p*.08})`;
+      const lvl=clamp((p-.12)/.75), top=242-lvl*150, sp=clamp(p/.2);
+      stream.setAttribute('height',Math.max(0,(top+40)*sp*(p<.96?1:0)));
+      drop.setAttribute('r',p>.04&&p<.95?4.5:0); drop.setAttribute('cy',((p*900)%(top+10))-10);
+      fill.setAttribute('transform',`translate(${-((p*600)%80)} ${top})`);
+      pct.textContent=Math.round(lvl*100)+'%';
+      const si=p<.38?0:p<.68?1:2; steps.forEach((s,i)=>s.classList.toggle('on',sticky?i===si:true));
+      const cr=col.getBoundingClientRect(); colImg.style.transform=`translateY(${(cr.top+cr.height/2-H/2)*-.06}px) rotate(${(cr.top-H/2)*-.003}deg)`;
+      since.style.transform=`translateX(${(cr.top-H/2)*.15}px)`;
+      const dr=diffImg.parentNode.getBoundingClientRect(); diffImg.style.transform=`translateY(${(dr.top+dr.height/2-H/2)*-.08}px)`;
+      const tr=trailPath.closest('.trail').getBoundingClientRect(); const tp=clamp((H-tr.top)/(H*.7));
+      trailMask.style.strokeDashoffset=-tLen*tp;
+      const pt=trailPath.getPointAtLength(tLen*tp), pt2=trailPath.getPointAtLength(Math.min(tLen,tLen*tp+1));
+      trailBee.setAttribute('transform',`translate(${pt.x} ${pt.y}) rotate(${Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*57.3})`);
+    }
+    let c=0; secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<H*.4)c=i});
+    menuLinks.forEach((a,i)=>a.classList.toggle('on',i===c));
+  }
+  if(reduce){nw.forEach(w=>w.classList.add('lit'));pct.textContent='100%';fill.setAttribute('transform','translate(0 92)');trailMask.style.strokeDashoffset=-tLen;const pt=trailPath.getPointAtLength(tLen);trailBee.setAttribute('transform',`translate(${pt.x} ${pt.y})`)}
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',()=>{drawHex();onScroll()});
+
+  /* hexagon backdrop */
+  function drawHex(){const c=$('#hexes'),g=c.getContext('2d'),r=c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);c.width=r.width*d;c.height=r.height*d;g.setTransform(d,0,0,d,0,0);
+    const s=34,h=s*Math.sqrt(3);g.strokeStyle='rgba(165,101,15,.2)';g.lineWidth=1;
+    for(let row=-1;row*h*.5<r.height+h;row++)for(let col=-1;col*s*3<r.width+s*3;col++){const x=col*s*3+(row%2?s*1.5:0),y=row*h/2;
+      const dist=Math.hypot(x-r.width/2,(y-r.height/2)*1.6)/(r.width/2); if(dist<.55)continue; g.globalAlpha=clamp(dist-.55,0,.9);
+      g.beginPath();for(let k=0;k<6;k++){const a=Math.PI/3*k;g.lineTo(x+s*Math.cos(a),y+s*Math.sin(a))}g.closePath();g.stroke()}
+    g.globalAlpha=1}
+
+  /* process modal */
+  const stepsData=[
+    {t:'Bloom',img:'flowers',x:'It begins in spring orchards and wildflower meadows, kept free of pesticides by the farmers we partner with.'},
+    {t:'Gather',img:'hero',x:'A single bee makes about a twelfth of a teaspoon of honey in her lifetime. We let the colony set the pace.'},
+    {t:'Harvest',img:'keeper',x:'We take only surplus frames once the bees have capped them with wax, a sign the honey is fully ripe.'},
+    {t:'Jar',img:'wild',x:'Cold strained, never heated, and poured into glass within days of leaving the hive. Each lid carries its apiary code.'}];
+  let ms=0,mt; const modal=$('#modal');
+  function show(i){ms=(i+4)%4;const s=stepsData[ms];$('#mTitle').textContent=s.t;$('#mText').textContent=s.x;$('#mStep').textContent=`Step ${ms+1} of 4`;
+    const im=$('#mImg');im.style.opacity=0;setTimeout(()=>{im.src=`img/${s.img}.webp`;im.style.opacity=1},220);
+    $$('#mBar i').forEach((b,k)=>{b.className=k<ms?'done':''});const c=$$('#mBar i')[ms];void c.offsetWidth;c.className='run';
+    clearTimeout(mt);mt=setTimeout(()=>{if(ms<3)show(ms+1)},4500)}
+  $('#playBtn').addEventListener('click',()=>{modal.classList.add('open');show(0);$('#mClose').focus()});
+  const close=()=>{modal.classList.remove('open');clearTimeout(mt);$('#playBtn').focus()};
+  $('#mClose').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'){if(drawer.classList.contains('open'))openD(false);if(modal.classList.contains('open'))close()}
+    if(!modal.classList.contains('open'))return;if(e.key==='ArrowRight')show(ms+1);if(e.key==='ArrowLeft')show(ms-1)});
+  $('#mNext').addEventListener('click',()=>show(ms+1));$('#mPrev').addEventListener('click',()=>show(ms-1));
+
+  /* newsletter */
+  $('#news').addEventListener('submit',e=>{e.preventDefault();const v=$('#email').value.trim(),m=$('#newsMsg');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent='Enter an email like name@example.com.';return}
+    m.textContent='You’re in. Your first harvest note arrives next week.';$('#email').value=''});
+
+  /* ===== live honey (metaballs) ===== */
+  const hc=$('#honey'),hx=hc.getContext('2d');
+  let HW=0,HH=0,GW=0,GH=0,S=3,field,img,wave,wvel,drips=[],drops=[],level=0,base=0,T0=performance.now(),lastT=T0;
+  const ptr={x:-999,y:-999,tx:-999,ty:-999,r:0,last:0};
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  function sizeHoney(){
+    const r=hero.getBoundingClientRect();HW=r.width;HH=r.height;S=HW<700?4.2:5.2;
+    GW=Math.ceil(HW/S);GH=Math.ceil(HH/S);hc.width=GW;hc.height=GH;
+    field=new Float32Array(GW*GH);img=hx.createImageData(GW,GH);wave=new Float32Array(GW);wvel=new Float32Array(GW);
+    base=Math.max(40,HH*.075);level=base;drops=[];
+    const xs=HW<700?[.1,.34,.7,.92]:[.06,.19,.33,.68,.81,.94];
+    drips=xs.map((f,i)=>({x:f*HW+rnd(-12,12),y:4,r:5,L:rnd(.1,.26)*HH,v:rnd(14,26),wait:reduce?0:i*.7+rnd(0,1.2)}));
+    if(reduce){drips.forEach(d=>{d.y=d.L*.7;d.r=12});renderHoney(0)}
+  }
+  function step(dt,t){
+    for(const d of drips){
+      if(d.wait>0){d.wait-=dt;continue}
+      d.y+=d.v*dt*(1+d.y/d.L*.8);d.r=Math.min(15,5+d.y*.09);
+      if(d.y>=d.L){drops.push({x:d.x,y:d.y,vy:d.v*1.6,r:d.r});d.y=4;d.r=5;d.L=rnd(.1,.26)*HH;d.v=rnd(14,26);d.wait=rnd(1.5,4.5)}
+    }
+    for(let i=drops.length-1;i>=0;i--){const p=drops[i];p.vy+=900*dt;p.y+=p.vy*dt;
+      if(p.y>HH-level-6){level=Math.min(base*1.6,level+p.r*.22);const ix=Math.max(1,Math.min(GW-2,Math.round(p.x/S)));for(let k=-3;k<=3;k++){const j=ix+k;if(j>0&&j<GW-1)wvel[j]-=(4-Math.abs(k))*1.6}drops.splice(i,1)}}
+    level+=(base-level)*Math.min(1,dt*.35);
+    for(let i=1;i<GW-1;i++){wvel[i]+=(-wave[i]*.03+(wave[i-1]+wave[i+1]-2*wave[i])*.3);wvel[i]*=.965}
+    for(let i=1;i<GW-1;i++)wave[i]+=wvel[i];
+    ptr.x+=(ptr.tx-ptr.x)*Math.min(1,dt*9);ptr.y+=(ptr.ty-ptr.y)*Math.min(1,dt*9);
+    const idle=(t-ptr.last)/1000;ptr.r+=(((idle<1.2&&ptr.tx>-500)?22:0)-ptr.r)*Math.min(1,dt*4);
+  }
+  function renderHoney(t){
+    const balls=[];
+    const stems=[];
+    for(const d of drips){if(d.wait>0&&d.y<6)continue;stems.push([d.x,d.y,3.2+d.y*.012]);balls.push([d.x,d.y,d.r])}
+    const ns=stems.length;
+    for(const p of drops)balls.push([p.x,p.y,p.r*.9]);
+    if(ptr.r>1)balls.push([ptr.x,ptr.y,ptr.r]);
+    const nb=balls.length,ts=t/1000;
+    const top=new Float32Array(GW),surf=new Float32Array(GW);
+    for(let gx=0;gx<GW;gx++){const px=(gx+.5)*S;top[gx]=15+6*Math.sin(px*.011+ts*.5)+3.5*Math.sin(px*.029-ts*.35);surf[gx]=HH-level-wave[gx]-3*Math.sin(px*.008+ts*.7)}
+    for(let gy=0;gy<GH;gy++){const py=(gy+.5)*S;const row=gy*GW;
+      for(let gx=0;gx<GW;gx++){const px=(gx+.5)*S;let f=0;
+        const a=top[gx]/Math.max(1,py);f+=a*a;
+        const sd=surf[gx]+22-py;const b=22/Math.max(1,sd);f+=sd<=0?40:b*b;
+        for(let k=0;k<nb;k++){const B=balls[k],dx=px-B[0],dy=py-B[1],rr=B[2]*5;if(dx>rr||dx<-rr||dy>rr||dy<-rr)continue;f+=B[2]*B[2]/(dx*dx+dy*dy+1)}
+        for(let k=0;k<ns;k++){const st=stems[k],dx=px-st[0];if(dx>st[2]*6||dx<-st[2]*6||py>st[1]+20)continue;const dy=py>st[1]?py-st[1]:0;f+=st[2]*st[2]/(dx*dx+dy*dy+1)}
+        field[row+gx]=f}}
+    const D=img.data;const lx=-.38,ly=-.72,lz=.58;const hxv=lx,hyv=ly,hzv=lz+1,hl=Math.hypot(hxv,hyv,hzv);
+    for(let gy=0;gy<GH;gy++){for(let gx=0;gx<GW;gx++){const i=gy*GW+gx,f=field[i],o=i*4;
+      if(f<.82){D[o+3]=0;continue}
+      const fl=field[i-(gx>0?1:0)],fr=field[i+(gx<GW-1?1:0)],fu=field[i-(gy>0?GW:0)],fd=field[i+(gy<GH-1?GW:0)];
+      let nx=-(Math.min(fr,6)-Math.min(fl,6)),ny=-(Math.min(fd,6)-Math.min(fu,6)),nz=.55;const nl=Math.hypot(nx,ny,nz);nx/=nl;ny/=nl;nz/=nl;
+      const diff=Math.max(0,nx*lx+ny*ly+nz*lz),sp=Math.pow(Math.max(0,(nx*hxv+ny*hyv+nz*hzv)/hl),38);
+      const th=Math.min(.8,Math.max(0,(Math.min(f,3)-1)/2.2));
+      let r=248-(248-200)*th,g=200-(200-122)*th,bl=92-(92-22)*th;const sh=.78+.32*diff;
+      r=r*sh+sp*235;g=g*sh+sp*225;bl=bl*sh+sp*190;
+      const al=Math.min(1,Math.max(0,(f-.82)/.3));
+      D[o]=r>255?255:r;D[o+1]=g>255?255:g;D[o+2]=bl>255?255:bl;D[o+3]=al*(225+30*th)}}
+    hx.putImageData(img,0,0);
+  }
+  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();ptr.tx=e.clientX-r.left;ptr.ty=e.clientY-r.top;if(ptr.x<-500){ptr.x=ptr.tx;ptr.y=ptr.ty}ptr.last=performance.now()});
+  hero.addEventListener('pointerleave',()=>{ptr.last=0});
+  if(matchMedia('(pointer:coarse)').matches)$('#hint span').textContent='Touch the honey';
+  let hf=0;function honeyLoop(t){const dt=Math.max(0,Math.min(.04,(t-lastT)/1000));lastT=t;
+    if(scrollY<HH&&!document.hidden){step(dt,t);if((hf=(hf+1)%2)===0&&!document.getElementById('mx-load'))renderHoney(t-T0)}
+    requestAnimationFrame(honeyLoop)}
+  addEventListener('resize',sizeHoney);
+  sizeHoney(); if(!reduce)requestAnimationFrame(honeyLoop);
+
+  drawHex(); onScroll();
+})();
+</script>
+<script defer src="vendor/three.min.js"></script>
+<script defer src="vendor/GLTFLoader.js"></script>
+<script defer src="vendor/meshopt_decoder.js"></script>
+<script defer src="bee.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="motion.js"></script>
+
+</body>
+</html>

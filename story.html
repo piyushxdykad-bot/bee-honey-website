@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Story · Bee</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cellipse cx=%2216%22 cy=%2219%22 rx=%226%22 ry=%229%22 fill=%22%23E8B74A%22/%3E%3Cpath d=%22M10.4 16h11.2M10 20h12M11 24h10%22 stroke=%22%231E1D16%22 stroke-width=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%229.5%22 r=%223%22 fill=%22%231E1D16%22/%3E%3C/svg%3E">
+<style>html.mx-covering::after{content:"";position:fixed;inset:0;background:#B9741C;z-index:299}</style>
+<style>html.mx-loading::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 55% at 50% 42%,#FFFBF2 0%,#F7EFDF 55%,#EFE3C8 100%);z-index:349}</style>
+<script>try{var R=matchMedia('(prefers-reduced-motion: reduce)').matches,H=document.documentElement;if(sessionStorage.getItem('mx-nav')&&!R){H.classList.add('mx-covering');setTimeout(function(){H.classList.remove('mx-covering')},2500)}else if(!sessionStorage.getItem('bee-seen')&&!R){H.classList.add('mx-loading');setTimeout(function(){H.classList.remove('mx-loading')},12000)}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Nothing+You+Could+Do&display=swap">
+<style>
+/* Layout: same bento language as the home page; story told as hero → manifesto (scroll-lit words) → pinned horizontal timeline → values bento → apiaries → founder note → CTA. */
+:root{
+  --night:#14110A; --cream:#F5EDDC; --paper:#FBF6EC; --sand:#EEE2C6;
+  --ink:#1E1D16; --muted:#6F6A57; --line:#DCCDAE;
+  --honey:#D99A1F; --amber:#A5650F; --gold:#E8B74A; --pale:#F7E3B0;
+  --forest:#1B2117; --forest-2:#283022; --on-dark:#F1E8D2; --on-dark-muted:#A9A189;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-hand:"Nothing You Could Do","Segoe Script",cursive;
+  --ease:cubic-bezier(.2,.7,.1,1); --ease-io:cubic-bezier(.7,0,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.035em}
+h3{letter-spacing:-.02em;font-weight:600}
+h1 em,h2 em{font-style:normal;color:var(--amber)}
+p{margin:0}
+[hidden]{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:9px;height:10px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--pale),var(--gold),var(--amber));z-index:70}
+
+/* nav */
+header.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;z-index:50;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));transition:transform .6s var(--ease)}
+header.nav.hide{transform:translateY(calc(-100% - 20px))}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:24px;max-width:1180px;margin:0 auto;padding:0 8px 0 22px;border-radius:99px;background:rgba(251,246,236,.75);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(220,205,174,.7);box-shadow:0 10px 40px -18px rgba(90,60,10,.25)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:24px;font-weight:700;text-decoration:none;letter-spacing:-.03em;line-height:1}
+.logo svg{width:26px;height:26px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;opacity:.75;padding:8px 14px;border-radius:99px;display:block;transition:opacity .3s,background .3s}
+.nav ul a:hover{opacity:1}
+.nav ul a.on{opacity:1;background:var(--ink);color:var(--paper)}
+.tools{display:flex;gap:4px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:inherit;text-decoration:none;transition:background .3s}
+.icon-btn:hover{background:rgba(30,29,22,.07)}
+.menu-btn{display:none}
+
+/* buttons */
+.cta-dark{display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;font-weight:500;box-shadow:0 18px 40px -18px rgba(30,29,22,.7);transition:transform .4s var(--ease)}
+.cta-dark .arr{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
+.cta-dark:hover{transform:translateY(-2px)}.cta-dark:hover .arr{transform:rotate(-45deg)}
+.cta-glass{display:inline-flex;align-items:center;gap:12px;padding:7px 22px 7px 7px;border-radius:99px;background:rgba(255,255,255,.7);border:1px solid var(--line);text-decoration:none;font-size:15px;font-weight:500;transition:background .3s}
+.cta-glass:hover{background:#fff}
+.cta-glass .pl{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:var(--cream)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.loaded .up{opacity:1;transform:none}
+.up{opacity:0;transform:translateY(22px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.d1{transition-delay:.4s}.d2{transition-delay:.55s}.d3{transition-delay:.7s}.d4{transition-delay:.9s}
+
+/* HERO */
+.hero{padding:calc(88px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px))}
+.shell{position:relative;max-width:1480px;margin:0 auto;border-radius:34px;background:var(--paper);overflow:hidden;isolation:isolate;border:1px solid rgba(220,205,174,.6);padding:clamp(28px,4vw,60px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:end}
+.mesh{position:absolute;inset:-20%;z-index:-1;pointer-events:none;filter:blur(60px);background:radial-gradient(30% 34% at 12% 20%,rgba(247,227,176,.95),transparent 70%),radial-gradient(30% 30% at 70% 90%,rgba(232,183,74,.3),transparent 70%);animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) rotate(5deg)}}
+.crumb{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center;margin-bottom:28px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+.hero h1{font-size:clamp(52px,7.4vw,128px);font-weight:700;line-height:.9;letter-spacing:-.055em}
+.hero h1 .row{display:block;overflow:hidden;padding:.02em 0 .08em}
+.hero h1 .row > span{display:inline-block;transform:translateY(105%);transition:transform 1.2s var(--ease)}
+.loaded .hero h1 .row > span{transform:none}
+.loaded .hero h1 .row:nth-child(2) > span{transition-delay:.1s}.loaded .hero h1 .row:nth-child(3) > span{transition-delay:.2s}
+.grad{background:linear-gradient(100deg,#F0B43A 0%,#D99A1F 35%,#B5650C 70%,#E6A42E 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gshift 8s ease-in-out infinite alternate;padding-right:.04em}
+@keyframes gshift{to{background-position:100% 0}}
+.lede{max-width:520px;font-size:clamp(17px,1.4vw,20px);color:var(--muted);margin-top:30px;line-height:1.55}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.h-media{position:relative;display:grid;gap:12px;grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+.h-media .big{grid-column:1/-1;border-radius:24px;overflow:hidden;aspect-ratio:4/3.1;position:relative;clip-path:inset(100% 0 0 0 round 24px);transition:clip-path 1.5s var(--ease-io) .2s;max-width:100%}
+.loaded .h-media .big{clip-path:inset(0 0 0 0 round 24px)}
+.h-media .big img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 2.4s var(--ease)}
+.loaded .h-media .big img{transform:none}
+.tile{border-radius:20px;padding:18px;display:grid;align-content:space-between;gap:20px;min-height:132px}
+.tile.dark{background:var(--ink);color:var(--paper)}
+.tile.honey{background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink)}
+.tile small{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.tile b{font-family:var(--f-display);font-size:clamp(34px,3.4vw,52px);font-weight:700;letter-spacing:-.05em;line-height:.9;font-variant-numeric:tabular-nums}
+.stamp{position:absolute;right:16px;top:16px;z-index:2;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;padding:8px 14px;border-radius:99px;background:rgba(251,246,236,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+
+/* MANIFESTO */
+.manifesto{padding-block:clamp(110px,14vw,190px)}
+.manifesto .wrap{max-width:1180px}
+.manifesto p.big{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,4.4vw,64px);line-height:1.08;letter-spacing:-.04em;margin-top:28px}
+.manifesto .w{opacity:.14;transition:opacity .25s}
+.manifesto .w.lit{opacity:1}
+.manifesto .w.hl{color:var(--amber)}
+.manifesto .inl{display:inline-block;width:1.5em;height:.72em;border-radius:99px;overflow:hidden;vertical-align:middle;margin:-.1em .08em 0;opacity:.14;transition:opacity .3s}
+.manifesto .inl.lit{opacity:1}
+.manifesto .inl img{width:100%;height:100%;object-fit:cover}
+.sign{display:flex;align-items:center;gap:16px;margin-top:44px}
+.sign .hand{font-family:var(--f-hand);font-size:30px;color:var(--amber);transform:rotate(-4deg)}
+.sign span{font-size:13px;color:var(--muted)}
+
+/* TIMELINE */
+.timeline{position:relative;background:var(--night);color:var(--on-dark);height:var(--h,400vh)}
+.t-sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,4vh,56px)}
+.t-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.timeline .eyebrow{color:var(--on-dark-muted)}
+.t-head h2{font-size:clamp(40px,4.8vw,76px);margin-top:16px}
+.t-head h2 em{color:var(--gold)}
+.t-count{font-family:var(--f-mono);font-size:13px;color:var(--on-dark-muted);font-variant-numeric:tabular-nums}
+.t-count b{color:var(--gold);font-weight:500}
+.track{display:flex;gap:20px;padding-left:max(24px,env(safe-area-inset-left,0px),calc((100vw - 1280px)/2 + 24px));padding-right:max(24px,env(safe-area-inset-right,0px));will-change:transform}
+.yr{flex:none;width:clamp(290px,30vw,420px);border-radius:24px;background:rgba(251,246,236,.05);border:1px solid rgba(241,232,210,.12);padding:22px;display:grid;gap:18px;align-content:start;transition:background .5s,border-color .5s}
+.yr.on{background:rgba(251,246,236,.1);border-color:rgba(232,183,74,.45)}
+.yr .ph{aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--forest-2);max-width:100%}
+.yr .ph img{width:100%;height:100%;object-fit:cover}
+.yr .y{font-family:var(--f-display);font-size:clamp(54px,5vw,80px);font-weight:700;letter-spacing:-.06em;line-height:.85;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.7);transition:color .6s}
+.yr.on .y{color:var(--gold);-webkit-text-stroke:0}
+.yr h3{font-size:24px}
+.yr p{font-size:14.5px;color:var(--on-dark-muted)}
+.yr .kpi{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border-top:1px solid rgba(241,232,210,.12);padding-top:14px}
+.rail{height:2px;background:rgba(241,232,210,.12);border-radius:2px;overflow:hidden}
+.rail i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--honey));transform-origin:0 50%;transform:scaleX(0)}
+
+/* VALUES BENTO */
+.values{padding-block:clamp(110px,12vw,160px)}
+.v-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.v-head h2{font-size:clamp(44px,5.2vw,84px);margin-top:16px}
+.v-head p{max-width:360px;color:var(--muted)}
+.bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(240px,auto);gap:14px}
+.b{border-radius:26px;padding:28px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:24px;background:var(--paper);border:1px solid rgba(220,205,174,.7);transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.b:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(90,60,10,.5)}
+.b .no{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.b h3{font-size:clamp(26px,2.3vw,34px);letter-spacing:-.035em}
+.b p{color:var(--muted);font-size:15px;max-width:380px}
+.b.w2{grid-column:span 2}.b.h2{grid-row:span 2}
+.b.img{padding:0;border:0;min-height:280px}
+.b.img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.b.img:hover img{transform:scale(1.05)}
+.b.img .cap{position:absolute;left:16px;bottom:16px;right:16px;padding:14px 16px;border-radius:16px;background:rgba(251,246,236,.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);font-size:14px}
+.b.img .cap b{display:block;font-family:var(--f-display);font-size:19px;letter-spacing:-.02em}
+.b.dark{background:var(--ink);color:var(--paper);border:0}
+.b.dark p{color:#BDB59D}.b.dark .no{color:#8F8873}
+.b.honey{background:linear-gradient(140deg,var(--pale),var(--gold) 70%);border:0}
+.b.honey p,.b.honey .no{color:#5A4413}
+.meter{display:grid;gap:10px}
+.meter .lbl{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em}
+.meter .tr{height:10px;border-radius:99px;background:rgba(30,29,22,.12);overflow:hidden}
+.meter .tr i{display:block;height:100%;border-radius:99px;background:var(--ink);width:0;transition:width 1.6s var(--ease) .2s}
+.b.in .meter .tr i{width:var(--v)}
+.big-n{font-family:var(--f-display);font-weight:700;font-size:clamp(64px,7vw,110px);letter-spacing:-.06em;line-height:.85;font-variant-numeric:tabular-nums}
+.hexgrid{position:absolute;right:-30px;top:-30px;width:220px;opacity:.16}
+
+/* APIARIES */
+.apiaries{background:var(--paper);padding-block:clamp(100px,12vw,150px);border-block:1px solid var(--line)}
+.ap-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:start}
+.ap-grid h2{font-size:clamp(42px,4.6vw,72px);margin:16px 0 22px}
+.ap-grid .intro{color:var(--muted);max-width:400px}
+.ap-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.ap{border-bottom:1px solid var(--line)}
+.ap button{width:100%;background:none;border:0;font:inherit;color:inherit;cursor:pointer;display:grid;grid-template-columns:52px minmax(0,1fr) auto 32px;gap:16px;align-items:center;padding:22px 0;text-align:left}
+.ap .ix{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.ap .nm{font-family:var(--f-display);font-size:clamp(24px,2.4vw,36px);font-weight:600;letter-spacing:-.035em;line-height:1.05}
+.ap .fl{font-size:13.5px;color:var(--muted);text-align:right}
+.ap .pm{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .5s var(--ease),background .3s}
+.ap button[aria-expanded="true"] .pm{transform:rotate(45deg);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ap button:hover .nm{color:var(--amber)}
+.ap .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.ap .body > div{overflow:hidden}
+.ap button[aria-expanded="true"] + .body{grid-template-rows:1fr}
+.ap dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 26px 68px;padding:18px;border-radius:18px;background:var(--cream)}
+.ap dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ap dd{margin:4px 0 0;font-size:15px;font-weight:500}
+
+/* FOUNDER NOTE */
+.note{padding-block:clamp(110px,12vw,170px)}
+.note-card{position:relative;max-width:1180px;margin:0 auto;border-radius:34px;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--ink);color:var(--paper)}
+.note-card .pic{position:relative;min-height:420px}
+.note-card .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.note-card .txt{padding:clamp(32px,5vw,72px);display:flex;flex-direction:column;justify-content:center;gap:26px}
+.note-card blockquote{margin:0;font-family:var(--f-display);font-weight:500;font-size:clamp(26px,2.6vw,40px);line-height:1.15;letter-spacing:-.03em}
+.note-card blockquote em{font-style:normal;color:var(--gold)}
+.note-card .who{display:flex;align-items:center;gap:14px;font-size:14px;color:#BDB59D}
+.note-card .who .hand{font-family:var(--f-hand);font-size:28px;color:var(--gold)}
+
+/* CTA */
+.final{padding:0 max(12px,env(safe-area-inset-right,0px)) 12px max(12px,env(safe-area-inset-left,0px))}
+.final .shell{display:block;text-align:center;padding-block:clamp(80px,10vw,140px)}
+.final h2{font-size:clamp(46px,6.4vw,110px);font-weight:700;letter-spacing:-.055em;line-height:.92}
+.final p{color:var(--muted);max-width:440px;margin:24px auto 34px}
+.final .hero-actions{justify-content:center}
+
+/* footer */
+footer{background:var(--forest);color:var(--on-dark);overflow:hidden;margin-top:12px}
+footer .wrap{padding-block:72px 0}
+.f-row{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start}
+footer .logo{color:var(--gold)}
+footer p,footer a{color:var(--on-dark-muted);font-size:14px;text-decoration:none}
+footer nav{display:flex;gap:28px;flex-wrap:wrap}
+footer nav a:hover{color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--forest-2);margin-top:56px;padding-top:22px;font-size:12.5px;color:var(--on-dark-muted)}
+.wordmark{font-family:var(--f-display);font-weight:800;font-size:clamp(120px,30vw,460px);line-height:.78;letter-spacing:-.06em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.28);margin-top:40px;user-select:none;white-space:nowrap}
+
+/* cursor */
+.cursor{position:fixed;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--honey);z-index:120;pointer-events:none;opacity:0;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s,opacity .3s}
+.cursor.on{opacity:1}
+.cursor.big{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(232,183,74,.3)}
+@media (pointer:coarse){.cursor{display:none}}
+
+@media (max-width:1080px){
+  .nav ul{display:none}.menu-btn{display:grid}
+  .nav ul.open{display:grid;position:absolute;top:70px;left:12px;right:12px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;gap:4px;font-size:17px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .b.h2{grid-row:span 1}
+}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;border-radius:28px}
+  .timeline{height:auto!important}
+  .t-sticky{position:relative;height:auto;padding-block:100px}
+  .track{flex-direction:column;transform:none!important;padding-right:max(24px,env(safe-area-inset-right,0px))}
+  .yr{width:auto}
+  .yr .y{color:var(--gold);-webkit-text-stroke:0}
+  .rail{display:none}
+  .ap-grid,.note-card{grid-template-columns:1fr}
+  .ap-grid{gap:40px}
+  .ap dl{margin-left:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .note-card .pic{min-height:300px}
+}
+@media (max-width:560px){
+  .bento{grid-template-columns:1fr}
+  .b.w2{grid-column:auto}
+  .ap button{grid-template-columns:36px minmax(0,1fr) 32px}
+  .ap .fl{display:none}
+  .tile b{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.up{opacity:1;transform:none}
+  .hero h1 .row > span{transform:none}
+  .h-media .big{clip-path:none}
+  .manifesto .w,.manifesto .inl{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="index.html" aria-label="Bee home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1E1D16" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#1E1D16"/></svg>Bee</a>
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html" class="on" aria-current="page">Our Story</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="tasting.html">Tasting</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+    </ul>
+    <div class="tools">
+      <a class="icon-btn" href="products.html" aria-label="Shop"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+      <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" type="button" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M8 15h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="shell">
+      <div class="mesh" aria-hidden="true"></div>
+      <div>
+        <p class="crumb up"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Our story</span></p>
+        <h1 aria-label="Four hives. One stubborn idea."><span class="row"><span>Four hives.</span></span><span class="row"><span>One <span class="grad">stubborn</span></span></span><span class="row"><span>idea.</span></span></h1>
+        <p class="lede up d1">In 2014 we kept four hives behind a coffee estate in Coorg. The idea was simple: honey should taste like the place it came from, and it should leave the bees better off than it found them. Twelve years later, nothing about that has changed.</p>
+        <div class="hero-actions up d2">
+          <a class="cta-dark" href="#timeline">Read the journey <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
+          <a class="cta-glass" href="products.html"><span class="pl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/></svg></span>Shop the harvest</a>
+        </div>
+      </div>
+      <div class="h-media">
+        <div class="big"><img src="img/keeper.webp" alt="A beekeeper in gloves lifts a capped honeycomb frame from the hive"><span class="stamp">EST. 2014 · COORG, KARNATAKA</span></div>
+        <div class="tile dark up d3"><small>Then</small><b>4</b><small>hives, one family</small></div>
+        <div class="tile honey up d4"><small>Now</small><b data-count="240">240</b><small>hives, 18 keepers</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="manifesto">
+    <div class="wrap">
+      <p class="eyebrow">What we believe</p>
+      <p class="big" id="mf">We believe honey is a <span data-hl>place</span> in a jar. <span data-img="drip"></span> The flowers, the season and the hands that kept the hive should all be in the taste. So we never heat it, never blend it, and never take more than the <span data-hl>bees</span> can spare. <span data-img="comb"></span> Slow honey, honestly made.</p>
+      <div class="sign rv"><span class="hand">the Bee family</span><span>Beekeepers since 2014</span></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline" id="timeline">
+    <div class="t-sticky">
+      <div class="wrap t-head">
+        <div><p class="eyebrow">The journey</p><h2>Twelve years, <em>one hive</em> at a time.</h2></div>
+        <p class="t-count"><b id="tNow">2014</b> / 2026</p>
+      </div>
+      <div class="track" id="track">
+        <article class="yr on"><div class="ph"><img src="img/flowers.webp" alt="White coffee blossoms"></div><span class="y">2014</span><h3>Four hives in Coorg</h3><p>Our first colonies sat between rows of coffee plants. That spring, coffee blossom honey was the first jar we ever filled.</p><span class="kpi">4 hives · 1 family</span></article>
+        <article class="yr"><div class="ph"><img src="img/drip.webp" alt="Honey dripping onto a blossom"></div><span class="y">2016</span><h3>The first market stall</h3><p>Forty jars on a folding table at the Madikeri Sunday market. They were gone by noon, and people came back asking what flower it was.</p><span class="kpi">40 jars · sold out</span></article>
+        <article class="yr"><div class="ph"><img src="img/frame.webp" alt="A honeycomb frame held by a beekeeper"></div><span class="y">2018</span><h3>Keepers join us</h3><p>Six family beekeepers in Karnataka and Himachal joined. We agreed on one rule: pay fairly, and pay before the harvest, not after.</p><span class="kpi">7 apiaries · 2 states</span></article>
+        <article class="yr"><div class="ph"><img src="img/comb.webp" alt="A block of golden honeycomb"></div><span class="y">2021</span><h3>Every lid, traceable</h3><p>We started lab testing every batch and printing an apiary code on each lid, so you can see exactly whose hives your honey came from.</p><span class="kpi">100% of batches tested</span></article>
+        <article class="yr"><div class="ph"><img src="img/acacia.webp" alt="A glass jar of acacia honey"></div><span class="y">2024</span><h3>Plastic-free, end to end</h3><p>Glass jars, metal lids, paper tape and recycled card. The last piece of plastic left our packing line that summer.</p><span class="kpi">0 g plastic per order</span></article>
+        <article class="yr"><div class="ph"><img src="img/hero.webp" alt="A honeybee near white blossoms"></div><span class="y">2026</span><h3>240 hives and counting</h3><p>Eighteen keepers across four regions, and still poured by hand in small batches. Batch 014 of this spring is on the shelf now.</p><span class="kpi">240 hives · 18 keepers</span></article>
+      </div>
+      <div class="wrap"><div class="rail"><i id="rail"></i></div></div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="wrap">
+      <div class="v-head">
+        <div><p class="eyebrow rv">How we work</p><h2 class="rv">Four promises, <em>kept.</em></h2></div>
+        <p class="rv">These are the rules every apiary signs up to. They shape every jar, and we check them every season.</p>
+      </div>
+      <div class="bento">
+        <article class="b dark w2 rv">
+          <span class="no">PROMISE 01</span>
+          <div><h3>Bees come first.</h3><p style="margin-top:12px">We leave at least a third of every hive’s honey for winter, and never feed sugar syrup to boost a harvest.</p></div>
+          <div class="meter"><div class="lbl"><span>Honey left in each hive</span><span>≥ 33%</span></div><div class="tr" style="background:rgba(241,232,210,.15)"><i style="--v:33%;background:var(--gold)"></i></div></div>
+        </article>
+        <article class="b img h2 rv"><img src="img/beecomb.webp" alt="A bee resting on golden comb"><div class="cap"><b>Colonies, not quotas</b>Hives are split naturally in spring, never pushed.</div></article>
+        <article class="b rv">
+          <span class="no">PROMISE 02</span>
+          <div><h3>Raw, always.</h3><p style="margin-top:10px">Never heated above 35°C. Never blended across seasons.</p></div>
+        </article>
+        <article class="b w2 rv">
+          <span class="no">PROMISE 03</span>
+          <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap"><div><h3>Traceable to the hive.</h3><p style="margin-top:10px">Every lid carries an apiary code and harvest month. Every batch is tested for purity and moisture.</p></div><span class="big-n" data-count="100" data-suffix="%">100%</span></div>
+          <div class="meter"><div class="lbl"><span>Batches lab tested</span><span>100%</span></div><div class="tr"><i style="--v:100%"></i></div></div>
+        </article>
+        <article class="b honey rv">
+          <span class="no">PROMISE 04</span>
+          <div><h3>Fair to keepers.</h3><p style="margin-top:10px">Paid before harvest, at a price agreed together each year.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- APIARIES -->
+  <section class="apiaries">
+    <div class="wrap ap-grid">
+      <div>
+        <p class="eyebrow rv">Where it comes from</p>
+        <h2 class="rv">Four regions. Four <em>flavours.</em></h2>
+        <p class="intro rv">Each region flowers at a different time of year, so our harvest moves with the seasons. Open one to see what blooms there.</p>
+      </div>
+      <ul class="ap-list rv" id="aps">
+        <li class="ap"><button type="button" aria-expanded="true"><span class="ix">01</span><span class="nm">Coorg, Karnataka</span><span class="fl">Coffee blossom, wildflower</span><span class="pm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          <div class="body"><div><dl><div><dt>Altitude</dt><dd>900–1,100 m</dd></div><div><dt>Harvest</dt><dd>Mar – May</dd></div><div><dt>Keepers</dt><dd>7</dd></div><div><dt>Becomes</dt><dd>Wildflower</dd></div></dl></div></div></li>
+        <li class="ap"><button type="button" aria-expanded="false"><span class="ix">02</span><span class="nm">Kangra, Himachal</span><span class="fl">Acacia, mountain herbs</span><span class="pm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          <div class="body"><div><dl><div><dt>Altitude</dt><dd>1,200–1,600 m</dd></div><div><dt>Harvest</dt><dd>Apr – Jun</dd></div><div><dt>Keepers</dt><dd>6</dd></div><div><dt>Becomes</dt><dd>Acacia</dd></div></dl></div></div></li>
+        <li class="ap"><button type="button" aria-expanded="false"><span class="ix">03</span><span class="nm">Western Ghats, Kerala</span><span class="fl">Forest flora, honeycomb</span><span class="pm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          <div class="body"><div><dl><div><dt>Altitude</dt><dd>600–900 m</dd></div><div><dt>Harvest</dt><dd>Jan – Mar</dd></div><div><dt>Keepers</dt><dd>4</dd></div><div><dt>Becomes</dt><dd>Honey Comb</dd></div></dl></div></div></li>
+        <li class="ap"><button type="button" aria-expanded="false"><span class="ix">04</span><span class="nm">Northland, New Zealand</span><span class="fl">Manuka, partner apiary</span><span class="pm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          <div class="body"><div><dl><div><dt>Grade</dt><dd>MGO 263+</dd></div><div><dt>Harvest</dt><dd>Dec – Jan</dd></div><div><dt>Partner</dt><dd>1 family apiary</dd></div><div><dt>Becomes</dt><dd>Manuka</dd></div></dl></div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOUNDER NOTE -->
+  <section class="note">
+    <div class="wrap">
+      <div class="note-card rv">
+        <div class="pic"><img src="img/frame.webp" alt="Honeycomb frame surrounded by wildflowers"></div>
+        <div class="txt">
+          <p class="eyebrow" style="color:#A9A189">A note from the hives</p>
+          <blockquote>“The bees did all the hard work. Our job has only ever been to <em>stay out of their way</em>, and to get their honey to you exactly as they made it.”</blockquote>
+          <div class="who"><span class="hand">Bee</span><span>The founding family, Coorg</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final">
+    <div class="shell rv">
+      <div class="mesh" aria-hidden="true"></div>
+      <p class="eyebrow">Taste the story</p>
+      <h2 style="margin-top:20px">Every jar is a <span class="grad">chapter.</span></h2>
+      <p>Spring harvest 2026 is poured and ready. Find the honey from the region you just read about.</p>
+      <div class="hero-actions">
+        <a class="cta-dark" href="products.html">Shop the harvest <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="cta-glass" href="tasting.html"><span class="pl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span>Tasting guide</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-row">
+      <div><a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1B2117" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#F1E8D2"/></svg>Bee</a><p style="margin-top:14px">Pure Honey. A Brighter Tomorrow.</p></div>
+      <nav aria-label="Footer"><a href="index.html">Home</a><a href="story.html">Our Story</a><a href="products.html">Shop</a><a href="tasting.html">Tasting Guide</a><a href="sustainability.html">Sustainability</a></nav>
+    </div>
+    <div class="f-bot"><span>© 2026 Bee. All rights reserved.</span><span>Privacy Policy · Terms &amp; Conditions</span></div>
+    <div class="wordmark" aria-hidden="true">Bee</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, fine=matchMedia('(pointer:fine)').matches;
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('loaded')));
+
+  /* manifesto words */
+  const mf=$('#mf'); const out=document.createDocumentFragment();
+  mf.childNodes.forEach(n=>{
+    if(n.nodeType===3){n.textContent.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){out.appendChild(document.createTextNode(' '));return}const s=document.createElement('span');s.className='w';s.textContent=p;out.appendChild(s)})}
+    else if(n.dataset.img!==undefined){const s=document.createElement('span');s.className='inl';s.setAttribute('aria-hidden','true');s.innerHTML=`<img src="img/${n.dataset.img}.webp" alt="">`;out.appendChild(s)}
+    else{const s=document.createElement('span');s.className='w hl';s.textContent=n.textContent;out.appendChild(s)}
+  });
+  mf.innerHTML='';mf.appendChild(out);
+  const mw=$$('#mf .w,#mf .inl');
+
+  /* menu */
+  $('#menuBtn').addEventListener('click',function(){const o=$('#menu').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+
+  /* accordion */
+  $('#aps').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const open=b.getAttribute('aria-expanded')==='true';
+    $$('#aps button').forEach(x=>x.setAttribute('aria-expanded','false'));b.setAttribute('aria-expanded',String(!open))});
+
+  /* reveal + counts */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);e.target.querySelectorAll('[data-count]').forEach(countUp)}}),{threshold:.15});
+  $$('.rv').forEach(el=>io.observe(el));
+  function countUp(el){const t=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce){el.textContent=t+suf;return}
+    const st=performance.now();(function f(n){const k=Math.min(1,(n-st)/1600);el.textContent=Math.round(t*(1-Math.pow(1-k,3)))+suf;if(k<1)requestAnimationFrame(f)})(st)}
+
+  /* timeline sizing */
+  const tl=$('#timeline'),track=$('#track'),yrs=$$('.yr'),rail=$('#rail'),tNow=$('#tNow');
+  function sizeTL(){if(innerWidth<=860){tl.style.removeProperty('--h');return}
+    const dist=track.scrollWidth-innerWidth; tl.style.setProperty('--h',(innerHeight+Math.max(0,dist)*1.1)+'px')}
+
+  /* scroll */
+  const nav=$('#nav'),prog=$('#progress'); let lastY=scrollY;
+  function onScroll(){
+    const y=scrollY,H=innerHeight,max=Math.max(1,document.documentElement.scrollHeight-H);
+    prog.style.transform=`scaleX(${y/max})`;
+    if(y>500&&y>lastY+3&&!$('#menu').classList.contains('open'))nav.classList.add('hide');else if(y<lastY-3)nav.classList.remove('hide');lastY=y;
+    if(!reduce){const r=mf.getBoundingClientRect();const p=clamp((H*.85-r.top)/(r.height+H*.25));const n=Math.round(p*mw.length);mw.forEach((w,i)=>w.classList.toggle('lit',i<n))}
+    else mw.forEach(w=>w.classList.add('lit'));
+    if(innerWidth>860){const r=tl.getBoundingClientRect();const p=clamp(-r.top/(r.height-H));const dist=track.scrollWidth-innerWidth;
+      track.style.transform=`translate3d(${-p*Math.max(0,dist)}px,0,0)`;rail.style.transform=`scaleX(${p})`;
+      const i=Math.min(yrs.length-1,Math.round(p*(yrs.length-1)));yrs.forEach((c,k)=>c.classList.toggle('on',k===i));tNow.textContent=yrs[i].querySelector('.y').textContent}
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',()=>{sizeTL();onScroll()});
+  addEventListener('load',()=>{sizeTL();onScroll()});
+
+  /* cursor */
+  const cur=$('#cursor');let cx=-100,cy=-100,x=-100,y=-100;
+  if(fine&&!reduce){addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cur.classList.add('on')});
+    document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('a,button,.b')));
+    (function l(){x+=(cx-x)*.22;y+=(cy-y)*.22;cur.style.transform=`translate3d(${x}px,${y}px,0)`;requestAnimationFrame(l)})()}
+
+  sizeTL();onScroll();
+})();
+</script>
+<script defer src="vendor/three.min.js"></script>
+<script defer src="vendor/GLTFLoader.js"></script>
+<script defer src="vendor/meshopt_decoder.js"></script>
+<script defer src="bee.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="motion.js"></script>
+</body>
+</html>

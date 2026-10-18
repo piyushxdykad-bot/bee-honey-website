@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sustainability · Bee</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cellipse cx=%2216%22 cy=%2219%22 rx=%226%22 ry=%229%22 fill=%22%23E8B74A%22/%3E%3Cpath d=%22M10.4 16h11.2M10 20h12M11 24h10%22 stroke=%22%231E1D16%22 stroke-width=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%229.5%22 r=%223%22 fill=%22%231E1D16%22/%3E%3C/svg%3E">
+<style>html.mx-covering::after{content:"";position:fixed;inset:0;background:#B9741C;z-index:299}</style>
+<style>html.mx-loading::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 55% at 50% 42%,#FFFBF2 0%,#F7EFDF 55%,#EFE3C8 100%);z-index:349}</style>
+<script>try{var R=matchMedia('(prefers-reduced-motion: reduce)').matches,H=document.documentElement;if(sessionStorage.getItem('mx-nav')&&!R){H.classList.add('mx-covering');setTimeout(function(){H.classList.remove('mx-covering')},2500)}else if(!sessionStorage.getItem('bee-seen')&&!R){H.classList.add('mx-loading');setTimeout(function(){H.classList.remove('mx-loading')},12000)}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Nothing+You+Could+Do&display=swap">
+<style>
+/* Layout: proof, not promises — a drawn map of every hive as the hero → kept promises → where your ₹599 goes → trace your jar → the jar loop → plant for bees at home. */
+:root{
+  --night:#14110A; --cream:#F5EDDC; --paper:#FBF6EC; --sand:#EEE2C6;
+  --ink:#1E1D16; --muted:#6F6A57; --line:#DCCDAE;
+  --honey:#D99A1F; --amber:#A5650F; --gold:#E8B74A; --pale:#F7E3B0;
+  --forest:#1B2117; --forest-2:#283022; --on-dark:#F1E8D2; --on-dark-muted:#A9A189;
+  /* region series (validated, fixed order) */
+  --r1:#B87A0E; --r2:#3D63B8; --r3:#1E8A5E; --r4:#A33A2A;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-hand:"Nothing You Could Do","Segoe Script",cursive;
+  --ease:cubic-bezier(.2,.7,.1,1); --ease-io:cubic-bezier(.7,0,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.035em}
+h3{letter-spacing:-.02em}
+h1 em,h2 em{font-style:normal;color:var(--amber)}
+p{margin:0}
+[hidden]{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:9px;height:10px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.up{opacity:0;transform:translateY(20px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.loaded .up{opacity:1;transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* nav */
+header.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;z-index:50;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));transition:transform .6s var(--ease)}
+header.nav.hide{transform:translateY(calc(-100% - 20px))}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:24px;max-width:1180px;margin:0 auto;padding:0 8px 0 22px;border-radius:99px;background:rgba(251,246,236,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(220,205,174,.7);box-shadow:0 10px 40px -18px rgba(90,60,10,.25)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:24px;font-weight:700;text-decoration:none;letter-spacing:-.03em;line-height:1}
+.logo svg{width:26px;height:26px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;opacity:.75;padding:8px 14px;border-radius:99px;display:block;transition:opacity .3s,background .3s}
+.nav ul a:hover{opacity:1}
+.nav ul a.on{opacity:1;background:var(--ink);color:var(--paper)}
+.tools{display:flex;gap:4px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:inherit;text-decoration:none;position:relative;transition:background .3s}
+.icon-btn:hover{background:rgba(30,29,22,.07)}
+.menu-btn{display:none}
+.cta-dark{display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;font-weight:500;border:0;cursor:pointer;box-shadow:0 18px 40px -18px rgba(30,29,22,.7);transition:transform .4s var(--ease)}
+.cta-dark .arr{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
+.cta-dark:hover{transform:translateY(-2px)}.cta-dark:hover .arr{transform:rotate(-45deg)}
+
+/* HERO + HIVE MAP */
+.hero{padding-top:calc(130px + env(safe-area-inset-top,0px));padding-bottom:clamp(80px,10vw,130px)}
+.crumb{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;margin-bottom:26px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+.hero-top{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
+.hero h1{font-size:clamp(48px,7vw,118px);font-weight:700;line-height:.9;letter-spacing:-.055em;max-width:980px}
+.hero .lede{max-width:360px;color:var(--muted);font-size:17px}
+.map{margin-top:clamp(48px,6vw,80px);border-radius:32px;background:var(--paper);border:1px solid rgba(220,205,174,.7);padding:clamp(20px,3vw,40px)}
+.map-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.map-head .big{font-family:var(--f-display);font-weight:700;font-size:clamp(56px,6vw,96px);letter-spacing:-.06em;line-height:.85;font-variant-numeric:tabular-nums}
+.map-head .big small{display:block;font-family:var(--f-mono);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.legend button{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:99px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13.5px;transition:all .3s}
+.legend button i{width:14px;height:15px;background:var(--c);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.legend button b{font-weight:500}
+.legend button span{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legend button[aria-pressed="true"] span{color:#BDB59D}
+.hives{position:relative}
+.hives svg{width:100%;height:auto;display:block;overflow:visible}
+.hives .hx{transition:opacity .35s,transform .5s var(--ease);transform-box:fill-box;transform-origin:center;stroke:var(--paper);stroke-width:2}
+.hives .hx.off{fill:var(--sand)!important}
+.hives.focus .hx:not(.hit){opacity:.18}
+.hives .hx:hover{transform:scale(1.25)}
+.hives .rl{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;fill:var(--ink)}
+.tip{position:absolute;pointer-events:none;z-index:5;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:10px;font-size:12.5px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));opacity:0;transition:opacity .2s}
+.tip.on{opacity:1}
+.tip b{display:block;font-weight:600}
+.tip span{color:#BDB59D;font-family:var(--f-mono);font-size:11px}
+.map-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--muted)}
+
+/* PROMISES */
+.promises{padding-block:clamp(80px,10vw,140px)}
+.s-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.s-head h2{font-size:clamp(42px,4.8vw,76px);margin-top:16px}
+.s-head p{max-width:350px;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pr{border-radius:24px;background:var(--paper);border:1px solid rgba(220,205,174,.7);padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:26px;min-height:300px;transition:transform .6s var(--ease),box-shadow .6s}
+.pr:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(90,60,10,.5)}
+.pr .st{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--cream);border:1px solid var(--line)}
+.pr .st i{width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.pr .st.prog i{background:transparent;border:1.5px solid var(--ink)}
+.pr .v{font-family:var(--f-display);font-weight:700;font-size:clamp(46px,4.4vw,64px);letter-spacing:-.06em;line-height:.85;font-variant-numeric:tabular-nums}
+.pr .v small{font-size:.4em;letter-spacing:-.02em;color:var(--muted);font-weight:500}
+.pr h3{font-size:22px;margin-top:10px}
+.pr p{color:var(--muted);font-size:14.5px;margin-top:8px}
+.meter{display:grid;gap:8px}
+.meter .tr{height:8px;border-radius:99px;background:var(--sand);overflow:hidden}
+.meter .tr i{display:block;height:100%;border-radius:99px;background:var(--amber);width:0;transition:width 1.6s var(--ease) .2s}
+.pr.in .meter .tr i{width:var(--v)}
+.meter .lb{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pr.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pr.dark p,.pr.dark .meter .lb,.pr.dark .v small{color:#BDB59D}
+.pr.dark .st{background:rgba(241,232,210,.08);border-color:rgba(241,232,210,.2)}
+.pr.dark .st i{background:var(--gold)}
+.pr.dark .meter .tr{background:rgba(241,232,210,.15)}
+.pr.dark .meter .tr i{background:var(--gold)}
+
+/* PRICE */
+.price{background:var(--paper);border-block:1px solid var(--line);padding-block:clamp(90px,11vw,150px)}
+.pz{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,90px);align-items:start}
+.pz h2{font-size:clamp(42px,4.8vw,76px);margin:16px 0 20px}
+.pz .intro{color:var(--muted);max-width:400px}
+.jarline{display:flex;align-items:center;gap:16px;margin-top:32px;padding:14px;border-radius:20px;background:var(--cream);border:1px solid var(--line);max-width:400px}
+.jarline img{width:58px;height:58px;border-radius:14px;object-fit:cover}
+.jarline b{display:block;font-weight:600}
+.jarline span{font-size:13px;color:var(--muted)}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.bars li{position:relative;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 64px;gap:16px;align-items:center;padding:12px 10px;border-radius:14px;cursor:default;transition:background .3s}
+.bars li:hover,.bars li:focus-within{background:var(--cream)}
+.bars .nm{font-size:15px;font-weight:500;line-height:1.3}
+.bars .nm small{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.bars .tr{height:22px;position:relative}
+.bars .tr i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--amber);border-radius:0 4px 4px 0;transition:width 1.4s var(--ease)}
+.bars.in .tr i{width:var(--v)}
+.bars li.key .tr i{background:var(--ink)}
+.bars .val{font-family:var(--f-mono);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.bars .pct{position:absolute;left:calc(var(--v) + 8px);top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:11.5px;color:var(--muted);white-space:nowrap;opacity:0;transition:opacity .6s 1.2s}
+.bars.in .pct{opacity:1}
+.bars .tot{border-top:1px solid var(--ink);margin-top:8px;padding-top:16px;cursor:default}
+.bars .tot:hover{background:none}
+
+/* TRACE */
+.trace{padding-block:clamp(90px,11vw,150px)}
+.tr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,80px);align-items:start}
+.trace h2{font-size:clamp(42px,4.8vw,76px);margin:16px 0 20px}
+.trace .intro{color:var(--muted);max-width:420px}
+.lid{margin-top:34px;display:grid;gap:12px;max-width:440px}
+.lid label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lid .row{display:flex;gap:8px;padding:6px;border-radius:99px;background:#fff;border:1px solid var(--line);transition:border-color .3s,box-shadow .3s}
+.lid .row:focus-within{border-color:var(--honey);box-shadow:0 0 0 3px rgba(217,154,31,.18)}
+.lid input{flex:1;min-width:0;border:0;background:none;padding:0 16px;font-family:var(--f-mono);font-size:17px;letter-spacing:.08em;text-transform:uppercase;outline:none}
+.lid button{height:48px;padding:0 22px;border-radius:99px;border:0;background:var(--ink);color:var(--paper);cursor:pointer;font-weight:500}
+.lid .ex{display:flex;gap:6px;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.lid .ex button{height:auto;padding:5px 11px;background:var(--paper);color:var(--ink);border:1px solid var(--line);font-family:var(--f-mono);font-size:12px}
+.lid .ex button:hover{border-color:var(--ink)}
+.lid .err{font-size:14px;color:#8A2E14;min-height:22px}
+.cert{position:relative;border-radius:28px;background:var(--paper);border:1px solid var(--line);padding:30px;overflow:hidden}
+.cert::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:240px;background:var(--rc,var(--r1));opacity:.12;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transition:background .6s}
+.cert .code{font-family:var(--f-mono);font-size:13px;letter-spacing:.1em;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:var(--ink);color:var(--gold)}
+.cert h3{font-size:clamp(30px,3vw,44px);margin:18px 0 6px;letter-spacing:-.04em}
+.cert .sub{color:var(--muted)}
+.cert dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;margin:26px 0 0}
+.cert dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cert dd{margin:4px 0 0;font-size:16px;font-weight:500;font-variant-numeric:tabular-nums}
+.checks{list-style:none;margin:24px 0 0;padding:18px 0 0;border-top:1px dashed var(--line);display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;font-size:14.5px}
+.checks li svg{width:20px;height:20px}
+.checks li span:last-child{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cert .sig{margin-top:22px;font-family:var(--f-hand);font-size:22px;color:var(--amber)}
+.swap{transition:opacity .3s,transform .4s var(--ease)}.swap.out{opacity:0;transform:translateY(8px)}
+
+/* LOOP */
+.loop{background:var(--night);color:var(--on-dark);padding-block:clamp(90px,11vw,150px);position:relative;overflow:hidden}
+.loop::before{content:"";position:absolute;width:70vw;height:70vw;right:-25vw;top:-35vw;border-radius:50%;background:radial-gradient(circle,rgba(217,154,31,.2),transparent 65%)}
+.loop .eyebrow{color:var(--on-dark-muted)}
+.loop .s-head p{color:var(--on-dark-muted)}
+.loop h2 em{color:var(--gold)}
+.lsteps{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.lsteps li{position:relative;border-radius:24px;border:1px solid rgba(241,232,210,.14);background:rgba(251,246,236,.04);padding:24px;display:grid;gap:14px;align-content:start}
+.lsteps .n{font-family:var(--f-mono);font-size:12px;color:var(--gold)}
+.lsteps svg{width:56px;height:56px;stroke:var(--on-dark);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.lsteps h3{font-size:24px}
+.lsteps p{color:var(--on-dark-muted);font-size:14.5px}
+.lsteps li:not(:last-child)::after{content:"";position:absolute;right:-12px;top:50%;width:10px;height:10px;border-top:1.5px solid var(--gold);border-right:1.5px solid var(--gold);transform:translateY(-50%) rotate(45deg);z-index:1}
+.loop-note{margin-top:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:22px 26px;border-radius:22px;background:var(--gold);color:var(--ink);position:relative}
+.loop-note b{font-family:var(--f-display);font-size:clamp(22px,2.2vw,30px);font-weight:600;letter-spacing:-.03em}
+.loop-note span{font-size:14.5px}
+
+/* PLANT */
+.plant{padding-block:clamp(90px,11vw,150px)}
+.space{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.space button{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.5);cursor:pointer;font-size:14.5px;font-weight:500;transition:all .35s}
+.space button .ic{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sand)}
+.space button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.space button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.space button[aria-pressed="true"] .ic{background:var(--gold);color:var(--ink)}
+.plants{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.pl{border-radius:22px;background:var(--paper);border:1px solid rgba(220,205,174,.7);padding:20px;display:grid;gap:12px;align-content:start;animation:pop .6s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+.pl svg{width:46px;height:46px}
+.pl h3{font-size:20px}
+.pl .lt{font-size:12.5px;color:var(--muted);font-style:italic}
+.pl p{font-size:14px;color:var(--muted)}
+.pl .bl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.tips{margin-top:20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tips div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;padding:18px;border-radius:20px;border:1px dashed var(--line);font-size:14.5px;color:var(--muted)}
+.tips b{display:block;color:var(--ink);font-weight:600}
+.tips svg{width:26px;height:26px;stroke:var(--amber);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* CTA */
+.final{padding:0 max(12px,env(safe-area-inset-right,0px)) 12px max(12px,env(safe-area-inset-left,0px))}
+.final-in{max-width:1480px;margin:0 auto;border-radius:34px;background:var(--paper);border:1px solid rgba(220,205,174,.7);text-align:center;padding:clamp(70px,9vw,130px) 24px;position:relative;overflow:hidden}
+.final h2{font-size:clamp(44px,6vw,104px);font-weight:700;letter-spacing:-.055em;line-height:.92}
+.final p{color:var(--muted);max-width:460px;margin:22px auto 32px}
+.final .acts{display:flex;gap:24px;justify-content:center;align-items:center;flex-wrap:wrap}
+.final .quiet{font-size:15px;text-decoration:none;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat}
+.final .hand{font-family:var(--f-hand);color:var(--amber);font-size:26px;margin-top:30px;transform:rotate(-3deg)}
+
+/* footer */
+footer{background:var(--forest);color:var(--on-dark);overflow:hidden;margin-top:12px}
+footer .wrap{padding-block:72px 0}
+.f-row{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start}
+footer .logo{color:var(--gold)}
+footer p,footer a{color:var(--on-dark-muted);font-size:14px;text-decoration:none}
+footer nav{display:flex;gap:28px;flex-wrap:wrap}
+footer nav a:hover{color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--forest-2);margin-top:56px;padding-top:22px;font-size:12.5px;color:var(--on-dark-muted)}
+.wordmark{font-family:var(--f-display);font-weight:800;font-size:clamp(120px,30vw,460px);line-height:.78;letter-spacing:-.06em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.28);margin-top:40px;user-select:none;white-space:nowrap}
+
+@media (max-width:1080px){
+  .nav ul{display:none}.menu-btn{display:grid}
+  .nav ul.open{display:grid;position:absolute;top:70px;left:12px;right:12px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;gap:4px;font-size:17px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .plants{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .lsteps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lsteps li::after{display:none}
+}
+@media (max-width:900px){
+  .pz,.tr-grid{grid-template-columns:1fr}
+  .tips{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .pgrid,.lsteps{grid-template-columns:1fr}
+  .plants{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bars li{grid-template-columns:minmax(0,1fr) 56px;row-gap:6px}
+  .bars .tr{grid-column:1/-1;grid-row:2}
+  .cert{padding:22px}
+  .cert dl{grid-template-columns:1fr 1fr}
+  .map{padding:16px;border-radius:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.up{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="index.html" aria-label="Bee home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1E1D16" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#1E1D16"/></svg>Bee</a>
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Our Story</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="tasting.html">Tasting</a></li>
+      <li><a href="sustainability.html" class="on" aria-current="page">Sustainability</a></li>
+    </ul>
+    <div class="tools">
+      <a class="icon-btn" href="products.html" aria-label="Shop"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+      <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" type="button" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M8 15h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO: every hive -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="crumb up"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Sustainability</span></p>
+      <div class="hero-top">
+        <h1 class="up d1">Good for the bees. Good for the <em>people</em> who keep them.</h1>
+        <p class="lede up d2">Sustainability isn’t a badge on our jar. It’s how we treat every hive, every keeper and every jar that comes back to us. Here is the proof.</p>
+      </div>
+      <div class="map up d3">
+        <div class="map-head">
+          <p class="big"><span id="hiveCount">0</span><small>Hives we care for, one by one</small></p>
+          <div class="legend" id="legend" role="group" aria-label="Filter hives by region"></div>
+        </div>
+        <div class="hives" id="hives"><svg id="hiveSvg" role="img" aria-label="Map of 240 hives: 96 in Coorg, 72 in Kangra, 48 in the Western Ghats and 24 at our partner apiary in Northland"></svg><div class="tip" id="tip"></div></div>
+        <div class="map-foot"><span>Each hexagon is one hive. Hover for details, or pick a region.</span><span id="mapNote">18 keeper families · 4 regions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMISES -->
+  <section class="promises">
+    <div class="wrap">
+      <div class="s-head">
+        <div><p class="eyebrow rv">What we’ve promised</p><h2 class="rv">Kept, and <em>still keeping.</em></h2></div>
+        <p class="rv">We check these every season and publish them here, including the one we haven’t finished yet.</p>
+      </div>
+      <div class="pgrid">
+        <article class="pr dark rv"><span class="st"><i></i>Kept since 2014</span><div><p class="v">0<small> spoons</small></p><h3>Sugar fed to our hives</h3><p>Bees eat their own honey. We leave at least a third of every hive’s store for winter.</p></div></article>
+        <article class="pr rv" style="transition-delay:.08s"><span class="st"><i></i>Kept every season</span><div><p class="v">18<small> of 18</small></p><h3>Keepers paid before harvest</h3><p>At a price agreed together each year, so a bad season never falls on one family.</p></div><div class="meter"><div class="tr"><i style="--v:100%"></i></div><div class="lb"><span>Keeper families</span><span>100%</span></div></div></article>
+        <article class="pr rv" style="transition-delay:.16s"><span class="st"><i></i>Kept since 2024</span><div><p class="v">0<small> g plastic</small></p><h3>In every order we ship</h3><p>Glass jars, metal lids, cloth wraps, paper tape and recycled card.</p></div><div class="meter"><div class="tr"><i style="--v:100%"></i></div><div class="lb"><span>Plastic-free orders</span><span>100%</span></div></div></article>
+        <article class="pr rv" style="transition-delay:.24s"><span class="st prog"><i></i>In progress · 2028</span><div><p class="v">38<small> of 60 acres</small></p><h3>Wildflowers planted</h3><p>Pesticide-free forage planted with farmers around our apiaries. We’re not there yet.</p></div><div class="meter"><div class="tr"><i style="--v:63%"></i></div><div class="lb"><span>Acres planted</span><span>63%</span></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section class="price">
+    <div class="wrap pz">
+      <div>
+        <p class="eyebrow rv">Fair, and out in the open</p>
+        <h2 class="rv">Where your <em>₹599</em> goes.</h2>
+        <p class="intro rv">A jar of honey passes through many hands. We think you should know whose. This is how one 500 g jar of Wildflower is shared out.</p>
+        <div class="jarline rv"><img src="img/wild.webp" alt=""><div><b>Wildflower Honey, 500 g</b><span>Coorg, Karnataka · ₹599</span></div></div>
+      </div>
+      <ul class="bars rv" id="bars" aria-label="How ₹599 is shared"></ul>
+    </div>
+  </section>
+
+  <!-- TRACE -->
+  <section class="trace" id="trace">
+    <div class="wrap tr-grid">
+      <div>
+        <p class="eyebrow rv">Trace your jar</p>
+        <h2 class="rv">Every lid tells you <em>where.</em></h2>
+        <p class="intro rv">Look at the top of your lid. The six-character code tells you which apiary your honey came from, when it was harvested, and how it tested.</p>
+        <form class="lid rv" id="lid" novalidate>
+          <label for="code">Code on your lid</label>
+          <div class="row"><input id="code" type="text" maxlength="7" placeholder="CRG-014" autocomplete="off" spellcheck="false" aria-describedby="codeErr"><button type="submit">Trace</button></div>
+          <div class="ex"><span>Try an example:</span><button type="button" data-c="CRG-014">CRG-014</button><button type="button" data-c="KGR-009">KGR-009</button><button type="button" data-c="WGK-003">WGK-003</button><button type="button" data-c="NTL-002">NTL-002</button></div>
+          <p class="err" id="codeErr" role="alert"></p>
+        </form>
+      </div>
+      <article class="cert rv" id="cert" aria-live="polite">
+        <div class="swap" id="certIn"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- LOOP -->
+  <section class="loop">
+    <div class="wrap">
+      <div class="s-head">
+        <div><p class="eyebrow">The jar loop</p><h2>Send your jars <em>home.</em></h2></div>
+        <p>Glass can be used again and again. When you’re done, we’ll take your jars back, clean them and fill them for someone else.</p>
+      </div>
+      <ol class="lsteps">
+        <li><span class="n">01</span><svg viewBox="0 0 56 56"><path d="M18 10h20v6l4 6v24a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V22l4-6z"/><path d="M14 30h28" stroke="#E8B74A"/></svg><h3>Finish the last spoon</h3><p>Scrape it out on a warm roti. That one is for you.</p></li>
+        <li><span class="n">02</span><svg viewBox="0 0 56 56"><path d="M18 14h20v6l4 6v18a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V26l4-6z"/><path d="M24 4c0 3-3 4-3 7M32 4c0 3-3 4-3 7" stroke="#E8B74A"/></svg><h3>Give it a rinse</h3><p>Warm water is enough. Keep the lid with it.</p></li>
+        <li><span class="n">03</span><svg viewBox="0 0 56 56"><path d="M6 18h28v20H6zM34 24h8l6 7v7H34"/><circle cx="14" cy="40" r="4"/><circle cx="40" cy="40" r="4"/></svg><h3>Hand it back</h3><p>Our courier collects your jars when your next order arrives.</p></li>
+        <li><span class="n">04</span><svg viewBox="0 0 56 56"><path d="M18 10h20v6l4 6v24a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V22l4-6z"/><path d="M14 30c6-4 10 4 14 0s10 4 14 0V46a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2z" fill="#E8B74A" stroke="#E8B74A"/></svg><h3>Filled again</h3><p>Sterilised in our Coorg packing room and poured with new honey.</p></li>
+      </ol>
+      <div class="loop-note"><b>₹20 back for every jar you return.</b><span>Taken off your next order, automatically.</span></div>
+    </div>
+  </section>
+
+  <!-- PLANT -->
+  <section class="plant">
+    <div class="wrap">
+      <div class="s-head">
+        <div><p class="eyebrow rv">Help the bees near you</p><h2 class="rv">Plant something <em>for the bees.</em></h2></div>
+        <p class="rv">Bees need flowers close to home, and Indian cities are full of balconies. Pick your space to see what grows well and feeds bees.</p>
+      </div>
+      <div class="space rv" id="space" role="group" aria-label="Your space"></div>
+      <div class="plants" id="plants" aria-live="polite"></div>
+      <div class="tips rv">
+        <div><svg viewBox="0 0 24 24"><path d="M4 4l16 16M12 3c3 4 6 7 6 11a6 6 0 0 1-9.6 4.8M6.4 9.4C6.1 10.3 6 11.1 6 12"/></svg><span><b>Skip the sprays</b>Pesticides harm bees most. Neem oil after sunset, if you must.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M3 15c3 0 3-2 6-2s3 2 6 2 3-2 6-2M5 19h14"/><circle cx="9" cy="8" r="1.5"/><circle cx="14" cy="7" r="1.5"/></svg><span><b>Leave a little water</b>A shallow dish with pebbles so bees can land and drink.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 21V11M12 11c-4 0-6-3-6-7 4 0 6 3 6 7zM12 14c0-4 3-6 7-6 0 4-3 6-7 6z"/></svg><span><b>Let herbs flower</b>Tulsi and coriander in bloom are bee favourites.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="final-in rv">
+      <p class="eyebrow">Every jar counts</p>
+      <h2 style="margin-top:18px">Taste it. Share it.<br><em>Send it home.</em></h2>
+      <p>Every jar you buy pays a keeper fairly and plants a little more forage for the bees.</p>
+      <div class="acts">
+        <a class="cta-dark" href="products.html">Shop the harvest <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="quiet" href="story.html">Read our story</a>
+      </div>
+      <p class="hand">thank you, from all of us &amp; the bees</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-row">
+      <div><a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1B2117" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#F1E8D2"/></svg>Bee</a><p style="margin-top:14px">Made by bees. Shared by people.</p></div>
+      <nav aria-label="Footer"><a href="index.html">Home</a><a href="story.html">Our Story</a><a href="products.html">Shop</a><a href="tasting.html">Tasting Guide</a><a href="sustainability.html">Sustainability</a></nav>
+    </div>
+    <div class="f-bot"><span>© 2026 Bee. All rights reserved.</span><span>Privacy Policy · Terms &amp; Conditions</span></div>
+    <div class="wordmark" aria-hidden="true">Bee</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const inr=v=>'₹'+v.toLocaleString('en-IN');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('loaded')));
+
+  /* ===== HIVE MAP ===== */
+  const R=[
+    {id:'crg',n:'Coorg',full:'Coorg, Karnataka',c:'var(--r1)',hives:96,keepers:7,honey:'Wildflower'},
+    {id:'kgr',n:'Kangra',full:'Kangra, Himachal',c:'var(--r2)',hives:72,keepers:6,honey:'Acacia'},
+    {id:'wgk',n:'Western Ghats',full:'Western Ghats, Kerala',c:'var(--r3)',hives:48,keepers:4,honey:'Honey Comb'},
+    {id:'ntl',n:'Northland',full:'Northland, New Zealand',c:'var(--r4)',hives:24,keepers:1,honey:'Manuka'}
+  ];
+  const svg=$('#hiveSvg'),NS='http://www.w3.org/2000/svg',box=$('#hives'),tip=$('#tip');
+  let hexes=[],built=false,focus=null;
+  function buildMap(){
+    const narrow=box.clientWidth<640, cols=narrow?12:24, rows=240/cols, r=10, w=Math.sqrt(3)*r, h=1.5*r, top=2;
+    const W=cols*w+w/2, H=top+rows*h+r/2+4;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML='';hexes=[];
+    const pts=(x,y)=>{let s='';for(let k=0;k<6;k++){const a=Math.PI/180*(60*k-30);s+=`${(x+r*.94*Math.cos(a)).toFixed(2)},${(y+r*.94*Math.sin(a)).toFixed(2)} `}return s};
+    let i=0;const starts=[];
+    R.forEach(reg=>{starts.push(i);for(let k=0;k<reg.hives;k++){
+      const col=Math.floor(i/rows), row=i%rows, x=w/2+col*w+(row%2?w/2:0), y=top+r+row*h;
+      const p=document.createElementNS(NS,'polygon');p.setAttribute('points',pts(x,y));p.setAttribute('class','hx off');p.style.fill=reg.c;
+      p.dataset.r=reg.id;p.dataset.n=k+1;p.dataset.x=x;p.dataset.y=y;svg.appendChild(p);hexes.push(p);i++}});
+    if(built||reduce){hexes.forEach(p=>p.classList.remove('off'));$('#hiveCount').textContent=240}
+    applyFocus();
+  }
+  function grow(){if(built)return;built=true;let n=0;const per=reduce?240:4;
+    (function tick(){for(let k=0;k<per&&n<hexes.length;k++,n++)hexes[n].classList.remove('off');$('#hiveCount').textContent=n;if(n<hexes.length)requestAnimationFrame(tick)})()}
+  $('#legend').innerHTML=R.map(r=>`<button type="button" data-r="${r.id}" aria-pressed="false" style="--c:${r.c}"><i></i><b>${r.n}</b><span>${r.hives}</span></button>`).join('');
+  function applyFocus(){box.classList.toggle('focus',!!focus);hexes.forEach(p=>p.classList.toggle('hit',p.dataset.r===focus));
+    $$('#legend button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r===focus));
+    const reg=R.find(r=>r.id===focus);$('#mapNote').textContent=reg?`${reg.full} · ${reg.hives} hives · ${reg.keepers} keeper ${reg.keepers>1?'families':'family'} · becomes ${reg.honey}`:'18 keeper families · 4 regions'}
+  $('#legend').addEventListener('pointerover',e=>{const b=e.target.closest('button');if(b&&!focus){box.classList.add('focus');hexes.forEach(p=>p.classList.toggle('hit',p.dataset.r===b.dataset.r))}});
+  $('#legend').addEventListener('pointerout',()=>{if(!focus)applyFocus()});
+  $('#legend').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;focus=focus===b.dataset.r?null:b.dataset.r;applyFocus()});
+  svg.addEventListener('pointermove',e=>{const p=e.target.closest('.hx');if(!p){tip.classList.remove('on');return}
+    const reg=R.find(r=>r.id===p.dataset.r),br=box.getBoundingClientRect(),pr=p.getBoundingClientRect();
+    tip.innerHTML=`<b>Hive ${String(p.dataset.n).padStart(3,'0')} · ${reg.n}</b><span>${reg.honey.toUpperCase()} · ${reg.full.toUpperCase()}</span>`;
+    tip.style.left=Math.max(90,Math.min(br.width-90,pr.left-br.left+pr.width/2))+'px';tip.style.top=(pr.top-br.top)+'px';tip.classList.add('on')});
+  svg.addEventListener('pointerleave',()=>tip.classList.remove('on'));
+  buildMap();
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){setTimeout(grow,600);o.disconnect()}},{threshold:.2}).observe(box);
+  let rw=box.clientWidth;addEventListener('resize',()=>{if(Math.abs(box.clientWidth-rw)>40){rw=box.clientWidth;buildMap()}});
+
+  /* ===== PRICE BARS ===== */
+  const PRICE=[
+    ['The keeper family','Paid before harvest',252,true],
+    ['Our small team','Packing, rent, salaries',114],
+    ['Glass jar & cloth wrap','Reusable packaging',84],
+    ['Getting it to you','Courier and jar pickup',72],
+    ['What we keep','To grow, carefully',35],
+    ['Lab testing','Every single batch',24],
+    ['Wildflower planting','Forage for the bees',18]
+  ];
+  const total=PRICE.reduce((a,p)=>a+p[2],0),mx=PRICE[0][2];
+  $('#bars').innerHTML=PRICE.map(p=>`<li class="${p[3]?'key':''}" tabindex="0" aria-label="${p[0]}: ${inr(p[2])}, ${Math.round(p[2]/total*100)} percent"><span class="nm">${p[0]}<small>${p[1]}</small></span><span class="tr" style="--v:${(p[2]/mx*82).toFixed(1)}%"><i></i><span class="pct">${Math.round(p[2]/total*100)}%</span></span><span class="val">${inr(p[2])}</span></li>`).join('')+
+    `<li class="tot"><span class="nm">Your jar</span><span></span><span class="val"><b>${inr(total)}</b></span></li>`;
+
+  /* ===== TRACE ===== */
+  const CODES={
+    'CRG-014':{r:0,honey:'Wildflower Honey',keeper:'Keeper family 07, Madikeri',harvest:'March 2026',bloom:'Coffee blossom, wild jasmine',alt:'1,050 m',moist:'17.4%',sig:'— packed by hand in Coorg'},
+    'KGR-009':{r:1,honey:'Acacia Honey',keeper:'Keeper family 03, Palampur',harvest:'May 2026',bloom:'Black locust (acacia)',alt:'1,420 m',moist:'17.1%',sig:'— packed by hand in Coorg'},
+    'WGK-003':{r:2,honey:'Honey Comb',keeper:'Keeper family 12, Wayanad',harvest:'February 2026',bloom:'Forest flora, rubber blossom',alt:'780 m',moist:'17.9%',sig:'— cut and packed by hand'},
+    'NTL-002':{r:3,honey:'Manuka Honey',keeper:'Partner family apiary, Northland',harvest:'January 2026',bloom:'Manuka (Leptospermum)',alt:'120 m',moist:'17.6%',sig:'— imported and checked in Coorg'}
+  };
+  const tick='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E8B74A" stroke="none"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#1E1D16"/></svg>';
+  function showCode(code,anim){const d=CODES[code],reg=R[d.r];const el=$('#certIn');
+    const f=()=>{$('#cert').style.setProperty('--rc',reg.c);
+      el.innerHTML=`<span class="code">${code}</span><h3>${d.honey}</h3><p class="sub">${reg.full}</p>
+      <dl><div><dt>Kept by</dt><dd>${d.keeper}</dd></div><div><dt>Harvested</dt><dd>${d.harvest}</dd></div><div><dt>Main bloom</dt><dd>${d.bloom}</dd></div><div><dt>Apiary altitude</dt><dd>${d.alt}</dd></div></dl>
+      <ul class="checks"><li>${tick}<span>Moisture, below 18% means fully ripe</span><span>${d.moist}</span></li><li>${tick}<span>No added sugar syrup</span><span>Passed</span></li><li>${tick}<span>Never heated above 35°C</span><span>Passed</span></li><li>${tick}<span>Pollen present (raw, not ultra-filtered)</span><span>Passed</span></li></ul>
+      <p class="sig">${d.sig}</p>`};
+    if(anim&&!reduce){el.classList.add('out');setTimeout(()=>{f();el.classList.remove('out')},260)}else f()}
+  function trace(v){v=v.trim().toUpperCase().replace(/\s/g,'');if(/^[A-Z]{3}\d{3}$/.test(v))v=v.slice(0,3)+'-'+v.slice(3);
+    if(CODES[v]){$('#codeErr').textContent='';$('#code').value=v;showCode(v,true)}
+    else $('#codeErr').textContent=v?`We couldn’t find ${v}. Codes look like CRG-014: three letters, a dash, three numbers.`:'Type the code from the top of your lid.'}
+  $('#lid').addEventListener('submit',e=>{e.preventDefault();trace($('#code').value)});
+  $$('.ex button').forEach(b=>b.addEventListener('click',()=>{$('#code').value=b.dataset.c;trace(b.dataset.c)}));
+  showCode('CRG-014',false);
+
+  /* ===== PLANTS ===== */
+  const ico={
+    leaf:'<svg viewBox="0 0 48 48" fill="none" stroke="#1E1D16" stroke-width="1.4" stroke-linecap="round"><path d="M24 44V20"/><path d="M24 26c-8 0-12-6-12-14 8 0 12 6 12 14zM24 22c0-8 4-14 12-14 0 8-4 14-12 14z" fill="#CFE0B4"/></svg>',
+    bloom:'<svg viewBox="0 0 48 48" fill="none" stroke="#1E1D16" stroke-width="1.4"><g fill="#F2C14E">'+[0,72,144,216,288].map(a=>`<ellipse cx="24" cy="12" rx="5" ry="8" transform="rotate(${a} 24 22)"/>`).join('')+'</g><circle cx="24" cy="22" r="5" fill="#A5650F"/><path d="M24 30v14"/></svg>',
+    sun:'<svg viewBox="0 0 48 48" fill="none" stroke="#1E1D16" stroke-width="1.4"><circle cx="24" cy="18" r="13" fill="#F2C14E"/><circle cx="24" cy="18" r="6" fill="#6B3A12"/><path d="M24 31v14M24 38c-5 0-8-3-8-6"/></svg>',
+    tree:'<svg viewBox="0 0 48 48" fill="none" stroke="#1E1D16" stroke-width="1.4"><circle cx="24" cy="18" r="13" fill="#B9D29A"/><circle cx="18" cy="14" r="2" fill="#F7E3B0" stroke="none"/><circle cx="28" cy="20" r="2" fill="#F7E3B0" stroke="none"/><circle cx="22" cy="24" r="2" fill="#F7E3B0" stroke="none"/><path d="M24 31v14M24 38l5-4"/></svg>',
+    pink:'<svg viewBox="0 0 48 48" fill="none" stroke="#1E1D16" stroke-width="1.4"><g fill="#F2A7A0"><circle cx="24" cy="12" r="6"/><circle cx="32" cy="19" r="6"/><circle cx="29" cy="28" r="6"/><circle cx="19" cy="28" r="6"/><circle cx="16" cy="19" r="6"/></g><circle cx="24" cy="21" r="3.5" fill="#F7E3B0"/><path d="M24 34v10"/></svg>'
+  };
+  const SPACES={
+    balcony:{n:'Balcony',ic:'<path d="M4 20h16M6 20V10M18 20V10M4 10h16M9 10V6h6v4"/>',plants:[
+      ['Tulsi','Holy basil','leaf','Let it flower. The tiny purple spikes are a bee magnet.','Most of the year'],
+      ['Coriander','Dhania','leaf','Don’t harvest every leaf. The white flowers feed small bees.','Winter'],
+      ['Marigold','Genda','bloom','Easy, cheerful, and loved by bees and butterflies.','Oct – Mar'],
+      ['Periwinkle','Sadabahar','pink','Flowers almost all year with very little water.','All year'],
+      ['Mint','Pudina','leaf','Grows fast in a pot. Let a few stems bloom.','Summer']]},
+    terrace:{n:'Terrace',ic:'<path d="M3 11l9-6 9 6M5 10v10h14V10M10 20v-6h4v6"/>',plants:[
+      ['Sunflower','Surajmukhi','sun','One big flower feeds bees for days. Kids love growing them.','Summer'],
+      ['Zinnia','','bloom','Bright, tough in heat, and flowers again when you cut it.','Mar – Oct'],
+      ['Cosmos','','pink','Self-seeds every year. Bees visit from morning to evening.','Monsoon'],
+      ['Curry leaf','Kadi patta','tree','Small white flowers in spring, and leaves for your tadka.','Spring'],
+      ['Hibiscus','Gudhal','pink','Big blooms that open with the sun.','Most of the year']]},
+    garden:{n:'Garden',ic:'<path d="M12 21v-7M12 14c-4 0-7-3-7-8 4 0 7 3 7 8zM12 14c0-5 3-8 7-8 0 5-3 8-7 8zM3 21h18"/>',plants:[
+      ['Moringa','Drumstick','tree','Clouds of cream flowers, and pods for sambar.','Feb – Apr'],
+      ['Jamun','Indian blackberry','tree','A favourite for honey in many Indian regions.','Mar – Apr'],
+      ['Neem','','tree','Fragrant flowers that bees visit in huge numbers.','Mar – May'],
+      ['Karanj','Pongamia','tree','Lilac flowers, hardy, and good for dry soil.','Apr – May'],
+      ['Sunflower','Surajmukhi','sun','A sunny border keeps bees coming all summer.','Summer']]}
+  };
+  $('#space').innerHTML=Object.entries(SPACES).map(([k,v],i)=>`<button type="button" data-s="${k}" aria-pressed="${i===0}"><span class="ic"><svg viewBox="0 0 24 24">${v.ic}</svg></span>${v.n}</button>`).join('');
+  function setSpace(k){$$('#space button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===k));
+    $('#plants').innerHTML=SPACES[k].plants.map((p,i)=>`<article class="pl" style="animation-delay:${i*.06}s">${ico[p[2]]}<div><h3>${p[0]}</h3>${p[1]?`<p class="lt">${p[1]}</p>`:''}</div><p>${p[3]}</p><span class="bl">Flowers · ${p[4]}</span></article>`).join('')}
+  $('#space').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setSpace(b.dataset.s)});
+  setSpace('balcony');
+
+  /* ===== menu, reveal, nav ===== */
+  $('#menuBtn').addEventListener('click',function(){const o=$('#menu').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  $$('.rv').forEach(el=>io.observe(el));
+  const nav=$('#nav');let lastY=scrollY;
+  addEventListener('scroll',()=>{const y=scrollY;if(y>400&&y>lastY+3&&!$('#menu').classList.contains('open'))nav.classList.add('hide');else if(y<lastY-3)nav.classList.remove('hide');lastY=y},{passive:true});
+})();
+</script>
+<script defer src="vendor/three.min.js"></script>
+<script defer src="vendor/GLTFLoader.js"></script>
+<script defer src="vendor/meshopt_decoder.js"></script>
+<script defer src="bee.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="motion.js"></script>
+</body>
+</html>

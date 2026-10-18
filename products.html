@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shop Honey · Bee</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cellipse cx=%2216%22 cy=%2219%22 rx=%226%22 ry=%229%22 fill=%22%23E8B74A%22/%3E%3Cpath d=%22M10.4 16h11.2M10 20h12M11 24h10%22 stroke=%22%231E1D16%22 stroke-width=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%229.5%22 r=%223%22 fill=%22%231E1D16%22/%3E%3C/svg%3E">
+<style>html.mx-covering::after{content:"";position:fixed;inset:0;background:#B9741C;z-index:299}</style>
+<style>html.mx-loading::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 55% at 50% 42%,#FFFBF2 0%,#F7EFDF 55%,#EFE3C8 100%);z-index:349}</style>
+<script>try{var R=matchMedia('(prefers-reduced-motion: reduce)').matches,H=document.documentElement;if(sessionStorage.getItem('mx-nav')&&!R){H.classList.add('mx-covering');setTimeout(function(){H.classList.remove('mx-covering')},2500)}else if(!sessionStorage.getItem('bee-seen')&&!R){H.classList.add('mx-loading');setTimeout(function(){H.classList.remove('mx-loading')},12000)}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Nothing+You+Could+Do&display=swap">
+<style>
+/* Layout: shop that starts from people, not SKUs — "who is it for" chooser → collection rail → one calm product view tinted by the honey's own colour → gift note → compare → questions. */
+:root{
+  --night:#14110A; --cream:#F5EDDC; --paper:#FBF6EC; --sand:#EEE2C6;
+  --ink:#1E1D16; --muted:#6F6A57; --line:#DCCDAE;
+  --honey:#D99A1F; --amber:#A5650F; --gold:#E8B74A; --pale:#F7E3B0;
+  --forest:#1B2117; --forest-2:#283022; --on-dark:#F1E8D2; --on-dark-muted:#A9A189;
+  --tint:#F3D9A0;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-hand:"Nothing You Could Do","Segoe Script",cursive;
+  --ease:cubic-bezier(.2,.7,.1,1); --ease-io:cubic-bezier(.7,0,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.035em}
+h3{letter-spacing:-.02em}
+h1 em,h2 em{font-style:normal;color:var(--amber)}
+p{margin:0}
+[hidden]{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:9px;height:10px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.up{opacity:0;transform:translateY(20px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.loaded .up{opacity:1;transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}
+
+/* nav */
+header.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;z-index:50;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));transition:transform .6s var(--ease)}
+header.nav.hide{transform:translateY(calc(-100% - 20px))}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:24px;max-width:1180px;margin:0 auto;padding:0 8px 0 22px;border-radius:99px;background:rgba(251,246,236,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(220,205,174,.7);box-shadow:0 10px 40px -18px rgba(90,60,10,.25)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:24px;font-weight:700;text-decoration:none;letter-spacing:-.03em;line-height:1}
+.logo svg{width:26px;height:26px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;opacity:.75;padding:8px 14px;border-radius:99px;display:block;transition:opacity .3s,background .3s}
+.nav ul a:hover{opacity:1}
+.nav ul a.on{opacity:1;background:var(--ink);color:var(--paper)}
+.tools{display:flex;gap:4px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:inherit;text-decoration:none;position:relative;transition:background .3s}
+.icon-btn:hover{background:rgba(30,29,22,.07)}
+.menu-btn{display:none}
+.badge{position:absolute;top:4px;right:3px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--honey);color:var(--night);font-size:10px;display:grid;place-items:center;font-weight:600;transform:scale(0);transition:transform .4s var(--ease)}
+.badge.show{transform:scale(1)}
+.badge.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+
+/* INTRO */
+.intro{padding-top:calc(130px + env(safe-area-inset-top,0px));padding-bottom:40px}
+.crumb{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;margin-bottom:26px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+.intro-grid{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
+.intro h1{font-size:clamp(50px,7.4vw,124px);font-weight:700;line-height:.9;letter-spacing:-.055em}
+.intro .lede{max-width:360px;color:var(--muted);font-size:17px}
+.who{margin-top:48px;display:grid;gap:14px}
+.who > span{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.5);cursor:pointer;font-size:14.5px;font-weight:500;transition:background .35s,color .35s,border-color .35s,transform .35s var(--ease)}
+.chip:hover{transform:translateY(-2px);background:#fff}
+.chip .ic{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sand);transition:background .35s}
+.chip .ic svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.chip small{font-family:var(--f-mono);font-size:11px;color:var(--muted);transition:color .35s}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip[aria-pressed="true"] .ic{background:var(--gold);color:var(--ink)}
+.chip[aria-pressed="true"] small{color:#BDB59D}
+.who-line{font-size:15px;color:var(--muted);min-height:24px;transition:opacity .3s}
+
+/* COLLECTION RAIL */
+.rail{padding-block:28px 64px}
+.rail-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.pc{position:relative;display:grid;gap:12px;padding:10px 10px 16px;border-radius:22px;border:1px solid transparent;background:transparent;cursor:pointer;text-align:left;transition:background .4s,border-color .4s,transform .5s var(--ease),opacity .4s}
+.pc:hover{background:rgba(255,255,255,.5);transform:translateY(-3px)}
+.pc[aria-current="true"]{background:var(--paper);border-color:var(--line);box-shadow:0 20px 40px -30px rgba(90,60,10,.5)}
+.pc .ph{aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--t);max-width:100%;position:relative}
+.pc .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.pc:hover .ph img{transform:scale(1.05)}
+.pc .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:0 4px}
+.pc b{font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:-.025em;line-height:1.15}
+.pc .from{font-size:13px;color:var(--amber);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pc .rg{font-size:12.5px;color:var(--muted);padding:0 4px;margin-top:-8px}
+.pc .sel{position:absolute;top:18px;right:18px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;transform:scale(0);transition:transform .45s var(--ease)}
+.pc[aria-current="true"] .sel{transform:scale(1)}
+.pc.dim{opacity:.32}
+.boxart{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:100%;height:100%;background:var(--t);padding:10%}
+.boxart img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+
+/* PRODUCT VIEW */
+.pdp{padding-block:0 120px}
+.pdp-card{position:relative;border-radius:34px;background:var(--paper);border:1px solid rgba(220,205,174,.7);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,64px);padding:clamp(14px,1.6vw,22px);padding-right:clamp(22px,4vw,56px);scroll-margin-top:100px}
+.gallery{display:grid;gap:12px;align-content:start;position:sticky;top:96px;align-self:start}
+.stage{position:relative;aspect-ratio:1/1.02;border-radius:24px;overflow:hidden;background:var(--tint);transition:background .8s var(--ease);max-width:100%}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 40%,rgba(255,255,255,.55),transparent 70%);z-index:1;pointer-events:none}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease),transform .9s var(--ease)}
+.stage img.out{opacity:0;transform:scale(1.04)}
+.stage .lbl{position:absolute;z-index:2;left:16px;top:16px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;padding:8px 14px;border-radius:99px;background:rgba(251,246,236,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.swatch{position:absolute;z-index:2;left:16px;bottom:16px;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:99px;background:rgba(251,246,236,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:12.5px}
+.swatch i{width:26px;height:26px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);transition:background .8s}
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.thumbs button{aspect-ratio:1.3;border-radius:16px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:var(--sand);transition:border-color .3s,opacity .3s;opacity:.7}
+.thumbs button[aria-pressed="true"]{border-color:var(--ink);opacity:1}
+.thumbs button:hover{opacity:1}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.info{padding-block:clamp(16px,3vw,48px);display:grid;gap:26px;align-content:start;min-width:0}
+.swapin{animation:swapin .6s var(--ease)}
+@keyframes swapin{from{opacity:0;transform:translateY(12px)}}
+.info h2{font-size:clamp(44px,4.8vw,76px);font-weight:700;letter-spacing:-.05em;line-height:.92;margin-top:10px}
+.price{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.price b{font-family:var(--f-display);font-size:34px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.desc{font-size:17px;color:var(--muted);max-width:480px;line-height:1.6}
+.notes{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.notes li{font-size:13px;padding:6px 14px;border-radius:99px;background:var(--cream);border:1px solid var(--line)}
+.opt{display:grid;gap:10px}
+.opt .k{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.sizes button{min-width:92px;padding:12px 16px;border-radius:16px;border:1px solid var(--line);background:#fff;cursor:pointer;text-align:left;display:grid;gap:2px;transition:border-color .3s,background .3s,box-shadow .3s}
+.sizes button b{font-weight:600;font-size:15px}
+.sizes button span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sizes button:hover{border-color:var(--ink)}
+.sizes button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--cream)}
+.buy{display:flex;gap:10px;flex-wrap:wrap}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:99px;background:#fff;height:56px}
+.qty button{width:48px;height:100%;border:0;background:none;cursor:pointer;font-size:20px;border-radius:99px}
+.qty button:hover{background:var(--cream)}
+.qty output{min-width:28px;text-align:center;font-variant-numeric:tabular-nums;font-weight:500}
+.add-big{flex:1;min-width:220px;height:56px;border-radius:99px;border:0;background:var(--ink);color:var(--paper);cursor:pointer;font-size:15.5px;font-weight:500;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 26px;box-shadow:0 18px 40px -18px rgba(30,29,22,.7);transition:background .3s,transform .3s var(--ease)}
+.add-big .arr{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
+.add-big:hover .arr{transform:rotate(90deg)}
+.add-big:active{transform:scale(.98)}
+.add-big.done{background:var(--amber)}
+.add-big span.t{font-variant-numeric:tabular-nums}
+.gift{display:flex;gap:14px;align-items:center;padding:16px;border-radius:20px;background:var(--cream);border:1px solid var(--line);cursor:pointer}
+.gift input{position:absolute;opacity:0;pointer-events:none}
+.gift .sw{flex:none;width:46px;height:28px;border-radius:99px;background:var(--line);position:relative;transition:background .3s}
+.gift .sw::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.15);transition:transform .4s var(--ease)}
+.gift input:checked + .sw{background:var(--honey)}
+.gift input:checked + .sw::after{transform:translateX(18px)}
+.gift input:focus-visible + .sw{outline:2px solid var(--honey);outline-offset:3px}
+.gift b{display:block;font-weight:600;font-size:15px}
+.gift small{color:var(--muted);font-size:13px}
+.giftbox{display:grid;gap:12px;animation:swapin .5s var(--ease)}
+.giftbox label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.giftbox textarea{width:100%;min-height:92px;resize:vertical;border-radius:16px;border:1px solid var(--line);padding:14px 16px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+.giftbox textarea:focus{outline:none;border-color:var(--honey);box-shadow:0 0 0 3px rgba(217,154,31,.18)}
+.notecard{position:relative;border-radius:6px;background:#FFFDF7;padding:22px 24px 18px;box-shadow:0 18px 40px -24px rgba(90,60,10,.45),0 0 0 1px rgba(220,205,174,.6);transform:rotate(-1.2deg);background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(165,101,15,.12) 31px 32px);background-position:0 14px}
+.notecard p{font-family:var(--f-hand);font-size:21px;line-height:32px;color:#3B3423;min-height:64px;white-space:pre-wrap;overflow-wrap:anywhere}
+.notecard span{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
+.notecard::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:20px;margin-left:-35px;background:rgba(232,183,74,.45);transform:rotate(2deg)}
+.promise{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;list-style:none;margin:0;padding:20px 0 0;border-top:1px solid var(--line);font-size:13.5px}
+.promise li{display:flex;gap:10px;align-items:center}
+.promise svg{flex:none;width:18px;height:18px;stroke:var(--amber);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.acc{border-top:1px solid var(--ink)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-weight:500;font-size:16px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary i{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .45s var(--ease),background .3s}
+.acc details[open] summary i{transform:rotate(45deg);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.acc .in{padding:0 0 20px;color:var(--muted);font-size:15px;display:grid;gap:10px}
+.acc dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+.acc dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.acc dd{margin:3px 0 0;color:var(--ink);font-size:15px}
+.pairs{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+.pairs li{display:flex;gap:12px;align-items:baseline}
+.pairs li b{color:var(--ink);font-weight:500;min-width:120px}
+
+/* COMPARE */
+.compare{background:var(--paper);padding-block:120px;border-block:1px solid var(--line)}
+.c-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.c-head h2{font-size:clamp(40px,4.6vw,72px);margin-top:16px}
+.c-head p{max-width:340px;color:var(--muted)}
+.tbl-wrap{overflow-x:auto;border-radius:24px;border:1px solid var(--line);background:#fff}
+table{width:100%;border-collapse:collapse;min-width:820px;font-size:14.5px}
+th,td{text-align:left;padding:18px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td,tr:last-child th{border-bottom:0}
+thead th{font-family:var(--f-display);font-size:19px;font-weight:600;letter-spacing:-.02em;background:var(--cream);position:sticky;top:0}
+tbody th{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;width:150px;background:#fff;position:sticky;left:0}
+td.col-on{background:rgba(247,227,176,.35)}
+thead th.col-on{background:var(--pale)}
+.dot{display:inline-flex;align-items:center;gap:10px}
+.dot i{width:20px;height:20px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+td .num{font-variant-numeric:tabular-nums}
+.tbl-btn{border:1px solid var(--line);background:none;border-radius:99px;padding:7px 14px;font-size:13px;cursor:pointer}
+.tbl-btn:hover{border-color:var(--ink)}
+
+/* FAQ */
+.faq{padding-block:120px}
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}
+.faq h2{font-size:clamp(40px,4.4vw,68px);margin-top:16px}
+.faq .intro-p{color:var(--muted);margin-top:18px;max-width:340px}
+.faq .acc summary{font-family:var(--f-display);font-size:clamp(19px,1.6vw,23px);font-weight:500;letter-spacing:-.02em;padding:22px 0;gap:20px}
+.faq .acc .in{font-size:16px;max-width:620px}
+
+/* GIFT BAND */
+.band{padding:0 max(12px,env(safe-area-inset-right,0px)) 12px max(12px,env(safe-area-inset-left,0px))}
+.band-in{max-width:1480px;margin:0 auto;border-radius:34px;background:var(--ink);color:var(--paper);padding:clamp(48px,7vw,110px) clamp(24px,6vw,96px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;position:relative;overflow:hidden}
+.band-in::before{content:"";position:absolute;width:60vw;height:60vw;right:-20vw;top:-30vw;border-radius:50%;background:radial-gradient(circle,rgba(217,154,31,.25),transparent 65%)}
+.band h2{font-size:clamp(42px,5vw,82px);font-weight:700;letter-spacing:-.05em;position:relative}
+.band h2 em{color:var(--gold)}
+.band p{color:#BDB59D;max-width:420px;margin-top:20px;position:relative}
+.band .cta{display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:15px;font-weight:500;margin-top:30px;position:relative;border:0;cursor:pointer}
+.band .cta .arr{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));display:grid;place-items:center}
+.band .notecard{transform:rotate(3deg);max-width:380px;justify-self:center}
+.band .notecard p{font-size:24px}
+
+/* footer */
+footer{background:var(--forest);color:var(--on-dark);overflow:hidden}
+footer .wrap{padding-block:72px 0}
+.f-row{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start}
+footer .logo{color:var(--gold)}
+footer p,footer a{color:var(--on-dark-muted);font-size:14px;text-decoration:none}
+footer nav{display:flex;gap:28px;flex-wrap:wrap}
+footer nav a:hover{color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--forest-2);margin-top:56px;padding-top:22px;font-size:12.5px;color:var(--on-dark-muted)}
+.wordmark{font-family:var(--f-display);font-weight:800;font-size:clamp(120px,30vw,460px);line-height:.78;letter-spacing:-.06em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.28);margin-top:40px;user-select:none;white-space:nowrap}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(20,17,10,.5);z-index:80;opacity:0;pointer-events:none;transition:opacity .5s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:85;background:var(--paper);transform:translateX(100%);visibility:hidden;transition:transform .7s var(--ease-io),visibility 0s .7s;display:flex;flex-direction:column;padding:calc(26px + env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-right,0px)) calc(26px + env(safe-area-inset-bottom,0px)) 28px}
+.drawer.open{transform:none;visibility:visible;transition:transform .7s var(--ease-io)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.drawer h3{font-size:32px}
+.ship{font-size:13px;color:var(--muted);display:grid;gap:8px;margin-bottom:18px}
+.ship .tr{height:6px;border-radius:99px;background:var(--sand);overflow:hidden}
+.ship .tr i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--honey));width:0;transition:width .8s var(--ease)}
+.d-list{flex:1;overflow-y:auto;display:grid;align-content:start;gap:16px;list-style:none;margin:0;padding:0}
+.d-list li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.d-list img{width:64px;height:64px;object-fit:cover;border-radius:12px}
+.d-list strong{font-weight:500;display:block}
+.d-list small{color:var(--muted);font-size:12.5px}
+.d-list .q{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.d-list .q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;line-height:1}
+.d-list li.d-empty{display:block;border:0;color:var(--muted);text-align:center;padding:60px 0}
+.d-foot{border-top:1px solid var(--ink);padding-top:18px;display:grid;gap:14px}
+.d-foot .tot{display:flex;justify-content:space-between;align-items:baseline}
+.d-foot .tot b{font-family:var(--f-display);font-weight:600;font-size:28px;font-variant-numeric:tabular-nums}
+.d-foot .note{font-size:12px;color:var(--muted)}
+.d-foot .go{height:54px;border-radius:99px;border:0;background:var(--ink);color:var(--paper);font-weight:500;cursor:pointer}
+
+/* mobile buy bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:45;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));transform:translateY(110%);transition:transform .5s var(--ease);display:none}
+.mbar.show{transform:none}
+.mbar .in{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 8px;border-radius:22px;background:rgba(251,246,236,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 -10px 40px -20px rgba(90,60,10,.4)}
+.mbar img{width:44px;height:44px;border-radius:12px;object-fit:cover}
+.mbar div{flex:1;min-width:0;line-height:1.25}
+.mbar strong{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar small{font-size:12.5px;color:var(--muted)}
+.mbar button{height:46px;padding:0 20px;border-radius:99px;border:0;background:var(--ink);color:var(--paper);font-weight:500;cursor:pointer}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,220%);opacity:0;background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:99px;font-size:13.5px;z-index:95;transition:transform .5s var(--ease),opacity .4s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+@media (max-width:1080px){
+  .nav ul{display:none}.menu-btn{display:grid}
+  .nav ul.open{display:grid;position:absolute;top:70px;left:12px;right:12px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;gap:4px;font-size:17px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .rail-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(200px,38%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin-inline:-12px;padding-inline:12px;scrollbar-width:none}
+  .rail-grid::-webkit-scrollbar{display:none}
+  .pc{scroll-snap-align:start}
+}
+@media (max-width:900px){
+  .pdp-card{grid-template-columns:1fr;padding:12px 12px 24px;border-radius:28px}
+  .gallery{position:relative;top:0}
+  .info{padding:8px 12px 0}
+  .faq-grid,.band-in{grid-template-columns:1fr}
+  .faq-grid{gap:32px}
+  .mbar{display:block}
+}
+@media (max-width:560px){
+  .rail-grid{grid-auto-columns:62%}
+  .promise{grid-template-columns:1fr}
+  .acc dl{grid-template-columns:1fr}
+  .sizes button{min-width:0;flex:1}
+  .chip{font-size:13.5px;padding-right:14px}
+  .chip small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.up{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="index.html" aria-label="Bee home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1E1D16" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#1E1D16"/></svg>Bee</a>
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Our Story</a></li>
+      <li><a href="products.html" class="on" aria-current="page">Products</a></li>
+      <li><a href="tasting.html">Tasting</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+    </ul>
+    <div class="tools">
+      <button class="icon-btn" aria-label="Open basket" type="button" id="cartBtn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="badge">0</span></button>
+      <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" type="button" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M8 15h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="wrap">
+      <p class="crumb up"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Shop</span></p>
+      <div class="intro-grid">
+        <h1 class="up d1">Honey for<br>every <em>table.</em></h1>
+        <p class="lede up d2">Four honeys from four places, poured raw in small batches. Start with who you’re choosing for, and we’ll point you to the right jar.</p>
+      </div>
+      <div class="who up d3">
+        <span id="whoLbl">Who is it for?</span>
+        <div class="chips" id="chips" role="group" aria-labelledby="whoLbl"></div>
+        <p class="who-line" id="whoLine" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rail" aria-label="The collection">
+    <div class="wrap"><div class="rail-grid" id="rail"></div></div>
+  </section>
+
+  <section class="pdp" id="pdp" aria-label="Product details">
+    <div class="wrap">
+      <div class="pdp-card" id="pdpCard">
+        <div class="gallery">
+          <div class="stage" id="stage"><img id="gMain" src="img/wild.webp" alt=""><span class="lbl" id="gLbl"></span><span class="swatch" id="gSw"><i></i><span></span></span></div>
+          <div class="thumbs" id="thumbs" role="group" aria-label="Photos"></div>
+        </div>
+        <div class="info" id="info">
+          <div><p class="eyebrow" id="pTag"></p><h2 id="pName"></h2></div>
+          <p class="price"><b id="pPrice"></b><span id="pPer"></span></p>
+          <p class="desc" id="pDesc"></p>
+          <ul class="notes" id="pNotes" aria-label="Flavour notes"></ul>
+          <div class="opt"><div class="k"><span id="sizeLbl">Size</span><span id="pSizeNote"></span></div><div class="sizes" id="pSizes" role="group" aria-labelledby="sizeLbl"></div></div>
+          <div class="buy" id="buy">
+            <div class="qty" role="group" aria-label="Quantity"><button type="button" id="qMinus" aria-label="One less">−</button><output id="qOut" aria-live="polite">1</output><button type="button" id="qPlus" aria-label="One more">+</button></div>
+            <button class="add-big" type="button" id="addBtn"><span class="t" id="addTxt">Add to basket</span><span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+          </div>
+          <label class="gift" for="giftOn"><input type="checkbox" id="giftOn"><span class="sw" aria-hidden="true"></span><span><b>Send it as a gift</b><small>Wrapped in cloth, with your note written out by hand. Free.</small></span></label>
+          <div class="giftbox" id="giftBox" hidden>
+            <label for="giftNote"><span>Your note</span><span id="gCount">0 / 160</span></label>
+            <textarea id="giftNote" maxlength="160" placeholder="For Amma, for the mornings you made chai for all of us."></textarea>
+            <div class="notecard"><p id="notePrev">For Amma, for the mornings you made chai for all of us.</p><span>Written out by hand in our Coorg packing room</span></div>
+          </div>
+          <ul class="promise">
+            <li><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Free shipping over ₹999</li>
+            <li><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg>Lab tested, every batch</li>
+            <li><svg viewBox="0 0 24 24"><path d="M8 3h8v3l2 3v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9l2-3z"/></svg>Glass jar, no plastic</li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Ships from Coorg in 1–2 days</li>
+          </ul>
+          <div class="acc" id="pAcc"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare">
+    <div class="wrap">
+      <div class="c-head">
+        <div><p class="eyebrow rv">Side by side</p><h2 class="rv">Not sure? <em>Compare</em> them.</h2></div>
+        <p class="rv">Every honey tastes of where and when it was made. Here is how ours differ.</p>
+      </div>
+      <div class="tbl-wrap rv"><table id="tbl"></table></div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap faq-grid">
+      <div><p class="eyebrow rv">Good to know</p><h2 class="rv">Questions people ask us.</h2><p class="intro-p rv">Still wondering about something? Write to us at hello@beehoney.in and a beekeeper will reply.</p></div>
+      <div class="acc rv">
+        <details open><summary>My honey has turned thick and grainy. Has it gone bad?<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="in"><p>No. That is crystallisation, and it is a sign the honey is raw. Stand the jar in warm water (not hot, below 40°C) for 15 minutes and stir. It will turn smooth again.</p></div></details>
+        <details><summary>How should I store it?<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="in"><p>Keep it at room temperature, lid closed, away from direct sun. Don’t refrigerate it, and use a dry spoon so no water gets in.</p></div></details>
+        <details><summary>How long does it keep?<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="in"><p>Stored well, honey keeps for years. We print a best-before date two years from harvest, along with the apiary code and harvest month.</p></div></details>
+        <details><summary>Can I give honey to my baby?<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="in"><p>Please don’t give any honey, raw or processed, to children under 12 months old. Their digestion isn’t ready for it yet. From their first birthday onwards it’s fine.</p></div></details>
+        <details><summary>Can I add a gift note to more than one jar?<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="in"><p>Yes. Each gift in your basket keeps its own note, and we write every one out by hand before it ships.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-in rv">
+      <div>
+        <p class="eyebrow" style="color:#A9A189">The Sharing Box</p>
+        <h2 style="margin-top:18px">Some things are better <em>given.</em></h2>
+        <p>All four honeys in 125 g jars, wrapped in cloth with a note in your words. For a new home, a festival, or simply to say thank you.</p>
+        <button class="cta" type="button" id="boxBtn">See the Sharing Box <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6" transform="rotate(180 12 12)"/></svg></span></button>
+      </div>
+      <div class="notecard"><p>Happy Diwali, Meera. Something sweet for your new home.</p><span>Written out by hand in our Coorg packing room</span></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-row">
+      <div><a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1B2117" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#F1E8D2"/></svg>Bee</a><p style="margin-top:14px">Made by bees. Shared by people.</p></div>
+      <nav aria-label="Footer"><a href="index.html">Home</a><a href="story.html">Our Story</a><a href="products.html">Shop</a><a href="tasting.html">Tasting Guide</a><a href="sustainability.html">Sustainability</a></nav>
+    </div>
+    <div class="f-bot"><span>© 2026 Bee. All rights reserved.</span><span>Privacy Policy · Terms &amp; Conditions</span></div>
+    <div class="wordmark" aria-hidden="true">Bee</div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><div class="in"><img id="mImg" src="img/wild.webp" alt=""><div><strong id="mName"></strong><small id="mMeta"></small></div><button type="button" id="mAdd">Add</button></div></div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Basket">
+  <header><h3>Your basket</h3><button class="icon-btn" id="dClose" aria-label="Close basket" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="ship"><span id="shipTxt"></span><div class="tr"><i id="shipBar"></i></div></div>
+  <ul class="d-list" id="dList"></ul>
+  <div class="d-foot">
+    <div class="tot"><span>Subtotal</span><b id="dTotal">₹0</b></div>
+    <p class="note">This is a preview store, so checkout is not connected yet.</p>
+    <button class="go" type="button" id="checkout">Checkout</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const inr=v=>'₹'+v.toLocaleString('en-IN');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('loaded')));
+
+  const MOMENTS=[
+    {id:'all',n:'Everyone',ic:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c0-3 2.5-5 5-5s5 2 5 5M11 19c0-3 2.5-5 5-5s5 2 5 5"/>',line:'All four honeys, plus the Sharing Box.'},
+    {id:'morning',n:'Slow mornings',ic:'<path d="M4 17h16M7 17a5 5 0 0 1 10 0M12 5v3M5.6 9.6l2 2M18.4 9.6l-2 2"/>',line:'Light, gentle honeys for warm water, toast and that first quiet cup.'},
+    {id:'comfort',n:'Comfort & care',ic:'<path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/>',line:'For the person who needs looking after. Stirred into something warm.'},
+    {id:'cooking',n:'Cooking together',ic:'<path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6zM8 7c0-1 1-1 1-2M12 7c0-1 1-1 1-2M16 7c0-1 1-1 1-2"/>',line:'Honeys that hold up over hot rotis, marinades and long Sunday tables.'},
+    {id:'gift',n:'A gift',ic:'<rect x="4" y="9" width="16" height="11" rx="1"/><path d="M4 13h16M12 9v11M12 9c-2-4-6-3-5 0M12 9c2-4 6-3 5 0"/>',line:'Wrapped in cloth, with a note in your words, written out by hand.'}
+  ];
+  const P=[
+    {id:'wild',n:'Wildflower Honey',tag:'Bestseller',img:'wild',gal:['wild','drip','flowers'],t:'#F4DCA6',c:'#D99A1F',mm:62,grade:'Light amber',rg:'Coorg, Karnataka',harvest:'Mar – May',m:['morning','cooking','gift'],
+      sizes:[['250 g',250,349],['500 g',500,599],['1 kg',1000,1099]],
+      d:'Spring nectar from coffee blossom, wild jasmine and forest flowers around our Coorg hives. The honey most families start with, and keep coming back to.',
+      notes:['Floral','Fruity','Light caramel'],tex:'Medium body, smooth on the spoon. Crystallises in 2–4 months.',
+      pairs:[['Hot rotis','with a little ghee'],['Masala chai','instead of sugar'],['Cheese board','with figs and walnuts']]},
+    {id:'acacia',n:'Acacia Honey',tag:'Gentlest',img:'acacia',gal:['acacia','drip','flowers'],t:'#F6ECC8',c:'#F3E19A',mm:9,grade:'Water white',rg:'Kangra, Himachal',harvest:'Apr – Jun',m:['morning','comfort'],
+      sizes:[['250 g',250,399],['500 g',500,699]],
+      d:'Pale, clear and quietly sweet, from acacia trees on the Kangra hillsides. It stays runny for months, which makes it the easiest honey to stir into anything.',
+      notes:['Vanilla','Clean floral','Very mild'],tex:'Thin and glossy. Stays liquid for a long time.',
+      pairs:[['Warm water','first thing in the morning'],['Green tea','a spoon after steeping'],['Curd & fruit','for children’s breakfasts']]},
+    {id:'manuka',n:'Manuka Honey',tag:'MGO 263+',img:'manuka',gal:['manuka','beecomb','drip'],t:'#E8CDB0',c:'#7A3F0B',mm:122,grade:'Dark amber',rg:'Northland, New Zealand',harvest:'Dec – Jan',m:['comfort','gift'],
+      sizes:[['250 g',250,1899],['500 g',500,3499]],
+      d:'From one family apiary we partner with in Northland, where manuka shrubs flower for a few weeks each summer. Rich, bold and treasured, so a little goes a long way.',
+      notes:['Earthy','Herbal','Bittersweet'],tex:'Thick and creamy, almost like toffee.',
+      pairs:[['A spoon','on its own, slowly'],['Warm lemon water','on a scratchy morning'],['Dark chocolate','a small square']]},
+    {id:'comb',n:'Honey Comb',tag:'Seasonal',img:'comb',gal:['comb','beecomb','frame'],t:'#F3E0B2',c:'#EBC05A',mm:40,grade:'Extra light amber',rg:'Western Ghats, Kerala',harvest:'Jan – Mar',m:['cooking','gift'],
+      sizes:[['200 g',200,749],['400 g',400,1349]],
+      d:'Honey exactly as the bees left it, sealed in its own wax cells. Cut a piece at the table and watch it spill. It is the one that gets everyone talking.',
+      notes:['Meadow blossom','Soft beeswax','Bright'],tex:'Chewy wax cells with honey bursting out. Wax is safe to eat.',
+      pairs:[['Paneer or feta','on a platter'],['Warm bread','torn by hand'],['Fresh figs','with a little black pepper']]},
+    {id:'box',n:'The Sharing Box',tag:'Gift set',img:'wild',box:true,gal:['box','wild','comb'],t:'#F1D9A4',c:'#D99A1F',mm:null,grade:'Four honeys',rg:'All four regions',harvest:'This season',m:['gift'],
+      sizes:[['4 × 125 g',500,1499]],
+      d:'Wildflower, Acacia, Manuka and Honey Comb in small jars, wrapped together in cloth. A tasting journey from pale to dark, made to be opened with someone.',
+      notes:['Pale to dark','Four places','One table'],tex:'Four textures, from runny Acacia to chewy comb.',
+      pairs:[['A new home','housewarming'],['Festivals','Diwali, Onam, Christmas'],['A thank you','to someone who showed up']]}
+  ];
+  const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+  const img=k=>k==='box'?'':`img/${k}.webp`;
+  const boxArt=`<span class="boxart" aria-hidden="true"><img src="img/wild.webp" alt=""><img src="img/acacia.webp" alt=""><img src="img/manuka.webp" alt=""><img src="img/comb.webp" alt=""></span>`;
+
+  /* state */
+  let cur=P[0],size=0,qty=1,moment='all';
+  const hash=location.hash.slice(1); if(byId[hash])cur=byId[hash];
+
+  /* chips */
+  $('#chips').innerHTML=MOMENTS.map(m=>`<button class="chip" type="button" data-m="${m.id}" aria-pressed="${m.id==='all'}"><span class="ic"><svg viewBox="0 0 24 24">${m.ic}</svg></span>${m.n}<small>${m.id==='all'?P.length:P.filter(p=>p.m.includes(m.id)).length}</small></button>`).join('');
+  $('#whoLine').textContent=MOMENTS[0].line;
+  $('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;moment=b.dataset.m;
+    $$('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));
+    const line=$('#whoLine');line.style.opacity=0;setTimeout(()=>{line.textContent=MOMENTS.find(m=>m.id===moment).line;line.style.opacity=1},200);
+    $$('.pc').forEach(c=>c.classList.toggle('dim',moment!=='all'&&!byId[c.dataset.id].m.includes(moment)));
+    if(moment!=='all'&&!cur.m.includes(moment)){select(P.find(p=>p.m.includes(moment)),false)}
+  });
+
+  /* rail */
+  $('#rail').innerHTML=P.map(p=>`<button class="pc" type="button" data-id="${p.id}" style="--t:${p.t}" aria-current="false">
+    <span class="ph">${p.box?boxArt:`<img src="${img(p.img)}" alt="" loading="lazy">`}</span><span class="sel" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span>
+    <span class="row"><b>${p.n}</b><span class="from">${p.sizes.length>1?'from ':''}${inr(p.sizes[0][2])}</span></span><span class="rg">${p.rg}</span></button>`).join('');
+  $('#rail').addEventListener('click',e=>{const b=e.target.closest('.pc');if(b)select(byId[b.dataset.id],true)});
+
+  /* product view */
+  const svgPlus='<i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></i>';
+  function setMain(k,alt){const m=$('#gMain');m.classList.add('out');setTimeout(()=>{
+      if(k==='box'){m.hidden=true;let b=$('#stage .boxart');if(!b){$('#stage').insertAdjacentHTML('afterbegin',boxArt);b=$('#stage .boxart');b.style.cssText='position:absolute;inset:0;padding:12%;gap:10px'}b.hidden=false}
+      else{const b=$('#stage .boxart');if(b)b.hidden=true;m.hidden=false;m.src=img(k);m.alt=alt}
+      m.classList.remove('out')},reduce?0:220)}
+  function select(p,scroll){cur=p;size=0;qty=1;render(true);
+    try{history.replaceState(null,'','#'+p.id)}catch(e){}
+    if(scroll&&innerWidth<=1080){$('#pdpCard').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}}
+  function render(anim){
+    const p=cur;
+    $$('.pc').forEach(c=>c.setAttribute('aria-current',c.dataset.id===p.id));
+    document.documentElement.style.setProperty('--tint',p.t);
+    setMain(p.gal[0],`${p.n}`);
+    $('#gLbl').textContent=p.rg.toUpperCase()+' · '+p.harvest.toUpperCase();
+    $('#gSw').style.setProperty('--c',p.c);$('#gSw span').textContent=p.mm!=null?`${p.mm} mm Pfund · ${p.grade}`:'Pale to dark · four honeys';
+    $('#thumbs').innerHTML=p.gal.map((k,i)=>`<button type="button" aria-pressed="${i===0}" data-k="${k}" aria-label="Photo ${i+1}">${k==='box'?boxArt:`<img src="${img(k)}" alt="">`}</button>`).join('');
+    $('#pTag').textContent=p.tag;$('#pName').textContent=p.n;$('#pDesc').textContent=p.d;
+    $('#pNotes').innerHTML=p.notes.map(n=>`<li>${n}</li>`).join('');
+    $('#pSizes').innerHTML=p.sizes.map((s,i)=>`<button type="button" aria-pressed="${i===size}" data-i="${i}"><b>${s[0]}</b><span>${inr(s[2])}</span></button>`).join('');
+    $('#pSizeNote').textContent=p.sizes.length>1?'Bigger jars cost less per gram':'';
+    $('#pAcc').innerHTML=`
+      <details open><summary>Taste &amp; texture${svgPlus}</summary><div class="in"><p>${p.tex}</p></div></details>
+      <details><summary>Lovely with${svgPlus}</summary><div class="in"><ul class="pairs">${p.pairs.map(x=>`<li><b>${x[0]}</b><span>${x[1]}</span></li>`).join('')}</ul></div></details>
+      <details><summary>Where it’s from${svgPlus}</summary><div class="in"><dl><div><dt>Region</dt><dd>${p.rg}</dd></div><div><dt>Harvest</dt><dd>${p.harvest}</dd></div><div><dt>Colour</dt><dd>${p.mm!=null?p.grade+', '+p.mm+' mm':'Pale to dark'}</dd></div><div><dt>Processing</dt><dd>Raw, cold strained</dd></div></dl></div></details>`;
+    if(anim&&!reduce){const i=$('#info');i.classList.remove('swapin');void i.offsetWidth;i.classList.add('swapin')}
+    $('#mImg').src=img(p.img);$('#mName').textContent=p.n;
+    renderPrice();markTable();
+  }
+  function renderPrice(){const s=cur.sizes[size];$('#pPrice').textContent=inr(s[2]);
+    $('#pPer').textContent=`${inr(Math.round(s[2]/s[1]*100))} per 100 g`;$('#qOut').textContent=qty;
+    $('#addTxt').textContent=`Add to basket · ${inr(s[2]*qty)}`;$('#mMeta').textContent=`${s[0]} · ${inr(s[2]*qty)}`}
+  $('#thumbs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$$('#thumbs button').forEach(x=>x.setAttribute('aria-pressed',x===b));setMain(b.dataset.k,cur.n)});
+  $('#pSizes').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;size=+b.dataset.i;$$('#pSizes button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderPrice()});
+  $('#qMinus').addEventListener('click',()=>{qty=Math.max(1,qty-1);renderPrice()});
+  $('#qPlus').addEventListener('click',()=>{qty=Math.min(12,qty+1);renderPrice()});
+
+  /* gift */
+  const DEF='For Amma, for the mornings you made chai for all of us.';
+  $('#giftOn').addEventListener('change',e=>{$('#giftBox').hidden=!e.target.checked;if(e.target.checked)setTimeout(()=>$('#giftNote').focus(),60)});
+  $('#giftNote').addEventListener('input',e=>{const v=e.target.value;$('#gCount').textContent=`${v.length} / 160`;$('#notePrev').textContent=v||DEF});
+
+  /* basket (shared with home page) */
+  const KEY='bee-basket-v1';let cart=new Map();
+  try{(JSON.parse(localStorage.getItem(KEY))||[]).forEach(it=>cart.set(it.k,it))}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...cart.values()]))}catch(e){}};
+  const badge=$('#badge'),toast=$('#toast');let tt;
+  const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2600)};
+  function renderCart(){
+    const items=[...cart.values()],n=items.reduce((a,b)=>a+b.q,0),tot=items.reduce((a,v)=>a+v.q*v.price,0);
+    badge.textContent=n;badge.classList.toggle('show',n>0);
+    $('#dList').innerHTML=!n?'<li class="d-empty">Your basket is empty.<br>Pick a honey for someone you love.</li>':
+      items.map(v=>`<li><img src="img/${v.img}.webp" alt=""><div><strong>${v.n}</strong><small>${v.z} · ${inr(v.price)}${v.gift?' · Gift with note':''}</small></div>
+      <div class="q"><button type="button" data-k="${v.k}" data-d="-1" aria-label="Remove one">−</button><span>${v.q}</span><button type="button" data-k="${v.k}" data-d="1" aria-label="Add one">+</button></div></li>`).join('');
+    $('#dTotal').textContent=inr(tot);
+    const left=999-tot;$('#shipTxt').textContent=left>0?`Add ${inr(left)} more for free shipping`:'Your order ships free';$('#shipBar').style.width=Math.min(100,tot/999*100)+'%';
+    save();
+  }
+  $('#dList').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const it=cart.get(b.dataset.k);it.q+=+b.dataset.d;if(it.q<=0)cart.delete(b.dataset.k);renderCart()});
+  function add(){
+    const s=cur.sizes[size],gift=$('#giftOn').checked,note=gift?($('#giftNote').value.trim()||DEF):'';
+    const k=cur.id+'|'+s[0]+(gift?'|g|'+note:'');
+    cart.set(k,{k,id:cur.id,n:cur.n,img:cur.img,z:s[0],price:s[2],gift,note,q:(cart.get(k)?.q||0)+qty});
+    renderCart();badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
+    const btn=$('#addBtn');btn.classList.add('done');$('#addTxt').textContent='Added to your basket';
+    setTimeout(()=>{btn.classList.remove('done');renderPrice()},1600);
+    say(gift?`${cur.n} will be wrapped with your note`:`${qty} × ${cur.n}, ${s[0]}, added`);
+    $('#nav').classList.remove('hide');
+  }
+  $('#addBtn').addEventListener('click',add);$('#mAdd').addEventListener('click',add);
+  const drawer=$('#drawer'),scrim=$('#scrim');
+  const openD=o=>{drawer.classList.toggle('open',o);scrim.classList.toggle('open',o);if(o){renderCart();setTimeout(()=>$('#dClose').focus(),50)}else $('#cartBtn').focus()};
+  $('#cartBtn').addEventListener('click',()=>openD(true));$('#dClose').addEventListener('click',()=>openD(false));scrim.addEventListener('click',()=>openD(false));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))openD(false)});
+  $('#checkout').addEventListener('click',()=>say(cart.size?'Checkout is not connected in this preview.':'Add a jar first.'));
+  $('#boxBtn').addEventListener('click',()=>{select(byId.box,false);$('#pdpCard').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+
+  /* compare table */
+  const cols=P.filter(p=>!p.box);
+  const rows=[
+    ['Colour',p=>`<span class="dot" style="--c:${p.c}"><i></i>${p.grade}, <span class="num">${p.mm}</span> mm</span>`],
+    ['Flavour',p=>p.notes.join(', ')],
+    ['Texture',p=>p.tex.split('.')[0]],
+    ['From',p=>p.rg],
+    ['Harvest',p=>p.harvest],
+    ['Best for',p=>p.m.map(id=>MOMENTS.find(m=>m.id===id).n).join(', ')],
+    ['Price from',p=>`<span class="num">${inr(p.sizes[0][2])}</span> · ${p.sizes[0][0]}`],
+    ['',p=>`<button class="tbl-btn" type="button" data-id="${p.id}">View ${p.n.split(' ')[0]}</button>`]
+  ];
+  $('#tbl').innerHTML=`<thead><tr><th scope="col"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Detail</span></th>${cols.map(p=>`<th scope="col" data-id="${p.id}">${p.n}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${cols.map(p=>`<td data-id="${p.id}">${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  function markTable(){$$('#tbl [data-id]').forEach(c=>{if(c.tagName!=='BUTTON')c.classList.toggle('col-on',c.dataset.id===cur.id)})}
+  $('#tbl').addEventListener('click',e=>{const b=e.target.closest('.tbl-btn');if(!b)return;select(byId[b.dataset.id],false);$('#pdpCard').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+
+  /* menu, reveal, nav hide, mobile bar */
+  $('#menuBtn').addEventListener('click',function(){const o=$('#menu').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  $$('.rv').forEach(el=>io.observe(el));
+  const mbar=$('#mbar');
+  new IntersectionObserver(es=>es.forEach(e=>{const r=$('#pdpCard').getBoundingClientRect();mbar.classList.toggle('show',!e.isIntersecting&&r.bottom>innerHeight*.5&&r.top<innerHeight)}),{threshold:0}).observe($('#buy'));
+  const nav=$('#nav');let lastY=scrollY;
+  addEventListener('scroll',()=>{const y=scrollY;if(y>400&&y>lastY+3&&!$('#menu').classList.contains('open'))nav.classList.add('hide');else if(y<lastY-3)nav.classList.remove('hide');lastY=y;
+    const r=$('#pdpCard').getBoundingClientRect(),b=$('#buy').getBoundingClientRect();mbar.classList.toggle('show',(b.bottom<0||b.top>innerHeight)&&r.bottom>innerHeight*.6&&r.top<innerHeight*.4)},{passive:true});
+
+  render(false);renderCart();
+  if(hash&&byId[hash])setTimeout(()=>$('#pdpCard').scrollIntoView({behavior:'auto'}),300);
+})();
+</script>
+<script defer src="vendor/three.min.js"></script>
+<script defer src="vendor/GLTFLoader.js"></script>
+<script defer src="vendor/meshopt_decoder.js"></script>
+<script defer src="bee.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="motion.js"></script>
+</body>
+</html>

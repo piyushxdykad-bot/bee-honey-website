@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tasting Guide · Bee</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cellipse cx=%2216%22 cy=%2219%22 rx=%226%22 ry=%229%22 fill=%22%23E8B74A%22/%3E%3Cpath d=%22M10.4 16h11.2M10 20h12M11 24h10%22 stroke=%22%231E1D16%22 stroke-width=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%229.5%22 r=%223%22 fill=%22%231E1D16%22/%3E%3C/svg%3E">
+<style>html.mx-covering::after{content:"";position:fixed;inset:0;background:#B9741C;z-index:299}</style>
+<style>html.mx-loading::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 55% at 50% 42%,#FFFBF2 0%,#F7EFDF 55%,#EFE3C8 100%);z-index:349}</style>
+<script>try{var R=matchMedia('(prefers-reduced-motion: reduce)').matches,H=document.documentElement;if(sessionStorage.getItem('mx-nav')&&!R){H.classList.add('mx-covering');setTimeout(function(){H.classList.remove('mx-covering')},2500)}else if(!sessionStorage.getItem('bee-seen')&&!R){H.classList.add('mx-loading');setTimeout(function(){H.classList.remove('mx-loading')},12000)}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Nothing+You+Could+Do&display=swap">
+<style>
+/* Layout: an imageless tasting guide — drawn honey drops on the real Pfund scale → five-step ritual with a sticky drawn instrument → flavour wheel → pairing finder → your tasting notebook → host a tasting at home. */
+:root{
+  --night:#14110A; --cream:#F5EDDC; --paper:#FBF6EC; --sand:#EEE2C6;
+  --ink:#1E1D16; --muted:#6F6A57; --line:#DCCDAE;
+  --honey:#D99A1F; --amber:#A5650F; --gold:#E8B74A; --pale:#F7E3B0;
+  --forest:#1B2117; --forest-2:#283022; --on-dark:#F1E8D2; --on-dark-muted:#A9A189;
+  --tint:#F7E3B0; --hc:#D99A1F;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-hand:"Nothing You Could Do","Segoe Script",cursive;
+  --ease:cubic-bezier(.2,.7,.1,1); --ease-io:cubic-bezier(.7,0,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.035em}
+h3{letter-spacing:-.02em}
+h1 em,h2 em{font-style:normal;color:var(--amber)}
+p{margin:0}
+[hidden]{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:9px;height:10px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.up{opacity:0;transform:translateY(20px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.loaded .up{opacity:1;transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.5s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* nav */
+header.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;z-index:50;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));transition:transform .6s var(--ease)}
+header.nav.hide{transform:translateY(calc(-100% - 20px))}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:24px;max-width:1180px;margin:0 auto;padding:0 8px 0 22px;border-radius:99px;background:rgba(251,246,236,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(220,205,174,.7);box-shadow:0 10px 40px -18px rgba(90,60,10,.25)}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:24px;font-weight:700;text-decoration:none;letter-spacing:-.03em;line-height:1}
+.logo svg{width:26px;height:26px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;opacity:.75;padding:8px 14px;border-radius:99px;display:block;transition:opacity .3s,background .3s}
+.nav ul a:hover{opacity:1}
+.nav ul a.on{opacity:1;background:var(--ink);color:var(--paper)}
+.tools{display:flex;gap:4px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:inherit;text-decoration:none;position:relative;transition:background .3s}
+.icon-btn:hover{background:rgba(30,29,22,.07)}
+.menu-btn{display:none}
+
+/* buttons */
+.cta-dark{display:inline-flex;align-items:center;gap:14px;padding:7px 7px 7px 24px;border-radius:99px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;font-weight:500;border:0;cursor:pointer;box-shadow:0 18px 40px -18px rgba(30,29,22,.7);transition:transform .4s var(--ease)}
+.cta-dark .arr{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--honey));color:var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
+.cta-dark:hover{transform:translateY(-2px)}.cta-dark:hover .arr{transform:rotate(-45deg)}
+.quiet{font-size:15px;text-decoration:none;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;transition:background-size .5s var(--ease)}
+.quiet:hover{background-size:0 1px;background-position:100% 100%}
+
+/* drawn honey drop */
+.drop{position:relative;width:var(--s,64px);aspect-ratio:1;border-radius:0 50% 50% 50%;transform:rotate(45deg);background:radial-gradient(circle at 70% 70%,color-mix(in srgb,var(--c) 70%,#000 30%) 0%,var(--c) 55%,color-mix(in srgb,var(--c) 70%,#fff 30%) 100%);box-shadow:inset -6px -6px 14px rgba(0,0,0,.18),inset 6px 6px 12px rgba(255,255,255,.35),0 18px 30px -14px color-mix(in srgb,var(--c) 70%,#000 30%)}
+.drop::after{content:"";position:absolute;width:24%;height:14%;left:38%;top:30%;border-radius:50%;background:rgba(255,255,255,.75);transform:rotate(-45deg);filter:blur(.5px)}
+
+/* HERO */
+.hero{position:relative;padding-top:calc(130px + env(safe-area-inset-top,0px));padding-bottom:clamp(70px,9vw,120px);overflow:hidden;isolation:isolate;transition:background .9s var(--ease);background:radial-gradient(70% 60% at 70% 30%,color-mix(in srgb,var(--tint) 85%,#fff 15%) 0%,var(--cream) 70%)}
+.hero-top{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
+.crumb{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;margin-bottom:26px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+.hero h1{font-size:clamp(52px,8vw,136px);font-weight:700;line-height:.9;letter-spacing:-.055em}
+.hero .lede{max-width:380px;color:var(--muted);font-size:17px}
+.scale{position:relative;margin-top:clamp(56px,8vw,100px)}
+.drops{position:relative;height:150px}
+.dbtn{position:absolute;left:var(--x);bottom:16px;transform:translateX(-50%);background:none;border:0;padding:0;cursor:pointer;display:grid;justify-items:center;gap:16px;transition:transform .6s var(--ease)}
+.dbtn .drop{--s:clamp(44px,5vw,64px);animation:bob 5s ease-in-out infinite;animation-delay:var(--dl);transition:transform .6s var(--ease)}
+@keyframes bob{50%{translate:0 -8px}}
+.dbtn span{font-size:13px;font-weight:500;white-space:nowrap;opacity:.7;transition:opacity .3s}
+.dbtn:hover span,.dbtn[aria-pressed="true"] span{opacity:1}
+.dbtn[aria-pressed="true"] .drop{--s:clamp(58px,6.4vw,84px)}
+.dbtn::after{content:"";position:absolute;left:50%;bottom:-16px;width:1px;height:16px;background:var(--ink);opacity:.3}
+.bar{height:22px;border-radius:99px;background:linear-gradient(90deg,#FBF4D6 0%,#F6E7A8 6%,#EFD27A 12%,#E8B74A 24%,#D99A1F 40%,#B9701A 60%,#8A4A0D 80%,#4E2606 100%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.ticks{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.grades{display:grid;grid-template-columns:8.5fr 8.5fr 17fr 16fr 35fr 29fr 26fr;margin-top:10px;font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.grades span{border-left:1px solid var(--line);padding-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.readout{margin-top:44px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:28px;align-items:center;padding:22px 26px;border-radius:26px;background:rgba(251,246,236,.75);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.readout .drop{--s:52px;margin:6px}
+.readout h3{font-size:clamp(26px,2.6vw,36px)}
+.readout p{color:var(--muted);margin-top:4px}
+.readout .mm{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,4vw,60px);letter-spacing:-.05em;line-height:1;text-align:right;font-variant-numeric:tabular-nums}
+.readout .mm small{display:block;font-family:var(--f-mono);font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fade{transition:opacity .3s}.fade.out{opacity:0}
+
+/* RITUAL */
+.ritual{background:var(--night);color:var(--on-dark);padding-block:clamp(100px,12vw,160px)}
+.ritual .eyebrow{color:var(--on-dark-muted)}
+.r-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,80px)}
+.r-head h2{font-size:clamp(42px,5vw,82px);margin-top:16px}
+.r-head h2 em{color:var(--gold)}
+.r-head p{max-width:340px;color:var(--on-dark-muted)}
+.r-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,96px)}
+.instrument{position:sticky;top:110px;align-self:start;aspect-ratio:1;max-width:520px;width:100%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(232,183,74,.18),transparent 62%);border:1px solid rgba(241,232,210,.12)}
+.instrument svg{width:62%;height:62%;overflow:visible}
+.instrument .ring{position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);transform:rotate(-90deg)}
+.instrument .ring circle{fill:none;stroke:var(--gold);stroke-width:1.5;stroke-dasharray:var(--len);stroke-dashoffset:calc(var(--len) * (1 - var(--p,0)));transition:stroke-dashoffset 1s var(--ease)}
+.instrument .stepno{position:absolute;top:12%;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--on-dark-muted)}
+.instrument .cap{position:absolute;bottom:11%;font-family:var(--f-display);font-size:22px;font-weight:600;letter-spacing:-.02em}
+.ico{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.9);transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.ico.on{opacity:1;transform:none}
+.ico svg{stroke:var(--on-dark);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.steps{display:grid}
+.step{padding:clamp(40px,9vh,90px) 0;border-top:1px solid rgba(241,232,210,.12);opacity:.35;transition:opacity .6s}
+.step:last-child{border-bottom:1px solid rgba(241,232,210,.12)}
+.step.on{opacity:1}
+.step .n{font-family:var(--f-mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
+.step h3{font-size:clamp(34px,3.6vw,56px);font-weight:700;letter-spacing:-.045em;margin:10px 0 16px}
+.step p{color:var(--on-dark-muted);font-size:17px;max-width:480px}
+.step .tip{margin-top:20px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:rgba(251,246,236,.05);border:1px solid rgba(241,232,210,.1);font-size:14.5px;color:var(--on-dark);max-width:480px}
+.step .tip b{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;color:var(--gold);font-weight:400;padding-top:3px;white-space:nowrap}
+.timer{margin-top:22px;display:inline-flex;align-items:center;gap:14px;padding:7px 22px 7px 7px;border-radius:99px;border:1px solid rgba(241,232,210,.25);background:transparent;color:var(--on-dark);cursor:pointer;font-weight:500;transition:background .3s}
+.timer:hover{background:rgba(241,232,210,.08)}
+.timer .tc{width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;font-variant-numeric:tabular-nums}
+
+/* WHEEL */
+.wheel-sec{padding-block:clamp(100px,12vw,160px)}
+.w-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,6vw,90px);align-items:center}
+.wheel{position:relative;width:100%;max-width:620px;aspect-ratio:1;margin:0 auto}
+.wheel svg{width:100%;height:100%;overflow:visible}
+.wheel .seg{cursor:pointer;transition:opacity .4s,transform .5s var(--ease);transform-origin:300px 300px}
+.wheel .seg path{stroke:var(--cream);stroke-width:3}
+.wheel .seg text{font-family:var(--f-body);font-size:13px;fill:var(--ink);pointer-events:none}
+.wheel .seg.cat text{font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:-.01em}
+.wheel.focus .seg{opacity:.22}
+.wheel.focus .seg.hit{opacity:1}
+.wheel .seg.hit.note{transform:scale(1.035)}
+.wheel .seg:focus-visible path{stroke:var(--ink)}
+.wheel .core{position:absolute;inset:34%;border-radius:50%;background:var(--paper);display:grid;place-items:center;text-align:center;padding:10px;box-shadow:0 20px 50px -30px rgba(90,60,10,.6)}
+.wheel .core b{display:block;font-family:var(--f-display);font-size:clamp(18px,2vw,26px);font-weight:600;letter-spacing:-.03em;line-height:1.05}
+.wheel .core small{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.w-copy h2{font-size:clamp(42px,4.8vw,76px);margin:16px 0 20px}
+.w-copy .intro{color:var(--muted);max-width:420px}
+.hpick{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.hpick button{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 7px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.5);cursor:pointer;font-size:14px;font-weight:500;transition:all .35s}
+.hpick button i{width:24px;height:24px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.hpick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.w-out{margin-top:28px;padding:22px;border-radius:22px;background:var(--paper);border:1px solid var(--line);min-height:128px}
+.w-out .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.w-out p{margin-top:8px;font-size:16px}
+.w-out .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.w-out .tags span{font-size:13px;padding:5px 12px;border-radius:99px;background:var(--cream);border:1px solid var(--line)}
+
+/* PAIRING */
+.pair{background:var(--paper);border-block:1px solid var(--line);padding-block:clamp(100px,12vw,150px)}
+.p-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.p-head h2{font-size:clamp(42px,4.8vw,76px);margin-top:16px}
+.p-head p{max-width:340px;color:var(--muted)}
+.foods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.food{display:grid;gap:4px;text-align:left;padding:20px;border-radius:20px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:all .35s var(--ease)}
+.food:hover{transform:translateY(-3px);border-color:var(--ink)}
+.food b{font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:-.025em}
+.food small{font-size:13px;color:var(--muted)}
+.food[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.food[aria-pressed="true"] small{color:#BDB59D}
+.match{margin-top:16px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:28px;align-items:center;padding:26px 28px;border-radius:26px;background:var(--tint2,var(--pale));transition:background .7s var(--ease)}
+.match .drop{--s:60px;margin:8px}
+.match .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5A4413}
+.match h3{font-size:clamp(28px,3vw,42px);margin:6px 0}
+.match p{color:#4D3E1B;max-width:560px}
+
+/* NOTEBOOK */
+.notebook{padding-block:clamp(100px,12vw,160px)}
+.nb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.nb-copy h2{font-size:clamp(42px,4.8vw,76px);margin:16px 0 20px}
+.nb-copy .intro{color:var(--muted);max-width:420px;margin-bottom:30px}
+form.nb{display:grid;gap:22px;padding:28px;border-radius:28px;background:var(--paper);border:1px solid var(--line)}
+.field{display:grid;gap:10px}
+.field > label,.field > span{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.field select,.field input[type=text]{height:50px;border-radius:14px;border:1px solid var(--line);background:#fff;padding:0 14px;font-size:15px}
+.field select:focus,.field input:focus{outline:none;border-color:var(--honey);box-shadow:0 0 0 3px rgba(217,154,31,.18)}
+.slider{display:grid;grid-template-columns:110px minmax(0,1fr) 34px;gap:14px;align-items:center;font-size:14px}
+.slider output{font-family:var(--f-mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--honey) var(--v,50%),var(--sand) var(--v,50%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ink);cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid var(--ink);cursor:pointer}
+input[type=range]:focus-visible::-webkit-slider-thumb{outline:2px solid var(--honey);outline-offset:2px}
+.nchips{display:flex;flex-wrap:wrap;gap:6px}
+.nchips button{font-size:13px;padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:all .3s}
+.nchips button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.nb .save{justify-self:start}
+.card-col{display:grid;gap:18px;position:sticky;top:100px}
+.tcard{position:relative;border-radius:8px;background:#FFFDF7;padding:30px 30px 24px;box-shadow:0 30px 60px -30px rgba(90,60,10,.5),0 0 0 1px rgba(220,205,174,.6);transform:rotate(-1.5deg);background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(165,101,15,.1) 33px 34px);background-position:0 18px}
+.tcard::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:22px;margin-left:-42px;background:rgba(232,183,74,.45);transform:rotate(-2deg)}
+.tcard .hd{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.tcard .hd b{font-family:var(--f-display);font-size:28px;font-weight:700;letter-spacing:-.04em}
+.tcard .drop{--s:34px;margin:4px}
+.tcard .date{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.bars{display:grid;gap:10px;margin:22px 0 18px}
+.bars div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;font-size:12.5px;color:var(--muted)}
+.bars i{display:block;height:8px;border-radius:99px;background:var(--sand);position:relative;overflow:hidden}
+.bars i::after{content:"";position:absolute;inset:0;width:var(--v);background:var(--hcard,var(--honey));border-radius:99px;transition:width .6s var(--ease)}
+.tcard .tg{display:flex;flex-wrap:wrap;gap:6px;min-height:28px}
+.tcard .tg span{font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line)}
+.tcard .hand{font-family:var(--f-hand);font-size:22px;line-height:34px;color:#3B3423;margin-top:14px;min-height:68px;overflow-wrap:anywhere}
+.tcard .by{font-size:12px;color:var(--muted)}
+.saved{display:grid;gap:8px}
+.saved h4{margin:0;font-family:var(--f-mono);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.saved ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.saved li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--paper);border:1px solid var(--line);font-size:14px}
+.saved li .drop{--s:20px;margin:3px}
+.saved li small{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved li button{border:0;background:none;cursor:pointer;color:var(--muted);font-size:13px}
+.saved li button:hover{color:var(--ink)}
+
+/* HOST */
+.host{padding:0 max(12px,env(safe-area-inset-right,0px)) 12px max(12px,env(safe-area-inset-left,0px))}
+.host-in{max-width:1480px;margin:0 auto;border-radius:34px;background:var(--ink);color:var(--paper);padding:clamp(48px,7vw,110px) clamp(24px,6vw,96px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;position:relative;overflow:hidden}
+.host-in::before{content:"";position:absolute;width:60vw;height:60vw;left:-20vw;bottom:-36vw;border-radius:50%;background:radial-gradient(circle,rgba(217,154,31,.22),transparent 65%)}
+.host h2{font-size:clamp(42px,5vw,82px);font-weight:700;letter-spacing:-.05em;position:relative}
+.host h2 em{color:var(--gold)}
+.host .intro{color:#BDB59D;max-width:420px;margin-top:20px;position:relative}
+.host .cta-dark{background:var(--paper);color:var(--ink);margin-top:32px;position:relative}
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:4px;position:relative;align-content:start}
+.checklist li label{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;padding:16px 4px;border-bottom:1px solid rgba(241,232,210,.12);cursor:pointer}
+.checklist input{position:absolute;opacity:0;pointer-events:none}
+.checklist .bx{width:24px;height:24px;border-radius:8px;border:1.5px solid rgba(241,232,210,.4);display:grid;place-items:center;transition:all .3s;margin-top:2px}
+.checklist .bx svg{opacity:0;transform:scale(.5);transition:all .35s var(--ease)}
+.checklist input:checked + .bx{background:var(--gold);border-color:var(--gold)}
+.checklist input:checked + .bx svg{opacity:1;transform:none}
+.checklist input:focus-visible + .bx{outline:2px solid var(--gold);outline-offset:2px}
+.checklist b{display:block;font-weight:500;font-size:16px;transition:opacity .3s}
+.checklist small{color:#A9A189;font-size:13.5px}
+.checklist input:checked ~ span b{text-decoration:line-through;opacity:.6}
+.ready{margin-top:14px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--gold);min-height:20px}
+
+/* footer */
+footer{background:var(--forest);color:var(--on-dark);overflow:hidden}
+footer .wrap{padding-block:72px 0}
+.f-row{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start}
+footer .logo{color:var(--gold)}
+footer p,footer a{color:var(--on-dark-muted);font-size:14px;text-decoration:none}
+footer nav{display:flex;gap:28px;flex-wrap:wrap}
+footer nav a:hover{color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--forest-2);margin-top:56px;padding-top:22px;font-size:12.5px;color:var(--on-dark-muted)}
+.wordmark{font-family:var(--f-display);font-weight:800;font-size:clamp(120px,30vw,460px);line-height:.78;letter-spacing:-.06em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(232,183,74,.28);margin-top:40px;user-select:none;white-space:nowrap}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,220%);opacity:0;background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:99px;font-size:13.5px;z-index:95;transition:transform .5s var(--ease),opacity .4s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+@media (max-width:1080px){
+  .nav ul{display:none}.menu-btn{display:grid}
+  .nav ul.open{display:grid;position:absolute;top:70px;left:12px;right:12px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;gap:4px;font-size:17px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .foods{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .r-grid,.w-grid,.nb-grid,.host-in{grid-template-columns:1fr}
+  .instrument{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));z-index:3;aspect-ratio:auto;max-width:none;height:56px;border-radius:99px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(33,27,16,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden}
+  .instrument::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:calc(var(--p,0)*100%);background:var(--gold);transition:width .8s var(--ease)}
+  .instrument .ring,.instrument .ico{display:none}
+  .instrument .stepno,.instrument .cap{position:static;font-size:13px}
+  .instrument .cap{font-size:17px;order:-1}
+  .step{padding:44px 0}
+  .card-col{position:relative;top:0}
+  .grades{display:none}
+}
+@media (max-width:560px){
+  .readout,.match{grid-template-columns:auto minmax(0,1fr);gap:16px;padding:18px}
+  .readout .mm{grid-column:1/-1;text-align:left}
+  .match .cta-dark{grid-column:1/-1;justify-self:start}
+  .dbtn span{font-size:12px}
+  .dbtn:not([aria-pressed="true"]) span{visibility:hidden}
+  .slider{grid-template-columns:86px minmax(0,1fr) 30px}
+  form.nb{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.up{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="index.html" aria-label="Bee home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#A5650F" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1E1D16" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#1E1D16"/></svg>Bee</a>
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Our Story</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="tasting.html" class="on" aria-current="page">Tasting</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+    </ul>
+    <div class="tools">
+      <a class="icon-btn" href="products.html" aria-label="Shop"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+      <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" type="button" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M8 15h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO: the colour scale -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <p class="crumb up"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Tasting guide</span></p>
+      <div class="hero-top">
+        <h1 class="up d1">Taste it<br><em>slowly.</em></h1>
+        <p class="lede up d2">Every honey has its own colour, scent and story. This guide shows you how to taste like a beekeeper, and how to share it with the people at your table.</p>
+      </div>
+      <div class="scale up d3" role="group" aria-label="Honey colour scale">
+        <div class="drops" id="drops"></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="ticks" aria-hidden="true"><span>0 mm</span><span>35</span><span>70</span><span>105</span><span>140 mm</span></div>
+        <div class="grades" aria-hidden="true"><span>Water white</span><span>Extra white</span><span>White</span><span>Extra light amber</span><span>Light amber</span><span>Amber</span><span>Dark amber</span></div>
+        <div class="readout" aria-live="polite">
+          <span class="drop" id="roDrop" style="--c:#D99A1F"></span>
+          <div class="fade" id="roTxt"><h3 id="roName"></h3><p id="roLine"></p></div>
+          <p class="mm fade" id="roMm"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RITUAL -->
+  <section class="ritual" id="ritual">
+    <div class="wrap">
+      <div class="r-head">
+        <div><p class="eyebrow">The ritual</p><h2>Five steps, <em>one spoon.</em></h2></div>
+        <p>Pour a little of each honey into small bowls, keep a glass of water close, and go in order from lightest to darkest.</p>
+      </div>
+      <div class="r-grid">
+        <div class="instrument" id="inst" aria-hidden="true">
+          <svg class="ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49.5" id="ringC"/></svg>
+          <span class="stepno" id="iNo">STEP 1 OF 5</span>
+          <div class="ico on" data-i="0"><svg viewBox="0 0 120 120"><path d="M10 60s20-32 50-32 50 32 50 32-20 32-50 32S10 60 10 60z"/><circle cx="60" cy="60" r="16"/><circle cx="60" cy="60" r="6" fill="#E8B74A" stroke="none"/></svg></div>
+          <div class="ico" data-i="1"><svg viewBox="0 0 120 120"><path d="M30 80c10-20 50-20 60 0"/><path d="M40 60c0-6 4-9 4-15M60 54c0-6 4-9 4-15M80 60c0-6 4-9 4-15" stroke="#E8B74A"/><path d="M25 92h70"/></svg></div>
+          <div class="ico" data-i="2"><svg viewBox="0 0 120 120"><path d="M22 34h52c8 0 12 4 12 10s-4 10-12 10H40"/><ellipse cx="86" cy="44" rx="4" ry="10"/><path d="M60 54v14c0 8 6 12 6 18s-4 8-6 8-6-2-6-8 6-10 6-18" fill="#E8B74A" stroke="#E8B74A"/></svg></div>
+          <div class="ico" data-i="3"><svg viewBox="0 0 120 120"><path d="M40 92V50a6 6 0 0 1 12 0v26M52 70V40a6 6 0 0 1 12 0v30M64 70V44a6 6 0 0 1 12 0v28M76 72V56a6 6 0 0 1 12 0v18c0 16-10 26-24 26H58c-10 0-16-6-22-16l-10-16a6 6 0 0 1 10-6l4 6"/></svg></div>
+          <div class="ico" data-i="4"><svg viewBox="0 0 120 120"><circle cx="60" cy="62" r="34"/><path d="M60 40v22l14 10" stroke="#E8B74A"/><path d="M52 18h16M60 18v10"/></svg></div>
+          <span class="cap" id="iCap">Look</span>
+        </div>
+        <div class="steps" id="steps">
+          <article class="step on" data-i="0"><span class="n">STEP 01 · LOOK</span><h3>Hold it to the light.</h3><p>Lift a spoon toward a window. Notice the colour, from pale straw to deep mahogany, and how clear or cloudy it is. Tiny bubbles and specks of pollen mean it hasn’t been filtered to death.</p><div class="tip"><b>TRY</b><span>Line the bowls up from lightest to darkest. You are reading the season the bees worked in.</span></div></article>
+          <article class="step" data-i="1"><span class="n">STEP 02 · SMELL</span><h3>Breathe it in.</h3><p>Warm the spoon in your hand for a moment, then bring it close. Short sniffs first, then one slow breath. Is it flowery, fruity, warm like caramel, or earthy like wood after rain?</p><div class="tip"><b>TRY</b><span>Close your eyes. The first word that comes to mind is usually right.</span></div></article>
+          <article class="step" data-i="2"><span class="n">STEP 03 · TASTE</span><h3>Let it melt.</h3><p>Place a little on your tongue and don’t swallow straight away. Let it spread on its own. Sweetness arrives first, then the flavours of the flower, and sometimes a little acidity.</p><button class="timer" type="button" id="timerBtn"><span class="tc" id="tc">10</span><span id="tLbl">Hold it for 10 seconds</span></button></article>
+          <article class="step" data-i="3"><span class="n">STEP 04 · FEEL</span><h3>Notice the texture.</h3><p>Press it against the roof of your mouth. Is it thin and silky, thick and buttery, or slightly grainy? Crystals are a good sign. They mean the honey is raw.</p><div class="tip"><b>TRY</b><span>Rub a drop between finger and thumb. Raw honey feels slightly tacky, never slippery.</span></div></article>
+          <article class="step" data-i="4"><span class="n">STEP 05 · FINISH</span><h3>Wait for the end.</h3><p>After you swallow, notice what stays. Light honeys vanish quickly. Darker ones linger with notes of malt or herbs. Take a sip of water before the next bowl.</p><div class="tip"><b>SHARE</b><span>Ask everyone at the table for one word. You’ll be surprised how different they are.</span></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAVOUR WHEEL -->
+  <section class="wheel-sec" id="wheel">
+    <div class="wrap w-grid">
+      <div class="wheel rv" id="wheelBox">
+        <svg viewBox="0 0 600 600" id="wheelSvg" role="group" aria-label="Flavour wheel"></svg>
+        <div class="core" aria-hidden="true"><div><small id="coreK">Flavour wheel</small><b id="coreB">Pick a honey</b></div></div>
+      </div>
+      <div class="w-copy">
+        <p class="eyebrow rv">Find the words</p>
+        <h2 class="rv">What are you <em>tasting?</em></h2>
+        <p class="intro rv">Most people say “sweet” and stop. Use the wheel to find a better word. Pick a honey to see its notes, or tap any note to see which honeys have it.</p>
+        <div class="hpick rv" id="hpick" role="group" aria-label="Choose a honey"></div>
+        <div class="w-out rv" id="wOut" aria-live="polite"><p class="k">How to read it</p><p>The inner ring is the family of flavour. The outer ring is the exact note.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIRING -->
+  <section class="pair" id="pair">
+    <div class="wrap">
+      <div class="p-head">
+        <div><p class="eyebrow rv">At the table</p><h2 class="rv">What’s on your <em>table</em> today?</h2></div>
+        <p class="rv">Pick what you’re eating or drinking and we’ll suggest the honey that goes with it best.</p>
+      </div>
+      <div class="foods rv" id="foods" role="group" aria-label="What you are having"></div>
+      <div class="match rv" id="match" aria-live="polite">
+        <span class="drop" id="mDrop" style="--c:#D99A1F"></span>
+        <div class="fade" id="mTxt"><p class="k" id="mK"></p><h3 id="mName"></h3><p id="mWhy"></p></div>
+        <a class="cta-dark" id="mGo" href="products.html#wild">View <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTEBOOK -->
+  <section class="notebook" id="notebook">
+    <div class="wrap nb-grid">
+      <div class="nb-copy">
+        <p class="eyebrow rv">Your tasting notebook</p>
+        <h2 class="rv">Write down <em>what you felt.</em></h2>
+        <p class="intro rv">Make a card for each honey you taste. Your cards stay in this browser, so you can come back and compare them next time.</p>
+        <form class="nb rv" id="nb" novalidate>
+          <div class="field"><label for="nbHoney">Honey</label><select id="nbHoney"></select></div>
+          <div class="field"><span>How did it feel?</span>
+            <div class="slider"><label for="sSweet">Sweetness</label><input type="range" id="sSweet" min="1" max="10" value="6"><output for="sSweet" id="oSweet">6</output></div>
+            <div class="slider"><label for="sBold">Boldness</label><input type="range" id="sBold" min="1" max="10" value="5"><output for="sBold" id="oBold">5</output></div>
+            <div class="slider"><label for="sBody">Body</label><input type="range" id="sBody" min="1" max="10" value="5"><output for="sBody" id="oBody">5</output></div>
+          </div>
+          <div class="field"><span>Notes you noticed</span><div class="nchips" id="nbNotes" role="group" aria-label="Notes you noticed"></div></div>
+          <div class="field"><label for="nbWords"><span>In your words</span><span id="nbCount">0 / 90</span></label><input type="text" id="nbWords" maxlength="90" placeholder="Tastes like Sunday breakfast at Nani’s house."></div>
+          <div class="field"><label for="nbWith">Tasted with</label><input type="text" id="nbWith" maxlength="40" placeholder="Amma and Riya"></div>
+          <button class="cta-dark save" type="submit">Save this card <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5 9-10"/></svg></span></button>
+        </form>
+      </div>
+      <div class="card-col">
+        <article class="tcard rv" id="tcard" aria-label="Preview of your tasting card">
+          <div class="hd"><div><b id="tcName">Wildflower</b><p class="date" id="tcDate"></p></div><span class="drop" id="tcDrop" style="--c:#D99A1F"></span></div>
+          <div class="bars"><div>Sweetness<i id="bSweet" style="--v:60%"></i></div><div>Boldness<i id="bBold" style="--v:50%"></i></div><div>Body<i id="bBody" style="--v:50%"></i></div></div>
+          <div class="tg" id="tcTags"></div>
+          <p class="hand" id="tcWords">Tastes like Sunday breakfast at Nani’s house.</p>
+          <p class="by" id="tcWith">Tasted with Amma and Riya</p>
+        </article>
+        <div class="saved" id="saved" hidden><h4>Your saved cards</h4><ul id="savedList"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOST -->
+  <section class="host" id="host">
+    <div class="host-in rv">
+      <div>
+        <p class="eyebrow" style="color:#A9A189">Host a tasting at home</p>
+        <h2 style="margin-top:18px">Pull up a chair. <em>Pass the spoons.</em></h2>
+        <p class="intro">A honey tasting takes twenty minutes and needs nothing fancy. It’s a lovely excuse to get everyone around one table. Tick things off as you set up.</p>
+        <a class="cta-dark" href="products.html#box">Get the Sharing Box <span class="arr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+      <div>
+        <ul class="checklist" id="check"></ul>
+        <p class="ready" id="ready" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-row">
+      <div><a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="11" cy="9" rx="6" ry="4" transform="rotate(-25 11 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="21" cy="9" rx="6" ry="4" transform="rotate(25 21 9)" fill="none" stroke="#E8B74A" stroke-width="1.4"/><ellipse cx="16" cy="19" rx="6" ry="9" fill="#E8B74A"/><path d="M10.4 16h11.2M10 20h12M11 24h10" stroke="#1B2117" stroke-width="2.2"/><circle cx="16" cy="9.5" r="3" fill="#F1E8D2"/></svg>Bee</a><p style="margin-top:14px">Made by bees. Shared by people.</p></div>
+      <nav aria-label="Footer"><a href="index.html">Home</a><a href="story.html">Our Story</a><a href="products.html">Shop</a><a href="tasting.html">Tasting Guide</a><a href="sustainability.html">Sustainability</a></nav>
+    </div>
+    <div class="f-bot"><span>© 2026 Bee. All rights reserved.</span><span>Privacy Policy · Terms &amp; Conditions</span></div>
+    <div class="wordmark" aria-hidden="true">Bee</div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('loaded')));
+  const toast=$('#toast');let tt;const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2400)};
+  const swap=(el,fn)=>{if(reduce){fn();return}el.classList.add('out');setTimeout(()=>{fn();el.classList.remove('out')},240)};
+
+  /* honeys (Pfund mm, USDA colour grades) */
+  const H=[
+    {id:'acacia',n:'Acacia',c:'#F3E19A',tint:'#FBF2CC',mm:9,grade:'Extra white',line:'Pale as straw. Vanilla and clean blossom, gone in a moment.',notes:['Vanilla','Blossom','Fresh green']},
+    {id:'comb',n:'Honey Comb',c:'#EBC05A',tint:'#F8E6B4',mm:40,grade:'Extra light amber',line:'Bright meadow flowers with the soft chew of beeswax.',notes:['Meadow','Beeswax','Citrus']},
+    {id:'wild',n:'Wildflower',c:'#D99A1F',tint:'#F6DDA2',mm:62,grade:'Light amber',line:'Floral and fruity, with a light caramel finish that lingers.',notes:['Blossom','Jasmine','Fig','Caramel']},
+    {id:'manuka',n:'Manuka',c:'#7A3F0B',tint:'#EBCFAE',mm:122,grade:'Dark amber',line:'Deep and herbal, malty and bittersweet. A little goes far.',notes:['Malt','Woody','Herbal','Toffee','Mineral']}
+  ];
+  const byId=Object.fromEntries(H.map(h=>[h.id,h]));
+
+  /* ===== HERO scale ===== */
+  $('#drops').innerHTML=H.map((h,i)=>`<button class="dbtn" type="button" data-id="${h.id}" aria-pressed="${h.id==='wild'}" style="--x:${h.mm/140*100}%;--dl:${i*.6}s"><span class="drop" style="--c:${h.c}"></span><span>${h.n}</span></button>`).join('');
+  function setHero(h,anim){
+    $$('.dbtn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===h.id));
+    document.documentElement.style.setProperty('--tint',h.tint);
+    $('#roDrop').style.setProperty('--c',h.c);
+    const f=()=>{$('#roName').textContent=h.n;$('#roLine').textContent=h.line;$('#roMm').innerHTML=`${h.mm} mm<small>${h.grade}</small>`};
+    if(anim){swap($('#roTxt'),f);swap($('#roMm'),()=>{})}else f();
+  }
+  $('#drops').addEventListener('click',e=>{const b=e.target.closest('.dbtn');if(b)setHero(byId[b.dataset.id],true)});
+  setHero(byId.wild,false);
+
+  /* ===== RITUAL ===== */
+  const steps=$$('.step'),icos=$$('.ico'),caps=['Look','Smell','Taste','Feel','Finish'];
+  const ringC=$('#ringC');const L=2*Math.PI*49.5;ringC.style.setProperty('--len',L);$('#inst').style.setProperty('--len',L);
+  let curStep=-1;
+  function setStep(i){if(i===curStep)return;curStep=i;
+    steps.forEach((s,k)=>s.classList.toggle('on',k===i));icos.forEach((s,k)=>s.classList.toggle('on',k===i));
+    $('#iNo').textContent=`STEP ${i+1} OF 5`;$('#iCap').textContent=caps[i];$('#inst').style.setProperty('--p',(i+1)/5)}
+  setStep(0);
+  /* timer */
+  let tI=null;
+  $('#timerBtn').addEventListener('click',()=>{if(tI)return;let n=10;const tc=$('#tc'),lb=$('#tLbl');lb.textContent='Let it melt…';
+    tI=setInterval(()=>{n--;tc.textContent=n;$('#inst').style.setProperty('--p',(3-(n/10))/5);
+      if(n<=0){clearInterval(tI);tI=null;tc.textContent='✓';lb.textContent='Now notice what you taste';setTimeout(()=>{tc.textContent='10';lb.textContent='Hold it for 10 seconds';$('#inst').style.setProperty('--p',.6)},4000)}},1000)});
+
+  /* ===== FLAVOUR WHEEL ===== */
+  const W=[
+    {cat:'Floral',col:'#F2D6A2',notes:['Blossom','Jasmine','Meadow']},
+    {cat:'Fruity',col:'#F0C27A',notes:['Citrus','Fig','Stone fruit']},
+    {cat:'Warm',col:'#DFA04A',notes:['Vanilla','Caramel','Toffee']},
+    {cat:'Earthy',col:'#B7793A',notes:['Malt','Woody','Mineral']},
+    {cat:'Fresh',col:'#C9C98E',notes:['Herbal','Fresh green','Beeswax']}
+  ];
+  const svg=$('#wheelSvg'),NS='http://www.w3.org/2000/svg',cx=300,cy=300;
+  const arc=(r0,r1,a0,a1)=>{const p=(r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)];const lg=a1-a0>Math.PI?1:0;
+    const [x0,y0]=p(r1,a0),[x1,y1]=p(r1,a1),[x2,y2]=p(r0,a1),[x3,y3]=p(r0,a0);
+    return `M${x0} ${y0}A${r1} ${r1} 0 ${lg} 1 ${x1} ${y1}L${x2} ${y2}A${r0} ${r0} 0 ${lg} 0 ${x3} ${y3}Z`};
+  const total=W.reduce((a,w)=>a+w.notes.length,0);let a=-Math.PI/2;const segs=[];
+  W.forEach(w=>{const span=w.notes.length/total*Math.PI*2,a0=a;
+    const g=document.createElementNS(NS,'g');g.setAttribute('class','seg cat');g.dataset.cat=w.cat;g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',`${w.cat} family`);
+    const mid=a0+span/2,tr=176;
+    g.innerHTML=`<path d="${arc(108,210,a0,a0+span)}" fill="${w.col}"/><text x="${cx+tr*Math.cos(mid)}" y="${cy+tr*Math.sin(mid)}" text-anchor="middle" dominant-baseline="middle">${w.cat}</text>`;
+    svg.appendChild(g);segs.push(g);
+    w.notes.forEach((n,k)=>{const b0=a0+span*k/w.notes.length,b1=a0+span*(k+1)/w.notes.length,m=(b0+b1)/2;
+      const ng=document.createElementNS(NS,'g');ng.setAttribute('class','seg note');ng.dataset.note=n;ng.dataset.cat=w.cat;ng.setAttribute('tabindex','0');ng.setAttribute('role','button');ng.setAttribute('aria-label',`${n} note`);
+      let deg=m*180/Math.PI;let rot=deg;if(deg>90&&deg<270)rot=deg+180;
+      const tx=cx+254*Math.cos(m),ty=cy+254*Math.sin(m);
+      ng.innerHTML=`<path d="${arc(212,296,b0,b1)}" fill="color-mix(in srgb, ${w.col} 55%, #FFFBF2)"/><text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${rot} ${tx} ${ty})">${n}</text>`;
+      svg.appendChild(ng);segs.push(ng)});
+    a+=span});
+  $('#hpick').innerHTML=H.map(h=>`<button type="button" data-id="${h.id}" aria-pressed="false" style="--c:${h.c}"><i></i>${h.n}</button>`).join('');
+  const wb=$('#wheelBox');
+  function focusHoney(h){wb.classList.add('focus');
+    segs.forEach(s=>s.classList.toggle('hit',s.dataset.note?h.notes.includes(s.dataset.note):W.find(w=>w.cat===s.dataset.cat).notes.some(n=>h.notes.includes(n))));
+    $$('#hpick button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===h.id));
+    $('#coreK').textContent=`${h.mm} mm · ${h.grade}`;$('#coreB').textContent=h.n;
+    $('#wOut').innerHTML=`<p class="k">${h.n} tastes of</p><p>${h.line}</p><div class="tags">${h.notes.map(n=>`<span>${n}</span>`).join('')}</div>`}
+  function focusNote(note){const has=H.filter(h=>h.notes.includes(note));wb.classList.add('focus');
+    segs.forEach(s=>s.classList.toggle('hit',s.dataset.note===note));
+    $$('#hpick button').forEach(b=>b.setAttribute('aria-pressed','false'));
+    $('#coreK').textContent='Note';$('#coreB').textContent=note;
+    $('#wOut').innerHTML=`<p class="k">Where you’ll find ${note.toLowerCase()}</p><p>${has.length?has.map(h=>h.n).join(', '):'None of our current honeys, but you may find it in seasonal batches.'}</p>`}
+  function focusCat(cat){const w=W.find(x=>x.cat===cat);wb.classList.add('focus');segs.forEach(s=>s.classList.toggle('hit',s.dataset.cat===cat));
+    $('#coreK').textContent='Family';$('#coreB').textContent=cat;$$('#hpick button').forEach(b=>b.setAttribute('aria-pressed','false'));
+    const has=H.filter(h=>h.notes.some(n=>w.notes.includes(n)));
+    $('#wOut').innerHTML=`<p class="k">${cat} notes</p><p>${w.notes.join(', ')}. Strongest in ${has.map(h=>h.n).join(' and ')}.</p>`}
+  $('#hpick').addEventListener('click',e=>{const b=e.target.closest('button');if(b)focusHoney(byId[b.dataset.id])});
+  const act=e=>{const g=e.target.closest('.seg');if(!g)return;g.dataset.note?focusNote(g.dataset.note):focusCat(g.dataset.cat)};
+  svg.addEventListener('click',act);svg.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act(e)}});
+
+  /* ===== PAIRING ===== */
+  const FOODS=[
+    {f:'Masala chai',s:'Morning cup',h:'wild',why:'Its caramel finish rounds off the ginger and cardamom without fighting them. Stir in once the chai is warm, not boiling.'},
+    {f:'Warm water',s:'First thing',h:'acacia',why:'Acacia dissolves instantly and stays gentle, so the start of your day tastes clean and soft.'},
+    {f:'Hot rotis',s:'With ghee',h:'wild',why:'Floral and buttery together. The honey you’ll find on most family tables for exactly this reason.'},
+    {f:'Curd & fruit',s:'Breakfast bowl',h:'acacia',why:'Mild enough to let the fruit shine. Children usually love it first try.'},
+    {f:'Cheese board',s:'Paneer, feta',h:'comb',why:'Cut a piece of comb on the board. The wax and salt together are a little bit magic.'},
+    {f:'Dark chocolate',s:'After dinner',h:'manuka',why:'Bitter meets bittersweet. A small spoon of Manuka with a square of 70% is a quiet treat.'},
+    {f:'Lemon & ginger',s:'Scratchy days',h:'manuka',why:'Thick and herbal, it stays rich even in a warm, sharp drink. Add it once the water has cooled a little.'},
+    {f:'Ice cream',s:'Something sweet',h:'comb',why:'Crumble comb over vanilla. The cold makes the honey chewy and the wax crunchy.'}
+  ];
+  $('#foods').innerHTML=FOODS.map((x,i)=>`<button class="food" type="button" data-i="${i}" aria-pressed="${i===0}"><b>${x.f}</b><small>${x.s}</small></button>`).join('');
+  function setFood(i,anim){const x=FOODS[i],h=byId[x.h];
+    $$('.food').forEach((b,k)=>b.setAttribute('aria-pressed',k===i));
+    $('#match').style.setProperty('--tint2',h.tint);$('#mDrop').style.setProperty('--c',h.c);
+    $('#mGo').href=`products.html#${h.id}`;$('#mGo').firstChild.textContent=`View ${h.n} `;
+    const f=()=>{$('#mK').textContent=`With ${x.f.toLowerCase()}, try`;$('#mName').textContent=h.n+' Honey';$('#mWhy').textContent=x.why};
+    anim?swap($('#mTxt'),f):f()}
+  $('#foods').addEventListener('click',e=>{const b=e.target.closest('.food');if(b)setFood(+b.dataset.i,true)});
+  setFood(0,false);
+
+  /* ===== NOTEBOOK ===== */
+  const allNotes=W.flatMap(w=>w.notes);let picked=new Set(['Blossom','Caramel']);
+  $('#nbHoney').innerHTML=H.map(h=>`<option value="${h.id}" ${h.id==='wild'?'selected':''}>${h.n}</option>`).join('');
+  $('#nbNotes').innerHTML=allNotes.map(n=>`<button type="button" data-n="${n}" aria-pressed="${picked.has(n)}">${n}</button>`).join('');
+  const today=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  const DEFW='Tastes like Sunday breakfast at Nani’s house.',DEFWITH='Amma and Riya';
+  function syncCard(){const h=byId[$('#nbHoney').value];
+    $('#tcName').textContent=h.n;$('#tcDate').textContent=today.toUpperCase();$('#tcDrop').style.setProperty('--c',h.c);$('#tcard').style.setProperty('--hcard',h.c);
+    [['Sweet','sSweet','oSweet','bSweet'],['Bold','sBold','oBold','bBold'],['Body','sBody','oBody','bBody']].forEach(([_,s,o,b])=>{const v=$('#'+s).value;$('#'+o).textContent=v;$('#'+s).style.setProperty('--v',(v-1)/9*100+'%');$('#'+b).style.setProperty('--v',v*10+'%')});
+    $('#tcTags').innerHTML=[...picked].map(n=>`<span>${n}</span>`).join('');
+    const w=$('#nbWords').value.trim();$('#tcWords').textContent=w||DEFW;$('#nbCount').textContent=`${$('#nbWords').value.length} / 90`;
+    const wi=$('#nbWith').value.trim();$('#tcWith').textContent=`Tasted with ${wi||DEFWITH}`}
+  $('#nb').addEventListener('input',syncCard);
+  $('#nbNotes').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const n=b.dataset.n;picked.has(n)?picked.delete(n):picked.size<5?picked.add(n):say('Pick up to five notes');b.setAttribute('aria-pressed',picked.has(n));syncCard()});
+  const KEY='bee-tastings-v1';let saved=[];try{saved=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){}
+  function renderSaved(){$('#saved').hidden=!saved.length;$('#savedList').innerHTML=saved.map((s,i)=>{const h=byId[s.h]||H[2];return `<li><span class="drop" style="--c:${h.c}"></span><div><b>${h.n}</b><small>${s.d} · ${s.w}</small></div><button type="button" data-i="${i}" aria-label="Delete card for ${h.n}">Remove</button></li>`}).join('')}
+  $('#savedList').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;saved.splice(+b.dataset.i,1);try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}renderSaved()});
+  $('#nb').addEventListener('submit',e=>{e.preventDefault();
+    saved.unshift({h:$('#nbHoney').value,d:today,w:$('#nbWords').value.trim()||DEFW,with:$('#nbWith').value.trim(),notes:[...picked],s:[$('#sSweet').value,$('#sBold').value,$('#sBody').value]});
+    saved=saved.slice(0,12);try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}
+    renderSaved();say('Card saved to your notebook');
+    if(!reduce)$('#tcard').animate([{transform:'rotate(-1.5deg)'},{transform:'rotate(2deg) translateY(-8px)'},{transform:'rotate(-1.5deg)'}],{duration:600,easing:'cubic-bezier(.2,.7,.1,1)'})});
+  syncCard();renderSaved();
+
+  /* ===== HOST checklist ===== */
+  const CHECK=[
+    ['Four honeys','Lightest to darkest. The Sharing Box has all four.'],
+    ['Small bowls and teaspoons','One clean spoon per person, per honey.'],
+    ['A jug of room-temperature water','Sip between honeys to reset.'],
+    ['Something plain to nibble','Apple slices or plain crackers.'],
+    ['Paper and pens','Or open this page on a phone and make cards.'],
+    ['The people you love','At least two. Grandparents give the best descriptions.']
+  ];
+  $('#check').innerHTML=CHECK.map((c,i)=>`<li><label for="ck${i}"><input type="checkbox" id="ck${i}"><span class="bx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1E1D16" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><span><b>${c[0]}</b><small>${c[1]}</small></span></label></li>`).join('');
+  $('#check').addEventListener('change',()=>{const n=$$('#check input:checked').length;$('#ready').textContent=n===CHECK.length?'YOU’RE READY. ENJOY THE TABLE.':n?`${n} OF ${CHECK.length} READY`:''});
+
+  /* ===== menu, reveal, scroll ===== */
+  $('#menuBtn').addEventListener('click',function(){const o=$('#menu').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  $$('.rv').forEach(el=>io.observe(el));
+  const nav=$('#nav');let lastY=scrollY;
+  function onScroll(){const y=scrollY,Hh=innerHeight;
+    if(y>400&&y>lastY+3&&!$('#menu').classList.contains('open'))nav.classList.add('hide');else if(y<lastY-3)nav.classList.remove('hide');lastY=y;
+    let best=0,bd=1e9;steps.forEach((s,i)=>{const r=s.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-Hh*.5);if(d<bd){bd=d;best=i}});setStep(best)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+<script defer src="vendor/three.min.js"></script>
+<script defer src="vendor/GLTFLoader.js"></script>
+<script defer src="vendor/meshopt_decoder.js"></script>
+<script defer src="bee.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="motion.js"></script>
+</body>
+</html>
