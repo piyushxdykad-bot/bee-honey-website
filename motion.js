@@ -74,82 +74,82 @@
   const setLbl=n=>{lbl.innerHTML=`<small>Bee · Raw honey</small>${n}`};
   const rnd=(a,b)=>a+Math.random()*(b-a);
   const MAXD=8,MAXS=8;
-  const FS=`precision highp float;
-uniform vec2 uRes;uniform float uTime,uF,uT,uAsp;uniform vec4 uD[${MAXD}];uniform vec4 uS[${MAXS}];
-float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
-float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
-float cap(vec2 p,float r1,float r2,float h){p.x=abs(p.x);float b=(r1-r2)/h,a=sqrt(max(1.-b*b,0.));float k=dot(p,vec2(-b,a));
-  if(k<0.)return length(p)-r1;if(k>a*h)return length(p-vec2(0.,h))-r2;return dot(p,vec2(a,b))-r1;}
-float Fx(float x){return uF+.011*sin(x*6.+uTime*1.1)+.006*sin(x*15.-uTime*1.7)+.004*sin(x*31.+uTime*2.3);}
-float Tx(float x){return uT+.013*sin(x*5.-uTime*.9)+.007*sin(x*13.+uTime*1.3);}
-float map(vec2 p){
-  float d=max(p.y-Fx(p.x),Tx(p.x)-p.y);
-  for(int i=0;i<${MAXD};i++){vec4 D=uD[i];if(D.w<.5)continue;
-    vec2 q=vec2(p.x-D.x,p.y-(Fx(D.x)-.035));
-    float c=cap(q,D.z*1.05,D.z*.42,max(D.y,.002));
-    c=smin(c,length(q-vec2(0.,D.y))-D.z,.028);
-    d=smin(d,c,.05);}
-  for(int i=0;i<${MAXS};i++){vec4 S=uS[i];if(S.z<.0004&&S.w<.0004)continue;
-    vec2 q=vec2(p.x-S.x,(Tx(S.x)+.03)-p.y);
-    float c=1e3;
-    if(S.z>.0004)c=cap(q,S.z*2.6,S.z,max(S.y,.002));
-    if(S.w>.0004)c=smin(c,length(q-vec2(0.,S.y))-S.w,.012);
-    d=smin(d,c,.03);}
-  return d;}
-float hgt2(vec2 p,float d){float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
-  return h+s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6)));}
-float hgt(vec2 p){float d=map(p);float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
-  h+=s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6))+.018*noise(vec2(p.x*21.,p.y*10.-uTime*1.1)));return h;}
-void main(){
-  vec2 uv=vec2(gl_FragCoord.x/uRes.x,1.-gl_FragCoord.y/uRes.y);vec2 p=vec2(uv.x*uAsp,uv.y);
-  float d=map(p);if(d>.006){gl_FragColor=vec4(0.);return;}
-  float e=1.6/uRes.y;
-  float h=hgt2(p,d),hx=hgt2(p+vec2(e,0.),map(p+vec2(e,0.))),hy=hgt2(p+vec2(0.,e),map(p+vec2(0.,e)));
-  vec3 N=normalize(vec3((h-hx)*.05/e,(h-hy)*.05/e,1.));
-  vec3 L=normalize(vec3(-.35,-.7,.62)),V=vec3(0.,0.,1.),H=normalize(L+V);
-  float thick=clamp(h,0.,1.);
-  vec3 lightC=vec3(1.,.84,.42),deepC=vec3(.6,.27,.03);
-  float depth=thick*(.55+.25*noise(vec2(p.x*2.2,p.y*1.4-uTime*.25)));
-  vec3 col=mix(lightC,deepC,depth);
-  float diff=max(dot(N,L),0.);
-  col*=.78+.34*diff;
-  col+=vec3(1.,.62,.14)*(1.-thick)*.16;
-  float rim=smoothstep(0.,.14,thick)*(1.-smoothstep(.14,.42,thick));
-  col=mix(col,deepC*.62,rim*.38);
-  float nh=max(dot(N,H),0.);
-  col+=vec3(1.,.97,.9)*(pow(nh,140.)*1.5+pow(nh,26.)*.12);
-  vec3 R=reflect(vec3(0.,0.,-1.),N);
-  float win=smoothstep(.93,.99,dot(R,normalize(vec3(-.32,-.55,.77))));
-  float win2=smoothstep(.95,.995,dot(R,normalize(vec3(.42,-.3,.86))));
-  col+=vec3(1.,.96,.86)*(win*.55+win2*.3);
-  col+=vec3(1.,.92,.72)*pow(1.-N.z,2.4)*.16;
-  float st=noise(vec2(p.x*26.,p.y*1.2-uTime*.6));col+=vec3(1.,.88,.55)*smoothstep(.72,.97,st)*.05*thick;col+=vec3(1.,.9,.6)*(1.-uv.y)*.07*thick;
-  vec2 bc=p*vec2(22.,12.)+vec2(0.,-uTime*.35);vec2 bi=floor(bc);vec2 bp=fract(bc)-vec2(hash(bi),hash(bi+7.3));
-  float bb=length(bp*vec2(1.,1.8));col+=vec3(1.,.95,.8)*smoothstep(.06,.045,bb)*smoothstep(.035,.05,bb)*.5*step(.86,hash(bi+3.1))*thick;
-  float a=smoothstep(.003,-.002,d)*mix(.8,1.,thick);
-  gl_FragColor=vec4(col*a,a);}`;
-  const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
   let HG=null;
+  /* Honey renderer (Canvas 2D: same result on every browser and GPU).
+     State units: F/T/len/r in screen heights, x in screen heights from the left. */
   function honeyGL(){
     if(HG!==null)return HG;
     const c=document.createElement('canvas');c.id='mx-honey';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
-    const g=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false,powerPreference:'high-performance'});
-    if(!g){c.remove();return HG=false}
-    const sh=(t,s)=>{const o=g.createShader(t);g.shaderSource(o,s);g.compileShader(o);if(!g.getShaderParameter(o,g.COMPILE_STATUS)){console.warn(g.getShaderInfoLog(o));return null}return o};
-    const vs=sh(g.VERTEX_SHADER,VS),fs=sh(g.FRAGMENT_SHADER,FS);if(!vs||!fs){c.remove();return HG=false}
-    const pr=g.createProgram();g.attachShader(pr,vs);g.attachShader(pr,fs);g.linkProgram(pr);if(!g.getProgramParameter(pr,g.LINK_STATUS)){c.remove();return HG=false}
-    g.useProgram(pr);const b=g.createBuffer();g.bindBuffer(g.ARRAY_BUFFER,b);g.bufferData(g.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),g.STATIC_DRAW);
-    const al=g.getAttribLocation(pr,'a');g.enableVertexAttribArray(al);g.vertexAttribPointer(al,2,g.FLOAT,false,0,0);
-    const U={};['uRes','uTime','uF','uT','uAsp','uD','uS'].forEach(n=>U[n]=g.getUniformLocation(pr,n));
-    g.enable(g.BLEND);g.blendFunc(g.ONE,g.ONE_MINUS_SRC_ALPHA);
-    const size=()=>{const dpr=Math.min(1.5,devicePixelRatio||1),w=Math.min(innerWidth*dpr,960),s=w/innerWidth;c.width=Math.round(innerWidth*s);c.height=Math.round(innerHeight*s);g.viewport(0,0,c.width,c.height)};
+    const x=c.getContext('2d');if(!x){c.remove();return HG=false}
+    let W=0,H=0,D=1;
+    const size=()=>{D=Math.min(1.5,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=Math.round(W*D);c.height=Math.round(H*D)};
     size();addEventListener('resize',size);
-    const D=new Float32Array(MAXD*4),S=new Float32Array(MAXS*4),t0=performance.now();
-    if(g.isContextLost&&g.isContextLost()){c.remove();return HG=false}
-    HG={c,draw(st){g.uniform2f(U.uRes,c.width,c.height);g.uniform1f(U.uTime,(performance.now()-t0)/1000);g.uniform1f(U.uF,st.F);g.uniform1f(U.uT,st.T);g.uniform1f(U.uAsp,innerWidth/innerHeight);
-      D.fill(0);S.fill(0);st.drips.forEach((d,i)=>{if(i<MAXD)D.set([d.x,d.len,d.r,1],i*4)});st.strings.forEach((s,i)=>{if(i<MAXS)S.set([s.x,s.len,s.r,s.b||0],i*4)});
-      g.uniform4fv(U.uD,D);g.uniform4fv(U.uS,S);g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);g.drawArrays(g.TRIANGLES,0,3)}};
+    const t0=performance.now();
+    function edge(px,base,t,a){return base+a*(Math.sin(px*.006+t*1.1)*.55+Math.sin(px*.017-t*1.7)*.3+Math.sin(px*.041+t*2.3)*.15)}
+    function sheetPath(top,t){ /* top=true: honey above a wavy bottom edge (pour in). false: honey below a wavy top edge (slide out) */ }
+    function drip(px,y0,len,r){ /* neck + round bulb hanging from y0 */
+      const yb=y0+len;x.moveTo(px-r*1.9,y0-r);
+      x.bezierCurveTo(px-r*1.05,y0-r*.2,px-r*.62,y0+len*.32,px-r*.55,y0+len*.62);
+      x.bezierCurveTo(px-r*.5,yb-r*1.1,px-r*1.02,yb-r*.6,px-r,yb);
+      x.arc(px,yb,r,Math.PI,0,true);
+      x.bezierCurveTo(px+r*1.02,yb-r*.6,px+r*.5,yb-r*1.1,px+r*.55,y0+len*.62);
+      x.bezierCurveTo(px+r*.62,y0+len*.32,px+r*1.05,y0-r*.2,px+r*1.9,y0-r);x.closePath()}
+    function dripR(px,y0,len,r,yl){ /* same drip, traced right side first so it joins the sheet outline */
+      const yb=y0+len;
+      x.bezierCurveTo(px+r*1.05,y0-r*.2+r*.8,px+r*.62,y0+len*.32,px+r*.55,y0+len*.62);
+      x.bezierCurveTo(px+r*.5,yb-r*1.1,px+r*1.02,yb-r*.6,px+r,yb);
+      x.arc(px,yb,r,0,Math.PI,false);
+      x.bezierCurveTo(px-r*1.02,yb-r*.6,px-r*.5,yb-r*1.1,px-r*.55,y0+len*.62);
+      x.bezierCurveTo(px-r*.62,y0+len*.32,px-r*1.05,y0+r*.6,px-r*1.9,yl)}
+    function strand(px,y0,len,r,b){ /* thread rising from the sheet with a bead at its tip */
+      const yt=y0-len;
+      if(r>.2){x.moveTo(px-r*2.4,y0+2);x.quadraticCurveTo(px-r*.6,y0-len*.25,px-r*.5,yt);x.lineTo(px+r*.5,yt);x.quadraticCurveTo(px+r*.6,y0-len*.25,px+r*2.4,y0+2);x.closePath()}
+      if(b>.3){x.moveTo(px+b,yt);x.arc(px,yt,b,0,Math.PI*2)}}
+    function fillHoney(t,hiY){
+      const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#A9600F');g.addColorStop(.45,'#C9821C');g.addColorStop(1,'#DB9A2A');
+      x.fillStyle=g;x.fill();
+      x.save();x.clip();
+      /* light coming through thinner honey near the moving edge */
+      const e=x.createLinearGradient(0,hiY-H*.22,0,hiY);e.addColorStop(0,'rgba(255,200,90,0)');e.addColorStop(1,'rgba(255,205,100,.42)');
+      x.fillStyle=e;x.fillRect(0,hiY-H*.22,W,H*.24);
+      /* slow flowing streaks */
+      for(let i=0;i<7;i++){const sx=((i*173.3+t*22*(i%2?1:-.6))%(W+200)+W+200)%(W+200)-100,sw=40+(i*37)%90;
+        const s=x.createLinearGradient(sx,0,sx+sw,0);s.addColorStop(0,'rgba(255,235,170,0)');s.addColorStop(.5,'rgba(255,235,170,'+(.05+.04*(i%3))+')');s.addColorStop(1,'rgba(255,235,170,0)');
+        x.fillStyle=s;x.fillRect(sx,0,sw,H)}
+      /* broad window reflection */
+      const r=x.createRadialGradient(W*.28,H*.18,0,W*.28,H*.18,Math.max(W,H)*.55);r.addColorStop(0,'rgba(255,246,220,.22)');r.addColorStop(1,'rgba(255,246,220,0)');
+      x.fillStyle=r;x.fillRect(0,0,W,H);
+      x.restore()}
+    function shine(path){ /* dark refraction rim + bright meniscus just inside the edge */
+      x.save();path();x.clip();
+      x.lineJoin='round';
+      x.strokeStyle='rgba(110,50,0,.35)';x.lineWidth=5;path();x.stroke();
+      x.translate(0,-5);x.strokeStyle='rgba(255,236,180,.55)';x.lineWidth=2.4;path();x.stroke();
+      x.restore()}
+    HG={c,draw(st){
+      const t=(performance.now()-t0)/1000;
+      x.setTransform(D,0,0,D,0,0);x.clearRect(0,0,W,H);
+      const pour=st.T<-1; /* pour in: honey from the top. slide out: honey to the bottom */
+      const base=pour?st.F*H:st.T*H,amp=H*.016;
+      const path=()=>{x.beginPath();
+        if(pour){x.moveTo(-10,-10);x.lineTo(W+10,-10);
+          /* one outline: walk the edge right to left and trace every drip into it, so the sheet and drips never cancel out */
+          const ds=st.drips.map(d=>({px:d.x*H,r:Math.max(2,d.r*H*.9),len:d.len*H})).filter(d=>d.len>2).sort((a,b)=>b.px-a.px);
+          let px=W+10,i=0;x.lineTo(px,edge(px,base,t,amp));
+          while(px>-10){const d=ds[i];
+            if(d&&px-10<=d.px+d.r*1.9){const xr=d.px+d.r*1.9,xl=d.px-d.r*1.9;if(xr<px)x.lineTo(xr,edge(xr,base,t,amp));dripR(d.px,edge(d.px,base,t,amp),d.len,d.r,edge(xl,base,t,amp));px=Math.min(px,xl);i++;continue}
+            px-=10;x.lineTo(px,edge(px,base,t,amp))}
+          x.closePath()}
+        else{x.moveTo(-10,H+10);x.lineTo(-10,edge(-10,base,t,amp));for(let px=-10;px<=W+10;px+=10)x.lineTo(px,edge(px,base,t,amp));x.lineTo(W+10,H+10);x.closePath();
+          st.strings.forEach(s=>{const px=s.x*H;strand(px,edge(px,base,t,amp),s.len*H,s.r*H,(s.b||0)*H)})}};
+      if(pour?base<-H*.6&&!st.drips.some(d=>d.len>0):base>H*1.05)return;
+      path();fillHoney(t,pour?base:H);
+      shine(path);
+      /* specular on each drip bulb and strand bead */
+      x.fillStyle='rgba(255,250,235,.75)';
+      if(pour)st.drips.forEach(d=>{const px=d.x*H,r=Math.max(2,d.r*H*.9),yb=edge(px,base,t,amp)+d.len*H;if(d.len*H>2){x.beginPath();x.ellipse(px-r*.38,yb-r*.38,r*.26,r*.18,-.6,0,Math.PI*2);x.fill()}});
+      else st.strings.forEach(s=>{const b=(s.b||0)*H;if(b>.3){const px=s.x*H,yt=edge(px,base,t,amp)-s.len*H;x.beginPath();x.arc(px-b*.35,yt-b*.35,b*.3,0,Math.PI*2);x.fill()}})
+    }};
     return HG;
   }
   const ss=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x)};
