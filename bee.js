@@ -48,7 +48,7 @@
   const go=()=>{if(ready)return;resize();ready=true;window.__beeReady=true;dispatchEvent(new Event('bee:ready'));init();gl.classList.add('on');tog.classList.add('ready');last=performance.now();if(enabled)requestAnimationFrame(frame)};
   sprite.onload=()=>{if(document.documentElement.classList.contains('mx-loading')){addEventListener('bee:loader-done',go,{once:true});setTimeout(go,7000)}else go()};
   sprite.onerror=()=>{tog.remove();window.__beeReady=true;dispatchEvent(new Event('bee:ready'))};
-  sprite.src='img/bee-sprite.webp?v=20261018b';
+  sprite.src='img/bee-sprite.webp?v=20261018c';
   addEventListener('pagehide',()=>{try{sessionStorage.setItem('bee-pos',JSON.stringify({x:p.x/W,y:p.y/H,a:ang}))}catch(e){}});
 
   /* ---------- behaviour ---------- */

@@ -74,8 +74,7 @@
   const setLbl=n=>{lbl.innerHTML=`<small>Bee · Raw honey</small>${n}`};
   const rnd=(a,b)=>a+Math.random()*(b-a);
   const MAXD=8,MAXS=8;
-  const FS=`#extension GL_OES_standard_derivatives : enable
-precision highp float;
+  const FS=`precision highp float;
 uniform vec2 uRes;uniform float uTime,uF,uT,uAsp;uniform vec4 uD[${MAXD}];uniform vec4 uS[${MAXS}];
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
@@ -98,17 +97,16 @@ float map(vec2 p){
     if(S.w>.0004)c=smin(c,length(q-vec2(0.,S.y))-S.w,.012);
     d=smin(d,c,.03);}
   return d;}
+float hgt2(vec2 p,float d){float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
+  return h+s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6)));}
 float hgt(vec2 p){float d=map(p);float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
   h+=s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6))+.018*noise(vec2(p.x*21.,p.y*10.-uTime*1.1)));return h;}
 void main(){
   vec2 uv=vec2(gl_FragCoord.x/uRes.x,1.-gl_FragCoord.y/uRes.y);vec2 p=vec2(uv.x*uAsp,uv.y);
   float d=map(p);if(d>.006){gl_FragColor=vec4(0.);return;}
-  float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
-  float wv=s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6)));
-  float ht=h+wv;
-  float e=1./uRes.y;
-  vec3 N=normalize(vec3(-dFdx(ht)*.05/e,dFdy(ht)*.05/e,1.));
-  h=ht;
+  float e=1.6/uRes.y;
+  float h=hgt2(p,d),hx=hgt2(p+vec2(e,0.),map(p+vec2(e,0.))),hy=hgt2(p+vec2(0.,e),map(p+vec2(0.,e)));
+  vec3 N=normalize(vec3((h-hx)*.05/e,(h-hy)*.05/e,1.));
   vec3 L=normalize(vec3(-.35,-.7,.62)),V=vec3(0.,0.,1.),H=normalize(L+V);
   float thick=clamp(h,0.,1.);
   vec3 lightC=vec3(1.,.84,.42),deepC=vec3(.6,.27,.03);
@@ -137,7 +135,7 @@ void main(){
     if(HG!==null)return HG;
     const c=document.createElement('canvas');c.id='mx-honey';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
     const g=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false,powerPreference:'high-performance'});
-    if(!g||!g.getExtension('OES_standard_derivatives')){c.remove();return HG=false}
+    if(!g){c.remove();return HG=false}
     const sh=(t,s)=>{const o=g.createShader(t);g.shaderSource(o,s);g.compileShader(o);if(!g.getShaderParameter(o,g.COMPILE_STATUS)){console.warn(g.getShaderInfoLog(o));return null}return o};
     const vs=sh(g.VERTEX_SHADER,VS),fs=sh(g.FRAGMENT_SHADER,FS);if(!vs||!fs){c.remove();return HG=false}
     const pr=g.createProgram();g.attachShader(pr,vs);g.attachShader(pr,fs);g.linkProgram(pr);if(!g.getProgramParameter(pr,g.LINK_STATUS)){c.remove();return HG=false}
@@ -148,6 +146,7 @@ void main(){
     const size=()=>{const dpr=Math.min(1.5,devicePixelRatio||1),w=Math.min(innerWidth*dpr,960),s=w/innerWidth;c.width=Math.round(innerWidth*s);c.height=Math.round(innerHeight*s);g.viewport(0,0,c.width,c.height)};
     size();addEventListener('resize',size);
     const D=new Float32Array(MAXD*4),S=new Float32Array(MAXS*4),t0=performance.now();
+    if(g.isContextLost&&g.isContextLost()){c.remove();return HG=false}
     HG={c,draw(st){g.uniform2f(U.uRes,c.width,c.height);g.uniform1f(U.uTime,(performance.now()-t0)/1000);g.uniform1f(U.uF,st.F);g.uniform1f(U.uT,st.T);g.uniform1f(U.uAsp,innerWidth/innerHeight);
       D.fill(0);S.fill(0);st.drips.forEach((d,i)=>{if(i<MAXD)D.set([d.x,d.len,d.r,1],i*4)});st.strings.forEach((s,i)=>{if(i<MAXS)S.set([s.x,s.len,s.r,s.b||0],i*4)});
       g.uniform4fv(U.uD,D);g.uniform4fv(U.uS,S);g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);g.drawArrays(g.TRIANGLES,0,3)}};
@@ -157,21 +156,24 @@ void main(){
   function spread(n,asp,pad){const xs=[];for(let i=0;i<n;i++)xs.push((i+.5)/n*asp+rnd(-.35,.35)*asp/n);return xs.map(x=>Math.max(pad,Math.min(asp-pad,x)))}
   /* pour down over the page, then call done */
   function pourIn(done){
-    const H=honeyGL();
+    let H=null;try{H=honeyGL()}catch(e){H=false}
     if(!H){svgPour(done);return}
+    try{H.draw({F:-5,T:-5,drips:[],strings:[]})}catch(e){HG=false;svgPour(done);return}
     const asp=innerWidth/innerHeight,n=Math.max(4,Math.min(MAXD,Math.round(3+asp*3)));
     const drips=spread(n,asp,.03).map(x=>({x,L:rnd(.12,.4),r:rnd(.02,.036),k:rnd(.85,1.2),len:0}));
     H.c.classList.add('on');const t0=performance.now(),DUR=760;let shown=false;
-    (function f(now){const p=Math.min(1,(now-t0)/DUR),e=p*p*(3-2*p);
+    let fin=false;const finish=()=>{if(fin)return;fin=true;done()};setTimeout(finish,DUR+600);
+    (function f(now){const p=Math.max(0,Math.min(1,(now-t0)/DUR)),e=p*p*(3-2*p);
       const F=-.22+1.48*Math.pow(e,1.08);
       drips.forEach(d=>{d.len=d.L*(.3+.8*ss(0,.55,p*d.k))*(1-.35*ss(.7,1,p))});
       H.draw({F,T:-5,drips,strings:[]});
       if(!shown&&p>.55){shown=true;lbl.classList.add('show')}
-      if(p<1)requestAnimationFrame(f);else done()})(t0);
+      if(p<1&&!fin)requestAnimationFrame(f);else finish()})(t0);
   }
   /* honey slides off the new page, leaving strands that thin and snap */
   function pourOut(intro){
-    const H=honeyGL();
+    let H=null;try{H=honeyGL()}catch(e){H=false}
+    setTimeout(()=>{root.classList.remove('mx-covering');if(HG&&HG.c)HG.c.classList.remove('on');lbl.classList.remove('show')},(intro?2600:1800));
     if(!H){svgOut();root.classList.remove('mx-covering');return}
     const asp=innerWidth/innerHeight,n=Math.max(4,Math.min(MAXS,Math.round(3+asp*3)));
     const strings=spread(n,asp,.05).map(x=>({x,L:rnd(.12,.34),r0:rnd(.004,.009),brk:rnd(.42,.78),len:0,r:0,b:0,b0:rnd(.01,.018)}));
