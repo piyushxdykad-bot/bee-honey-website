@@ -32,75 +32,28 @@
   setTog();
   tog.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('bee-off',enabled?'0':'1')}catch(e){};setTog();if(enabled){last=performance.now();if(ready)requestAnimationFrame(frame)}});
 
-  if(typeof THREE==='undefined'||!THREE.GLTFLoader){tog.remove();window.__beeReady=true;dispatchEvent(new Event('bee:ready'));return}
-
-  /* ---------- three ---------- */
-  let renderer;
-  try{renderer=new THREE.WebGLRenderer({canvas:gl,alpha:true,antialias:true,powerPreference:'low-power'})}catch(e){tog.remove();window.__beeReady=true;dispatchEvent(new Event('bee:ready'));return}
-  renderer.setPixelRatio(Math.min(2,devicePixelRatio||1));let CS=240;
-  renderer.outputEncoding=THREE.sRGBEncoding;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(20,1,10,20000);
-  scene.add(new THREE.HemisphereLight(0xfff3da,0x5a3d12,1.25));
-  const key=new THREE.DirectionalLight(0xffffff,1.7);key.position.set(-0.5,0.9,1.2);scene.add(key);
-  const rim=new THREE.DirectionalLight(0xffd88a,0.7);rim.position.set(0.8,-0.4,0.6);scene.add(rim);
-  const root=new THREE.Group(),head=new THREE.Group(),roll=new THREE.Group(),align=new THREE.Group(),body=new THREE.Group();
-  align.rotation.y=Math.PI/2;
-  root.add(head);head.add(roll);roll.add(align);align.add(body);scene.add(root);
-  const U={uFlap:{value:0},uPhase:{value:0}};
-  let W=innerWidth,H=innerHeight,SIZE=100;
-  function resize(){W=innerWidth;H=innerHeight;
-    SIZE=Math.max(64,Math.min(132,Math.min(W,H)*0.125));body.scale.setScalar(SIZE/1.45);
-    CS=Math.ceil(SIZE*2.3);renderer.setSize(CS,CS,false);gl.style.width=gl.style.height=CS+'px';
-    trail.width=W;trail.height=H;
-    camera.aspect=1;const d=(CS/2)/Math.tan(THREE.MathUtils.degToRad(10));camera.near=d*0.3;camera.far=d*3;camera.position.set(0,0,d);camera.lookAt(0,0,0);camera.updateProjectionMatrix()}
+  /* ---------- sprite renderer: the real 3D model, pre-rendered (27 frames, 110 KB) ---------- */
+  const FRAME=256,COLS=8,FL=8;
+  const sprite=new Image();sprite.decoding='async';
+  const ctx=gl.getContext('2d');
+  let W=innerWidth,H=innerHeight,SIZE=100,CS=240,DPR=Math.min(2,devicePixelRatio||1),ready=false;
+  function resize(){W=innerWidth;H=innerHeight;DPR=Math.min(2,devicePixelRatio||1);
+    SIZE=Math.max(64,Math.min(132,Math.min(W,H)*0.125));CS=Math.ceil(SIZE*2.3);
+    gl.width=Math.round(CS*DPR);gl.height=Math.round(CS*DPR);gl.style.width=gl.style.height=CS+'px';
+    trail.width=W;trail.height=H}
   const tctx=trail.getContext('2d');
-
-  /* load model (meshopt-compressed, with a plain fallback) */
-  let ready=false;
-  function bake(gltf){
-    let mesh;gltf.scene.traverse(o=>{if(o.isMesh&&!mesh)mesh=o});
-    gltf.scene.updateMatrixWorld(true);
-    const g=mesh.geometry,M=mesh.matrixWorld,NM=new THREE.Matrix3().getNormalMatrix(M);
-    const pa=g.attributes.position,na=g.attributes.normal,n=pa.count,v=new THREE.Vector3();
-    const P=new Float32Array(n*3),N=new Float32Array(n*3),Wg=new Float32Array(n);
-    const ss=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x)};
-    for(let i=0;i<n;i++){v.fromBufferAttribute(pa,i).applyMatrix4(M);P[i*3]=v.x;P[i*3+1]=v.y;P[i*3+2]=v.z;
-      const ax=Math.abs(v.x);Wg[i]=Math.sign(v.x)*ss(.27,.42,ax)*ss(-.02,.1,v.y)*ss(-.72,-.6,v.z)*(1-ss(.14,.26,v.z));
-      if(na){v.fromBufferAttribute(na,i).applyMatrix3(NM).normalize();N[i*3]=v.x;N[i*3+1]=v.y;N[i*3+2]=v.z}}
-    const ng=new THREE.BufferGeometry();ng.setIndex(g.index);
-    ng.setAttribute('position',new THREE.BufferAttribute(P,3));
-    if(na)ng.setAttribute('normal',new THREE.BufferAttribute(N,3));else ng.computeVertexNormals();
-    ng.setAttribute('uv',g.attributes.uv);ng.setAttribute('wing',new THREE.BufferAttribute(Wg,1));
-    const mat=mesh.material;mat.side=THREE.DoubleSide;
-    mat.onBeforeCompile=sh=>{sh.uniforms.uFlap=U.uFlap;sh.uniforms.uPhase=U.uPhase;
-      sh.vertexShader='attribute float wing;\nuniform float uFlap;\nuniform float uPhase;\n'+sh.vertexShader
-        .replace('#include <beginnormal_vertex>',`#include <beginnormal_vertex>
-          float wS=sign(wing),wW=abs(wing);
-          float wA=wS*wW*(uFlap*sin(uPhase)-uFlap*0.15);
-          float wc=cos(wA),wsn=sin(wA);
-          objectNormal.xy=vec2(wc*objectNormal.x-wsn*objectNormal.y,wsn*objectNormal.x+wc*objectNormal.y);`)
-        .replace('#include <begin_vertex>',`#include <begin_vertex>
-          vec2 wH=vec2(0.3*wS,0.1);vec2 wd=transformed.xy-wH;
-          transformed.xy=wH+vec2(wc*wd.x-wsn*wd.y,wsn*wd.x+wc*wd.y);`)};
-    const m=new THREE.Mesh(ng,mat);
-    m.position.set(0,0.12,0.12);
-    body.add(m);
-  }
-  function load(url){const file=/-q-/.test(url)?'models/bee-q.glb':'models/bee.glb';
-    return fetch(file).then(r=>{if(!r.ok)throw new Error(r.status);return r.arrayBuffer()}).then(buf=>new Promise((res,rej)=>{const L=new THREE.GLTFLoader();if(window.MeshoptDecoder)L.setMeshoptDecoder(MeshoptDecoder);L.parse(buf,'',res,rej)}))}
-  const start=()=>{
-    const tryMo=window.MeshoptDecoder?MeshoptDecoder.ready.then(()=>load('models/bee-glb.txt')):Promise.reject();
-    tryMo.catch(e=>{console.warn('bee: using fallback model',e);return load('models/bee-q-glb.txt')}).then(g=>{bake(g);resize();ready=true;window.__beeReady=true;dispatchEvent(new Event('bee:ready'));const go=()=>{init();gl.classList.add('on');tog.classList.add('ready');last=performance.now();if(enabled)requestAnimationFrame(frame)};if(document.documentElement.classList.contains('mx-loading'))addEventListener('bee:loader-done',go,{once:true});else go()}).catch(()=>{window.__beeReady=true;dispatchEvent(new Event('bee:ready'));tog.remove()});
-  };
-  const kick=()=>setTimeout(()=>(window.requestIdleCallback||setTimeout)(start,{timeout:800}),250);
-  if(document.documentElement.classList.contains('mx-loading'))addEventListener('bee:loader-done',kick,{once:true});
-  else if(document.readyState==='complete')kick();else addEventListener('load',kick,{once:true});
+  function drawBee(idx,ang){const sx=(idx%COLS)*FRAME,sy=Math.floor(idx/COLS)*FRAME;
+    ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,CS,CS);ctx.translate(CS/2,CS/2);ctx.rotate(-ang);
+    ctx.drawImage(sprite,sx,sy,FRAME,FRAME,-CS/2,-CS/2,CS,CS)}
+  const go=()=>{if(ready)return;resize();ready=true;window.__beeReady=true;dispatchEvent(new Event('bee:ready'));init();gl.classList.add('on');tog.classList.add('ready');last=performance.now();if(enabled)requestAnimationFrame(frame)};
+  sprite.onload=()=>{if(document.documentElement.classList.contains('mx-loading'))addEventListener('bee:loader-done',go,{once:true});else go()};
+  sprite.onerror=()=>{tog.remove();window.__beeReady=true;dispatchEvent(new Event('bee:ready'))};
+  sprite.src='img/bee-sprite.webp';
+  addEventListener('pagehide',()=>{try{sessionStorage.setItem('bee-pos',JSON.stringify({x:p.x/W,y:p.y/H,a:ang}))}catch(e){}});
 
   /* ---------- behaviour ---------- */
   const p={x:0,y:0},vel={x:0,y:0},tgt={x:0,y:0};
-  let rf=0,state='enter',ang=Math.PI,angV=0,bank=0,flap=0,phase=0,t=0,last=performance.now();
+  let rf=0,lastIdx=-1,lastAng=99,state='enter',ang=Math.PI,angV=0,bank=0,flap=0,phase=0,t=0,last=performance.now();
   let landEl=null,landOff={x:0,y:0},landUntil=0,landedAt=0,stateT=0,hops=0,loopT=0,loopDir=1;
   const mouse={x:-999,y:-999,t:-9,vx:0,vy:0};let scrollV=0,lastScroll=scrollY,lastScrollT=performance.now();
   const trailPts=[],burst=[];
@@ -119,7 +72,9 @@
     const r=el.getBoundingClientRect();landEl=el;landOff.x=r.width*rnd(.25,.75);landOff.y=-SIZE*0.26;state='approach';stateT=0;return true}
   function takeoff(kick){landEl=null;state='wander';stateT=0;hops=0;pickWander();if(kick){vel.x+=kick.x;vel.y+=kick.y}}
   function init(){
-    p.x=W+SIZE;p.y=H*rnd(.25,.4);vel.x=-300;vel.y=0;
+    let saved=null;try{saved=JSON.parse(sessionStorage.getItem('bee-pos'))}catch(e){}
+    if(saved&&saved.x>-.2&&saved.x<1.2&&saved.y>-.2&&saved.y<1.2){p.x=saved.x*W;p.y=Math.max(90,saved.y*H);ang=saved.a||0;vel.x=Math.cos(ang)*120;vel.y=-Math.sin(ang)*120}
+    else{p.x=W+SIZE;p.y=H*rnd(.25,.4);vel.x=-300;vel.y=0}
     const first=document.querySelector('.hero h1 .soft')||document.querySelector('h1 em')||document.querySelector('h1');
     if(reduce){const r=first&&first.getBoundingClientRect();landEl=first;landOff.x=r?r.width*.6:0;landOff.y=-SIZE*.26;state='landed';ang=0;return}
     if(!(first&&vis(first)&&tryLand(first))){state='wander';pickWander()}
@@ -130,7 +85,7 @@
   /* inputs */
   addEventListener('pointermove',e=>{const now=performance.now()/1000,dt=Math.max(.008,now-mouse.t);mouse.vx=(e.clientX-mouse.x)/dt;mouse.vy=(e.clientY-mouse.y)/dt;mouse.x=e.clientX;mouse.y=e.clientY;mouse.t=now},{passive:true});
   addEventListener('scroll',()=>{const now=performance.now(),dt=Math.max(8,now-lastScrollT);scrollV=Math.abs(scrollY-lastScroll)/dt*1000;lastScroll=scrollY;lastScrollT=now},{passive:true});
-  addEventListener('resize',()=>{if(ready)resize()});
+  addEventListener('resize',()=>{if(ready){resize();lastIdx=-1}});
   document.addEventListener('click',e=>{if(!ready||!enabled||reduce)return;
     if(Math.hypot(e.clientX-p.x,e.clientY-p.y)<SIZE*.7){state='loop';loopT=0;loopDir=Math.random()<.5?-1:1;landEl=null;
       for(let i=0;i<26;i++){const a=Math.random()*6.283,s=rnd(60,260);burst.push({x:p.x,y:p.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,r:rnd(1.5,3.5)})};return}
@@ -194,13 +149,13 @@
     const wantFlap=flying?.55+Math.min(.35,sp/1400):(Math.sin(t*1.7)>.97?.25:0);
     flap+=(wantFlap-flap)*Math.min(1,dt*(flying?8:4));
     phase+=dt*Math.PI*2*(flying?15:9);
-    U.uFlap.value=flap;U.uPhase.value=phase;
     const hover=flying?Math.sin(t*9)*2.2:0;
     gl.style.transform=`translate3d(${(p.x-CS/2).toFixed(1)}px,${(p.y+hover-CS/2).toFixed(1)}px,0)`;
-    head.rotation.z=ang;
-    roll.rotation.x=(flying?.95:1.12)+bank+(state==='loop'?Math.sin(loopT*Math.PI)*.8:0);
     rf++;const onScreen=p.x>-CS&&p.x<W+CS&&p.y>-CS&&p.y<H+CS;
-    if(onScreen&&(flying||flap>.02||rf%4===0))renderer.render(scene,camera);
+    let idx;
+    if(flying){const bi=bank<-.22?0:bank>.22?2:1;idx=bi*FL+(Math.floor((phase/(Math.PI*2))*FL)%FL+FL)%FL}
+    else idx=flap>.08?(Math.sin(phase)>0?25:26):24;
+    if(onScreen&&(idx!==lastIdx||Math.abs(ang-lastAng)>.002)){drawBee(idx,ang);lastIdx=idx;lastAng=ang}
 
     /* trail, shadow, pollen */
     tctx.clearRect(0,0,W,H);

@@ -540,9 +540,6 @@ footer nav a:hover{color:var(--gold)}
   addEventListener('scroll',()=>{const y=scrollY;if(y>400&&y>lastY+3&&!$('#menu').classList.contains('open'))nav.classList.add('hide');else if(y<lastY-3)nav.classList.remove('hide');lastY=y},{passive:true});
 })();
 </script>
-<script defer src="vendor/three.min.js"></script>
-<script defer src="vendor/GLTFLoader.js"></script>
-<script defer src="vendor/meshopt_decoder.js"></script>
 <script defer src="bee.js"></script>
 <script defer src="vendor/lenis.min.js"></script>
 <script defer src="motion.js"></script>

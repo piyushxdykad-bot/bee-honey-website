@@ -13,9 +13,8 @@ A static website for **Bee**, a raw honey brand: *Made by bees. Shared by people
 
 ## Shared scripts
 - `motion.js`: loading screen, honey page transitions (WebGL), smooth scrolling, reveals, cursor
-- `bee.js`: the 3D honeybee that flies across every page (three.js)
-- `vendor/`: three.js r147, GLTFLoader, meshoptimizer decoder, Lenis
-- `models/bee.glb`: compressed bee model (1.8 MB); `bee-q.glb` is a backup used only if the first fails
+- `bee.js`: the honeybee that flies across every page. It draws `img/bee-sprite.webp`, 27 frames pre-rendered from the full-detail 3D model (110 KB), so no 3D engine is needed at runtime
+- `vendor/lenis.min.js`: smooth scrolling
 
 No build step. Plain HTML, CSS and JavaScript.
 

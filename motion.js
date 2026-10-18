@@ -73,8 +73,9 @@
   const lbl=document.createElement('p');lbl.id='mx-lbl';lbl.setAttribute('aria-hidden','true');document.body.appendChild(lbl);
   const setLbl=n=>{lbl.innerHTML=`<small>Bee · Raw honey</small>${n}`};
   const rnd=(a,b)=>a+Math.random()*(b-a);
-  const MAXD=10,MAXS=10;
-  const FS=`precision highp float;
+  const MAXD=8,MAXS=8;
+  const FS=`#extension GL_OES_standard_derivatives : enable
+precision highp float;
 uniform vec2 uRes;uniform float uTime,uF,uT,uAsp;uniform vec4 uD[${MAXD}];uniform vec4 uS[${MAXS}];
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
@@ -102,12 +103,12 @@ float hgt(vec2 p){float d=map(p);float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.
 void main(){
   vec2 uv=vec2(gl_FragCoord.x/uRes.x,1.-gl_FragCoord.y/uRes.y);vec2 p=vec2(uv.x*uAsp,uv.y);
   float d=map(p);if(d>.006){gl_FragColor=vec4(0.);return;}
-  float e=1.6/uRes.y;float h=hgt(p),hx=hgt(p+vec2(e,0.)),hy=hgt(p+vec2(0.,e));
-  vec3 N=normalize(vec3((h-hx)*.05/e,(h-hy)*.05/e,1.));
-  float thick0=clamp(h,0.,1.);
-  vec2 wp=vec2(p.x*3.,p.y*1.5-uTime*.32);float w0=noise(wp),wx=noise(wp+vec2(.04,0.)),wy=noise(wp+vec2(0.,.04));
-  vec2 wq=vec2(p.x*8.5,p.y*4.-uTime*.7);float v0=noise(wq),vx=noise(wq+vec2(.04,0.)),vy=noise(wq+vec2(0.,.04));
-  N=normalize(vec3(N.xy+(vec2(w0-wx,w0-wy)*4.5+vec2(v0-vx,v0-vy)*1.4)*smoothstep(.2,.8,thick0),N.z));
+  float s=clamp(-d/.05,0.,1.);float h=sqrt(1.-(1.-s)*(1.-s));
+  float wv=s*(.16*noise(vec2(p.x*2.6,p.y*1.3-uTime*.32))+.05*noise(vec2(p.x*8.,p.y*3.6-uTime*.6)));
+  float ht=h+wv;
+  float e=1./uRes.y;
+  vec3 N=normalize(vec3(-dFdx(ht)*.05/e,dFdy(ht)*.05/e,1.));
+  h=ht;
   vec3 L=normalize(vec3(-.35,-.7,.62)),V=vec3(0.,0.,1.),H=normalize(L+V);
   float thick=clamp(h,0.,1.);
   vec3 lightC=vec3(1.,.84,.42),deepC=vec3(.6,.27,.03);
@@ -135,8 +136,8 @@ void main(){
   function honeyGL(){
     if(HG!==null)return HG;
     const c=document.createElement('canvas');c.id='mx-honey';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
-    const g=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false});
-    if(!g){c.remove();return HG=false}
+    const g=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false,powerPreference:'high-performance'});
+    if(!g||!g.getExtension('OES_standard_derivatives')){c.remove();return HG=false}
     const sh=(t,s)=>{const o=g.createShader(t);g.shaderSource(o,s);g.compileShader(o);if(!g.getShaderParameter(o,g.COMPILE_STATUS)){console.warn(g.getShaderInfoLog(o));return null}return o};
     const vs=sh(g.VERTEX_SHADER,VS),fs=sh(g.FRAGMENT_SHADER,FS);if(!vs||!fs){c.remove();return HG=false}
     const pr=g.createProgram();g.attachShader(pr,vs);g.attachShader(pr,fs);g.linkProgram(pr);if(!g.getProgramParameter(pr,g.LINK_STATUS)){c.remove();return HG=false}
@@ -144,7 +145,7 @@ void main(){
     const al=g.getAttribLocation(pr,'a');g.enableVertexAttribArray(al);g.vertexAttribPointer(al,2,g.FLOAT,false,0,0);
     const U={};['uRes','uTime','uF','uT','uAsp','uD','uS'].forEach(n=>U[n]=g.getUniformLocation(pr,n));
     g.enable(g.BLEND);g.blendFunc(g.ONE,g.ONE_MINUS_SRC_ALPHA);
-    const size=()=>{const dpr=Math.min(1.5,devicePixelRatio||1),w=Math.min(innerWidth*dpr,1200),s=w/innerWidth;c.width=Math.round(innerWidth*s);c.height=Math.round(innerHeight*s);g.viewport(0,0,c.width,c.height)};
+    const size=()=>{const dpr=Math.min(1.5,devicePixelRatio||1),w=Math.min(innerWidth*dpr,960),s=w/innerWidth;c.width=Math.round(innerWidth*s);c.height=Math.round(innerHeight*s);g.viewport(0,0,c.width,c.height)};
     size();addEventListener('resize',size);
     const D=new Float32Array(MAXD*4),S=new Float32Array(MAXS*4),t0=performance.now();
     HG={c,draw(st){g.uniform2f(U.uRes,c.width,c.height);g.uniform1f(U.uTime,(performance.now()-t0)/1000);g.uniform1f(U.uF,st.F);g.uniform1f(U.uT,st.T);g.uniform1f(U.uAsp,innerWidth/innerHeight);
@@ -158,15 +159,15 @@ void main(){
   function pourIn(done){
     const H=honeyGL();
     if(!H){svgPour(done);return}
-    const asp=innerWidth/innerHeight,n=Math.max(5,Math.min(MAXD,Math.round(4+asp*3)));
+    const asp=innerWidth/innerHeight,n=Math.max(4,Math.min(MAXD,Math.round(3+asp*3)));
     const drips=spread(n,asp,.03).map(x=>({x,L:rnd(.12,.4),r:rnd(.02,.036),k:rnd(.85,1.2),len:0}));
-    H.c.classList.add('on');const t0=performance.now(),DUR=1150;let shown=false;
+    H.c.classList.add('on');const t0=performance.now(),DUR=760;let shown=false;
     (function f(now){const p=Math.min(1,(now-t0)/DUR),e=p*p*(3-2*p);
       const F=-.22+1.48*Math.pow(e,1.08);
       drips.forEach(d=>{d.len=d.L*(.3+.8*ss(0,.55,p*d.k))*(1-.35*ss(.7,1,p))});
       H.draw({F,T:-5,drips,strings:[]});
-      if(!shown&&p>.62){shown=true;lbl.classList.add('show')}
-      if(p<1)requestAnimationFrame(f);else setTimeout(done,90)})(t0);
+      if(!shown&&p>.55){shown=true;lbl.classList.add('show')}
+      if(p<1)requestAnimationFrame(f);else done()})(t0);
   }
   /* honey slides off the new page, leaving strands that thin and snap */
   function pourOut(intro){
@@ -178,7 +179,7 @@ void main(){
     H.c.classList.add('on');H.draw({F:5,T:-.15,drips,strings:[]});
     requestAnimationFrame(()=>root.classList.remove('mx-covering'));
     lbl.classList.add('show');
-    const HOLD=intro?650:240,DUR=intro?1300:1300,t0=performance.now();let hid=false,lt=t0;
+    const HOLD=intro?650:110,DUR=intro?1300:950,t0=performance.now();let hid=false,lt=t0;
     (function f(now){const el=now-t0,p=Math.max(0,Math.min(1,(el-HOLD)/DUR)),dt=Math.max(0,Math.min(.05,(now-lt)/1000));lt=now;
       if(!hid&&el>HOLD-80){hid=true;lbl.classList.remove('show')}
       const e=Math.pow(p,1.7);const T=-.15+1.6*e;
@@ -340,6 +341,13 @@ void main(){
     if(!seen&&!reduce&&document.body)runLoader();else{root.classList.remove('mx-loading');dispatchEvent(new Event('bee:loader-done'))}}
   addEventListener('pageshow',e=>{if(e.persisted){if(HG)HG.c.classList.remove('on');if(cur){cur.getAnimations().forEach(a=>a.cancel());cur.style.transform='translate3d(0,-110%,0)'}lbl.classList.remove('show');busy=false}});
   let busy=false;
+  /* warm up: compile the honey shader and prefetch the other pages while idle */
+  const idle=f=>(window.requestIdleCallback||setTimeout)(f,{timeout:1500});
+  addEventListener('load',()=>idle(()=>{
+    try{const H=honeyGL();if(H&&!H.c.classList.contains('on')){H.c.classList.add('on');H.draw({F:-5,T:-5,drips:[],strings:[]});H.c.classList.remove('on')}}catch(e){}
+    const here=location.pathname.split('/').pop()||'index.html';
+    Object.keys(NAMES).filter(f=>f&&f!==here).forEach(f=>{const l=document.createElement('link');l.rel='prefetch';l.href=f;document.head.appendChild(l)});
+  }));
   document.addEventListener('click',e=>{
     if(reduce||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     const a=e.target.closest('a[href]');if(!a||a.target==='_blank'||a.hasAttribute('download'))return;
