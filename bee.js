@@ -46,9 +46,9 @@
     ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,CS,CS);ctx.translate(CS/2,CS/2);ctx.rotate(-ang);
     ctx.drawImage(sprite,sx,sy,FRAME,FRAME,-CS/2,-CS/2,CS,CS)}
   const go=()=>{if(ready)return;resize();ready=true;window.__beeReady=true;dispatchEvent(new Event('bee:ready'));init();gl.classList.add('on');tog.classList.add('ready');last=performance.now();if(enabled)requestAnimationFrame(frame)};
-  sprite.onload=()=>{if(document.documentElement.classList.contains('mx-loading'))addEventListener('bee:loader-done',go,{once:true});else go()};
+  sprite.onload=()=>{if(document.documentElement.classList.contains('mx-loading')){addEventListener('bee:loader-done',go,{once:true});setTimeout(go,7000)}else go()};
   sprite.onerror=()=>{tog.remove();window.__beeReady=true;dispatchEvent(new Event('bee:ready'))};
-  sprite.src='img/bee-sprite.webp';
+  sprite.src='img/bee-sprite.webp?v=20261018b';
   addEventListener('pagehide',()=>{try{sessionStorage.setItem('bee-pos',JSON.stringify({x:p.x/W,y:p.y/H,a:ang}))}catch(e){}});
 
   /* ---------- behaviour ---------- */
